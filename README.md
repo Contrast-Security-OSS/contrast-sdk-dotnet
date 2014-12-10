@@ -1,10 +1,12 @@
-This library provides a simple REST client for retrieving data from Contrast Team Server's REST API as plain old C# objects.  This library is also provided as a nuget package: https://www.nuget.org/packages/ContrastRestClient/. 
+# Contrast REST Client
+This library provides a simple REST client for retrieving data from Contrast Team Server's REST API as plain old C# objects.  
+This library is also provided as a nuget package: https://www.nuget.org/packages/ContrastRestClient/. 
 
 Please see http://www.contrastsecurity.com for more information about how Contrast can help secure your applications.
 
 
 
-// --- Contrast TeamServer API Credentials ---
+## Contrast TeamServer API Credentials
 To access the TeamServer API, you'll first need access to TeamServer - either SAAS (https://app.contrastsecurity.com/Contrast/login.html) or an on-premises installation of TeamServer.
 
 To begin using the Contrast API you will need to retrieve your API-Key from the server. To do this, you will need to log in to your TeamServer account and have the application e-mail you a generated API-Key.
@@ -20,12 +22,14 @@ More API documentation - https://support.contrastsecurity.com/entries/24184140-A
 
 
 
-// --- Sample Client Application ---
+## Sample Client Application
 The SampleContrastClient uses the App.config to store API credentials. To use the sample application, copy the API values from above into the appropriate appSettings entries:
 
+```
   <appSettings>
     <add key="TeamServerUrl" value="https://app.contrastsecurity.com/Contrast/"/>
     <add key="TeamServerUserName" value=""/>
     <add key="TeamServerApiKey" value=""/>
     <add key="TeamServerServiceKey" value=""/>
   </appSettings>
+  ```
