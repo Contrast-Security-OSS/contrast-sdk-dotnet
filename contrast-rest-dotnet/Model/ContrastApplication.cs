@@ -43,7 +43,7 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the ID of this application, which is a long, alphanumeric token.
         /// </summary>
-        [DataMember(Name="appID")]
+        [DataMember(Name="app-id")]
         public string AppID { get; set; }
 
         /// <summary>
@@ -54,15 +54,9 @@ namespace contrast_rest_dotnet.Model
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the short name.
-        /// </summary>
-        [DataMember(Name = "shortName")]
-        public string ShortName { get; set; }
-
-        /// <summary>
         /// Gets the group name.
         /// </summary>
-        [DataMember(Name = "groupName")]
+        [DataMember(Name = "group-name")]
         public string GroupName { get; set; }
 
         /// <summary>
@@ -86,16 +80,16 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the platform version.
         /// </summary>
-        [DataMember(Name = "platformVersion")]
+        [DataMember(Name = "platform-version")]
         public string PlatformVersion { get; set; }
 
         /// <summary>
         /// Gets the platform vulnerabilities.
         /// </summary>
-        [DataMember(Name = "platformVulnerabilities")]
+        [DataMember(Name = "platform-vulnerabilities")]
         public List<object> PlatformVulnerabilities { get; set; }
 
-        [DataMember(Name = "lastSeen")]
+        [DataMember(Name = "last-seen")]
         private long lastSeen { get; set; }
 
         /// <summary>

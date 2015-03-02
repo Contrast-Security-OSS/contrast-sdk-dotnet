@@ -58,8 +58,35 @@ namespace sdk_tests
         [TestMethod]
         public void GetApplications_PropertiesMatchExpected()
         {
-            string json = "[{  \"appID\" : \"18c3d43e-90db-4831-8672-e867ab4d91ea\",  \"name\" : \"MyTestApp\",  \"shortName\" : null,  \"groupName\" : null,  \"path\" : \"/MyTestApp\",  \"language\" : \".NET\",  \"license\" : \"Enterprise\",  \"platformVersion\" : null,  \"platformVulnerabilities\" : [ ],  \"lastSeen\" : 1409324167000,  \"views\" : 0,  \"technologies\" : [ \"HTML5\", \"Bootstrap\", \"jQuery\", \"Flash\" ],  \"links\" : [ {    \"rel\" : \"self\",    \"href\" : \"https://localhost/Contrast/api/applications/18c3d43e-90db-4831-8672-e867ab4d91ea\"  }, {    \"rel\" : \"traces\",    \"href\" : \"https://localhost/Contrast/api/traces/18c3d43e-90db-4831-8672-e867ab4d91ea\"  }, {    \"rel\" : \"servers\",    \"href\" : \"https://localhost/Contrast/api/applications/18c3d43e-90db-4831-8672-e867ab4d91ea/servers\"  }, {    \"rel\" : \"sitemap-activity\",    \"href\" : \"https://localhost/Contrast/api/applications/18c3d43e-90db-4831-8672-e867ab4d91ea/sitemap/activity\"  }, {    \"rel\" : \"reset-application\",    \"href\" : \"https://localhost/Contrast/api/applications/18c3d43e-90db-4831-8672-e867ab4d91ea\"  } ]}]";
-
+            string json = @"[{
+                          ""name"" : ""MyTestApp"",
+                          ""path"" : ""/MyTestApp"",
+                          ""language"" : "".NET"",
+                          ""license"" : ""Enterprise"",
+                          ""views"" : 0,
+                          ""links"" : [ {
+                            ""rel"" : ""self"",
+                            ""href"" : ""https://localhost/Contrast/api/applications/91ce4b14-353c-4e0e-8bab-663895cff574""
+                          }, {
+                            ""rel"" : ""traces"",
+                            ""href"" : ""https://localhost/Contrast/api/traces/91ce4b14-353c-4e0e-8bab-663895cff574""
+                          }, {
+                            ""rel"" : ""servers"",
+                            ""href"" : ""https://localhost/Contrast/api/applications/91ce4b14-353c-4e0e-8bab-663895cff574/servers""
+                          }, {
+                            ""rel"" : ""sitemap-activity"",
+                            ""href"" : ""https://localhost/Contrast/api/applications/91ce4b14-353c-4e0e-8bab-663895cff574/sitemap/activity""
+                          }, {
+                            ""rel"" : ""reset-application"",
+                            ""href"" : ""https://localhost/Contrast/api/applications/91ce4b14-353c-4e0e-8bab-663895cff574""
+                          } ],
+                          ""app-id"" : ""91ce4b14-353c-4e0e-8bab-663895cff574"",
+                          ""application-code"" : null,
+                          ""group-name"" : null,
+                          ""platform-version"" : null,
+                          ""platform-vulnerabilities"" : [ ],
+                          ""last-seen"" : 1416352488000
+                        }]";
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup( client => client.GetResponseStream( "api/applications/" ) ).Returns(
                 new MemoryStream( Encoding.Unicode.GetBytes(json) )
@@ -71,7 +98,7 @@ namespace sdk_tests
 
             Assert.AreEqual(1, apps.Count);
             ContrastApplication app = apps[0];
-            Assert.AreEqual("18c3d43e-90db-4831-8672-e867ab4d91ea", app.AppID);
+            Assert.AreEqual("91ce4b14-353c-4e0e-8bab-663895cff574", app.AppID);
             Assert.AreEqual("MyTestApp", app.Name);
         }
 
@@ -100,8 +127,84 @@ namespace sdk_tests
         public void GetTraces_DataFlow_PropertiesMatchExpected()
         {
             string appId = "arbitraryId";
-            string dataFlowTraceJson = "[ {  \"traceId\" : 217295,  \"uuid\" : \"FCO1-4LYY-CJFC-0QQ1\",  \"totalTracesRecieved\" : 1,  \"lastTimeSeen\" : 1417465343329,  \"firstTimeSeen\" : 1417465343329,  \"status\" : \"Reported\",  \"subStatus\" : \"\",  \"platform\" : \"\",  \"language\" : \".NET\",  \"title\" : \"XSS from \\\"input\\\" Parameter on \\\"StringConcatVuln1.aspx\\\" page\",  \"subTitle\" : \"from \\\"input\\\" Parameter on \\\"StringConcatVuln1.aspx\\\" page\",  \"reportedToBugTracker\" : false,  \"ruleName\" : \"reflected-xss\",  \"severity\" : \"High\",  \"likelihood\" : \"High\",  \"impact\" : \"Medium\",  \"confidence\" : \"High\",  \"request\" : {    \"protocol\" : \"http\",    \"version\" : \"1.1\",    \"uri\" : \"/MyTestApp/propagators/stringconcat/StringConcatVuln1.aspx\",    \"queryString\" : \"input=stringConcatTaintedData\",    \"method\" : \"GET\",    \"port\" : 80,    \"headers\" : [ {      \"name\" : \"Connection\",      \"value\" : \"keep-alive\"    }, {      \"name\" : \"Accept\",      \"value\" : \"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\"    }, {      \"name\" : \"Accept-Encoding\",      \"value\" : \"gzip, deflate, sdch\"    }, {      \"name\" : \"Accept-Language\",      \"value\" : \"en-US,en;q=0.8\"    }, {      \"name\" : \"Cookie\",      \"value\" : \"ASP.NET_SessionId=ogaafeai5cjvmjce4mhgsbpz\"    }, {      \"name\" : \"Host\",      \"value\" : \"localhost\"    }, {      \"name\" : \"Referer\",      \"value\" : \"http://localhost/MyTestApp/\"    }, {      \"name\" : \"User-Agent\",      \"value\" : \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36\"    } ],    \"parameters\" : [ {      \"name\" : \"__VIEWSTATE\",      \"value\" : \"hO51OK0+QewvbgvYrY0kboOXIr18p1KY3+vy8bzXCa2uZNFibT1rs7nO5zWCN+8mX6tf8xhzKbpWwxuJ3IBvypW/RJY+L0LxQkyNsotCxdg=\"    }, {      \"name\" : \"__EVENTVALIDATION\",      \"value\" : \"PAhG+LpBIaH/iRpbudoJDJz8NYuubJP40xvYR1ftTCPGBj91ZQDmVkLGkvoxIWVzOJUqotz4vEsE4UaBsinJrlKGQpIqCRiThcsnHZ1o7X7aafcPlAKJmKVsZRlYSKXutiHwuKZegMek5uzEriKNfg==\"    }, {      \"name\" : \"input\",      \"value\" : \"taintedFormData\"    }, {      \"name\" : \"Button1\",      \"value\" : \"Button\"    } ],    \"links\" : [ {    \"rel\" : \"self\",    \"href\" : \"https://localhost/Contrast/api/traces/c744888c-96e2-4e1d-926d-c3d715cedeeb/4487-7HA7-4F08-87G9\"  }, {    \"rel\" : \"application\",    \"href\" : \"https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb\"  } ]  },  \"events\" : [ {    \"eventId\" : 481819,    \"type\" : \"Creation\",    \"codeContext\" : null  }, {    \"eventId\" : 481820,    \"type\" : \"P2R\",    \"codeContext\" : null  }, {    \"eventId\" : 481821,    \"type\" : \"Trigger\",    \"codeContext\" : null  } ],  \"links\" : [ {    \"rel\" : \"self\",    \"href\" : \"https://localhost/Contrast/api/traces/c744888c-96e2-4e1d-926d-c3d715cedeeb/FCO1-4LYY-CJFC-0QQ1\"  }, {    \"rel\" : \"application\",    \"href\" : \"https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb\"  } ]} ]";
-
+            string dataFlowTraceJson = @"[{
+                                      ""uuid"" : ""S17L-WMVW-GYBY-Z00Z"",
+                                      ""status"" : ""Reported"",
+                                      ""platform"" : """",
+                                      ""language"" : "".NET"",
+                                      ""title"" : ""Cross-Site Scripting from \""input\"" Parameter on \""CharArrayVuln0.aspx\"" page"",
+                                      ""likelihood"" : ""High"",
+                                      ""impact"" : ""Medium"",
+                                      ""confidence"" : ""High"",
+                                      ""request"" : {
+                                        ""protocol"" : ""http"",
+                                        ""version"" : ""1.1"",
+                                        ""uri"" : ""/MyTestApp/propagators/carray/CharArrayVuln0.aspx"",
+                                        ""queryString"" : ""input=sourceTaintedData"",
+                                        ""method"" : ""GET"",
+                                        ""port"" : 80,
+                                        ""headers"" : [ {
+                                          ""name"" : ""Connection"",
+                                          ""value"" : ""keep-alive""
+                                        }, {
+                                          ""name"" : ""Accept"",
+                                          ""value"" : ""text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8""
+                                        }, {
+                                          ""name"" : ""Accept-Encoding"",
+                                          ""value"" : ""gzip, deflate""
+                                        }, {
+                                          ""name"" : ""Accept-Language"",
+                                          ""value"" : ""en-US,en;q=0.5""
+                                        }, {
+                                          ""name"" : ""Cookie"",
+                                          ""value"" : ""ASP.NET_SessionId=tlspmetl2k4155htm41jkkjn""
+                                        }, {
+                                          ""name"" : ""Host"",
+                                          ""value"" : ""localhost""
+                                        }, {
+                                          ""name"" : ""Referer"",
+                                          ""value"" : ""http://localhost/MyTestApp/default.aspx""
+                                        }, {
+                                          ""name"" : ""User-Agent"",
+                                          ""value"" : ""Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0""
+                                        } ],
+                                        ""parameters"" : [ ],
+                                        ""links"" : [ ]
+                                      },
+                                      ""events"" : [ {
+                                        ""eventId"" : 567243,
+                                        ""type"" : ""Creation"",
+                                        ""codeContext"" : null
+                                      }, {
+                                        ""eventId"" : 567244,
+                                        ""type"" : ""O2R"",
+                                        ""codeContext"" : null
+                                      }, {
+                                        ""eventId"" : 567245,
+                                        ""type"" : ""P2R"",
+                                        ""codeContext"" : null
+                                      }, {
+                                        ""eventId"" : 567246,
+                                        ""type"" : ""Trigger"",
+                                        ""codeContext"" : null
+                                      } ],
+                                      ""links"" : [ {
+                                        ""rel"" : ""self"",
+                                        ""href"" : ""https://localhost/Contrast/api/traces/c744888c-96e2-4e1d-926d-c3d715cedeeb/S17L-WMVW-GYBY-Z00Z""
+                                      }, {
+                                        ""rel"" : ""application"",
+                                        ""href"" : ""https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb""
+                                      } ],
+                                      ""trace-id"" : 259779,
+                                      ""total-traces-received"" : 1,
+                                      ""last-time-seen"" : 1424269052776,
+                                      ""first-time-seen"" : 1424269052776,
+                                      ""sub-status"" : """",
+                                      ""sub-title"" : ""from \""input\"" Parameter on \""CharArrayVuln0.aspx\"" page"",
+                                      ""reported-to-bug-tracker"" : false,
+                                      ""rule-name"" : ""reflected-xss"",
+                                      ""severity"" : ""High""
+                                    }]";
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/traces/" + appId)).Returns(
                 new MemoryStream(Encoding.Unicode.GetBytes(dataFlowTraceJson))
@@ -113,9 +216,9 @@ namespace sdk_tests
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
-            Assert.AreEqual("217295", trace.TraceId);
-            Assert.AreEqual("XSS from \"input\" Parameter on \"StringConcatVuln1.aspx\" page", trace.Title);
-            Assert.AreEqual(4, trace.Request.Parameters.Count);
+            Assert.AreEqual("259779", trace.TraceId);
+            Assert.AreEqual("Cross-Site Scripting from \"input\" Parameter on \"CharArrayVuln0.aspx\" page", trace.Title);
+            Assert.AreEqual(8, trace.Request.Headers.Count);
             Assert.AreEqual(2, trace.Links.Count);
         }
 
@@ -123,8 +226,41 @@ namespace sdk_tests
         public void GetTraces_Config_PropertiesMatchExpected()
         {
             string appId = "arbitraryId";
-            string configTraceJson = "[{  \"traceId\" : 217277,  \"uuid\" : \"YCTM-KK86-BXBT-SC4R\",  \"totalTracesRecieved\" : 2,  \"lastTimeSeen\" : 1417619036352,  \"firstTimeSeen\" : 1417465319846,  \"status\" : \"Reported\",  \"subStatus\" : \"\",  \"platform\" : \"\",  \"language\" : \".NET\",  \"title\" : \"Application Does Not Disable Version Header in web.config\",  \"subTitle\" : \"in web.config\",  \"reportedToBugTracker\" : false,  \"ruleName\" : \"version-header-enabled\",  \"severity\" : \"Note\",  \"likelihood\" : \"Low\",  \"impact\" : \"Low\",  \"confidence\" : \"High\",  \"request\" : {    \"port\" : 0,    \"headers\" : [ ],    \"parameters\" : [ ],    \"links\" : [ ]  },  \"events\" : [ ],  \"links\" : [ {    \"rel\" : \"self\",    \"href\" : \"https://localhost/Contrast/api/traces/c744888c-96e2-4e1d-926d-c3d715cedeeb/YCTM-KK86-BXBT-SC4R\"  }, {    \"rel\" : \"application\",    \"href\" : \"https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb\"  } ]} ]";
-            DateTime expectedDate = new DateTime(1970, 1, 1).AddMilliseconds(1417465319846);
+            string configTraceJson = @"[{
+                                      ""uuid"" : ""DW0P-4SKO-JEAK-TDOO"",
+                                      ""status"" : ""Reported"",
+                                      ""platform"" : """",
+                                      ""language"" : "".NET"",
+                                      ""title"" : ""Application Displays Detailed Error Messages in \\web.config"",
+                                      ""likelihood"" : ""High"",
+                                      ""impact"" : ""Low"",
+                                      ""confidence"" : ""High"",
+                                      ""request"" : {
+                                        ""port"" : 0,
+                                        ""headers"" : [ ],
+                                        ""parameters"" : [ ],
+                                        ""links"" : [ ]
+                                      },
+                                      ""events"" : [ ],
+                                      ""links"" : [ {
+                                        ""rel"" : ""self"",
+                                        ""href"" : ""https://localhost/Contrast/api/traces/c744888c-96e2-4e1d-926d-c3d715cedeeb/DW0P-4SKO-JEAK-TDOO""
+                                      }, {
+                                        ""rel"" : ""application"",
+                                        ""href"" : ""https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb""
+                                      } ],
+                                      ""trace-id"" : 259676,
+                                      ""total-traces-received"" : 1,
+                                      ""last-time-seen"" : 1424268996169,
+                                      ""first-time-seen"" : 1424268996169,
+                                      ""sub-status"" : """",
+                                      ""sub-title"" : ""in \\web.config"",
+                                      ""reported-to-bug-tracker"" : false,
+                                      ""rule-name"" : ""custom-errors-off"",
+                                      ""severity"" : ""Medium""
+                                    }]";
+
+            DateTime expectedDate = new DateTime(1970, 1, 1).AddMilliseconds(1424268996169);
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/traces/" + appId)).Returns(
                 new MemoryStream(Encoding.Unicode.GetBytes(configTraceJson))
@@ -136,8 +272,8 @@ namespace sdk_tests
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
-            Assert.AreEqual("217277", trace.TraceId);
-            Assert.AreEqual("Application Does Not Disable Version Header in web.config", trace.Title);
+            Assert.AreEqual("259676", trace.TraceId);
+            Assert.AreEqual("Application Displays Detailed Error Messages in \\web.config", trace.Title);
             Assert.AreEqual(0, trace.Request.Parameters.Count);
             Assert.AreEqual(expectedDate, trace.FirstTimeSeen);
         }

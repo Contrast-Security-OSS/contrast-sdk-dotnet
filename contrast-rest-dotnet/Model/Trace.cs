@@ -43,7 +43,7 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the ID of the trace.
         /// </summary>
-        [DataMember(Name="traceId")]
+        [DataMember(Name="trace-id")]
         public string TraceId { get; set; }
 
         /// <summary>
@@ -55,10 +55,10 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the total traces received.
         /// </summary>
-        [DataMember(Name = "totalTracesRecieved")]
+        [DataMember(Name = "total-traces-received")]
         public int TotalTracesReceived { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "last-time-seen")]
         private long lastTimeSeen { get; set; }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         public DateTime LastTimeSeen { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "first-time-seen")]
         private long firstTimeSeen { get; set; }
 
         /// <summary>
@@ -95,19 +95,19 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the sub-title of the trace.
         /// </summary>
-        [DataMember(Name = "subTitle")]
+        [DataMember(Name = "sub-title")]
         public string SubTitle { get; set; }
 
         /// <summary>
         /// Gets whether the trace was reported to bug tracking.
         /// </summary>
-        [DataMember(Name = "reportedToBugTracker")]
+        [DataMember(Name = "reported-to-bug-tracker")]
         public bool ReportedToBugTracker { get; set; }
 
         /// <summary>
         /// Gets the rule-name for the vulnerability.
         /// </summary>
-        [DataMember(Name = "ruleName")]
+        [DataMember(Name = "rule-name")]
         public string RuleName { get; set; }
 
         /// <summary>
