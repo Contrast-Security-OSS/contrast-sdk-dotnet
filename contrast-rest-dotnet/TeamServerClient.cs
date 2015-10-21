@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014, Contrast Security, Inc.
+ * Copyright (c) 2015, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
