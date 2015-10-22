@@ -88,13 +88,13 @@ namespace sdk_tests
                           ""last-seen"" : 1416352488000
                         }]";
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
-            mockSdkHttpClient.Setup( client => client.GetResponseStream( "api/applications/" ) ).Returns(
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/orgId/applications/")).Returns(
                 new MemoryStream( Encoding.Unicode.GetBytes(json) )
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var apps = teamServerClient.GetApplications();
+            var apps = teamServerClient.GetApplications("orgId");
 
             Assert.AreEqual(1, apps.Count);
             ContrastApplication app = apps[0];
@@ -109,13 +109,13 @@ namespace sdk_tests
             string libraryJson = "[ {  \"libraryId\" : 127302,  \"filename\" : \"log4net.dll\",  \"sha1\" : \"08D926E9EFE56C69A370A30737E3346F86F7FB77\",  \"url\" : \"file:/C:\\\\inetpub\\\\wwwroot\\\\MyTestApp\\\\bin\\\\log4net.dll\",  \"version\" : \"1.2.13.0\",  \"profiled\" : false,  \"common\" : false,  \"sponsored\" : false,  \"links\" : [ {    \"rel\" : \"self\",    \"href\" : \"https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb/libraries/127302\"  }, {    \"rel\" : \"cves\",    \"href\" : \"https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb/libraries/127302/cves\"  }, {    \"rel\" : \"servers\",    \"href\" : \"https://localhost/Contrast/api/servers/libraries/127302\"  } ],  \"lines-of-code\" : 4515,  \"internal-date\" : \"2013-11-17\",  \"external-date\" : \"2014-11-04\",  \"class-count\" : 289,  \"used-class-count\" : 0,  \"cve-count\" : 0} ]";
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
-            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/applications/" + appId + "/libraries/")).Returns(
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/orgId/applications/" + appId + "/libraries/")).Returns(
                 new MemoryStream(Encoding.Unicode.GetBytes(libraryJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var libs = teamServerClient.GetLibraries(appId);
+            var libs = teamServerClient.GetLibraries("orgId", appId);
 
             Assert.AreEqual(1, libs.Count);
             Library lib = libs[0];
@@ -206,13 +206,13 @@ namespace sdk_tests
                                       ""severity"" : ""High""
                                     }]";
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
-            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/traces/" + appId)).Returns(
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/orgId/traces/" + appId)).Returns(
                 new MemoryStream(Encoding.Unicode.GetBytes(dataFlowTraceJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var traces = teamServerClient.GetTraces(appId);
+            var traces = teamServerClient.GetTraces("orgId", appId);
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
@@ -262,13 +262,13 @@ namespace sdk_tests
 
             DateTime expectedDate = new DateTime(1970, 1, 1).AddMilliseconds(1424268996169);
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
-            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/traces/" + appId)).Returns(
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/orgId/traces/" + appId)).Returns(
                 new MemoryStream(Encoding.Unicode.GetBytes(configTraceJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var traces = teamServerClient.GetTraces(appId);
+            var traces = teamServerClient.GetTraces("orgId", appId);
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];

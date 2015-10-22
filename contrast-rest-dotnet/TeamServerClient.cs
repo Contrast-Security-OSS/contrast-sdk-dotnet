@@ -70,7 +70,7 @@ namespace contrast_rest_dotnet
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
         public System.Net.HttpStatusCode CheckForTrace(string appId, string conditions)
         {
-            var responseMessage = _contrastRestClient.PostApplicatonSpecificMessage("s/traces/exists", conditions, appId);
+            var responseMessage = _contrastRestClient.PostApplicatonSpecificMessage(Endpoints.TRACE_EXISTS, conditions, appId);
 
             return responseMessage.StatusCode;
         }
@@ -79,12 +79,13 @@ namespace contrast_rest_dotnet
         /// Download a contrast agent associated with this account. The .NET agent should
         /// be saved to a contrast.zip file. The Java agent should be saved to contrast.jar.
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="agentType">the type of agent to download (.NET or Java)</param>
         /// <returns>a Stream of the agent file contents which should be saved using the appropriate filetype</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public Stream GetAgent(AgentType agentType)
+        public Stream GetAgent(AgentType agentType, string organizationId)
         {
-            return GetAgent(agentType, "default");
+            return GetAgent(agentType, organizationId, "default");
         }
 
         /// <summary>
@@ -94,19 +95,20 @@ namespace contrast_rest_dotnet
         /// to download.
         /// </summary>
         /// <param name="agentType">the type of agent to download (.NET or Java)</param>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="profileName">the name of the saved engine profile to download</param>
         /// <returns>a Stream of the agent file contents which should be saved using the appropriate filetype</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public Stream GetAgent(AgentType agentType, string profileName)
+        public Stream GetAgent(AgentType agentType, string organizationId, string profileName)
         {
             string agentEndpoint = null;
             if(agentType == AgentType.DotNet)
             {
-                agentEndpoint = string.Format(Endpoints.ENGINE_DOTNET, profileName);
+                agentEndpoint = string.Format(Endpoints.ENGINE_DOTNET, organizationId, profileName);
             }
             else if (agentType == AgentType.Java)
             {
-                agentEndpoint = string.Format(Endpoints.ENGINE_JAVA, profileName);
+                agentEndpoint = string.Format(Endpoints.ENGINE_JAVA, organizationId, profileName);
             }
 
             return _contrastRestClient.GetResponseStream(agentEndpoint);
@@ -115,12 +117,14 @@ namespace contrast_rest_dotnet
         /// <summary>
         /// Get summary information about a single application.
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="appId">the ID of the application</param>
         /// <returns>a ContrastApplication object for the appId supplied</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public ContrastApplication GetApplication(string appId)
+        public ContrastApplication GetApplication(string organizationId, string appId)
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(Endpoints.APPLICATIONS + appId );
+            string endpoint = String.Format(Endpoints.APPLICATIONS, organizationId, appId);
+            Stream responseStream = _contrastRestClient.GetResponseStream( endpoint );
 
             var deserializer = new DataContractJsonSerializer(typeof(ContrastApplication));
             var app = (ContrastApplication)deserializer.ReadObject(responseStream);
@@ -131,11 +135,13 @@ namespace contrast_rest_dotnet
         /// <summary>
         /// Get the list of applications being monitored by Contrast.
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <returns>a List of ContrastApplication objects that are being monitored</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public List<ContrastApplication> GetApplications()
+        public List<ContrastApplication> GetApplications(string organizationId)
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(Endpoints.APPLICATIONS);
+            string endpoint = String.Format(Endpoints.APPLICATIONS, organizationId, string.Empty);
+            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
 
             var deserializer = new DataContractJsonSerializer(typeof(ContrastApplication[]));
             var apps = (ContrastApplication[])deserializer.ReadObject(responseStream);           
@@ -146,12 +152,14 @@ namespace contrast_rest_dotnet
         /// <summary>
         /// Return the libraries of the monitored Contrast application.
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="appId">the ID of the application</param>
         /// <returns>a List of Library objects for the given app</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public List<Library> GetLibraries(string appId)
+        public List<Library> GetLibraries(string organizationId, string appId)
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(Endpoints.APPLICATIONS + appId + "/libraries/");
+            string endpoint = String.Format(Endpoints.LIBRARIES, organizationId, appId);
+            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
 
             var deserializer = new DataContractJsonSerializer(typeof(Library[]));
             var libraries = (Library[])deserializer.ReadObject(responseStream);
@@ -162,12 +170,14 @@ namespace contrast_rest_dotnet
         /// <summary>
         /// Return a single agent profile object
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="profileName">the agent profile name</param>
         /// <returns>a Profile object for the named supplied</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public Profile GetProfile(string profileName)
+        public Profile GetProfile(string organizationId, string profileName)
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(Endpoints.PROFILES + profileName );
+            string endpoint = String.Format(Endpoints.PROFILES, organizationId, profileName);
+            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
 
             var deserializer = new DataContractJsonSerializer(typeof(Profile));
             var profile = (Profile)deserializer.ReadObject(responseStream);
@@ -178,11 +188,13 @@ namespace contrast_rest_dotnet
         /// <summary>
         /// Return the profiles setup in TeamServer for Contrast Agents.
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <returns>a List of Profile objects</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public List<Profile> GetProfiles()
+        public List<Profile> GetProfiles(string organizationId)
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(Endpoints.PROFILES);
+            string endpoint = String.Format(Endpoints.PROFILES, organizationId, string.Empty);
+            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
 
             var deserializer = new DataContractJsonSerializer(typeof(Profile[]));
             var profiles = (Profile[])deserializer.ReadObject(responseStream);
@@ -193,12 +205,14 @@ namespace contrast_rest_dotnet
         /// <summary>
         /// Return the servers monitored by Contrast agents.
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="serverId">the ID of the server</param>
         /// <returns>a Server object for the ID supplied</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public Server GetServer(string serverId)
+        public Server GetServer(string organizationId, string serverId)
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(Endpoints.SERVERS + serverId);
+            string endpoint = String.Format(Endpoints.SERVERS, organizationId, serverId);
+            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
 
             var deserializer = new DataContractJsonSerializer(typeof(Server));
             var server = (Server)deserializer.ReadObject(responseStream);
@@ -209,11 +223,13 @@ namespace contrast_rest_dotnet
         /// <summary>
         /// Return the servers monitored by Contrast agents.
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <returns>a List of Server objects being monitored</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public List<Server> GetServers()
+        public List<Server> GetServers(string organizationId)
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(Endpoints.SERVERS);
+            string endpoint = String.Format(Endpoints.SERVERS, organizationId, string.Empty);
+            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
 
             var deserializer = new DataContractJsonSerializer(typeof(Server[]));
             var servers = (Server[])deserializer.ReadObject(responseStream);
@@ -224,16 +240,31 @@ namespace contrast_rest_dotnet
         /// <summary>
         /// Get the vulnerabilities in the application for the ID supplied.
         /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="appId">the ID of the application</param>
         /// <returns>a List of Trace objects representing the vulnerabilities</returns>
-        public List<Trace> GetTraces(string appId)
+        public List<Trace> GetTraces(string organizationId, string appId)
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(Endpoints.TRACES + appId);
+            string endpoint = String.Format(Endpoints.TRACES, organizationId, appId);
+            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
 
             var deserializer = new DataContractJsonSerializer(typeof(Trace[]));
             var traces = (Trace[])deserializer.ReadObject(responseStream);
 
             return new List<Trace>(traces);
+        }
+
+        /// <summary>
+        /// Get the organizations associated with the API user
+        /// </summary>
+        /// <returns>a List of Organization objects representing the organizations</returns>
+        public List<Organization> GetOrganizations()
+        {
+            Stream responseStream = _contrastRestClient.GetResponseStream(NgEndpoints.ORGANIZATIONS);
+            var deserializer = new DataContractJsonSerializer(typeof(OrganizationResponse));
+            var orgs = (OrganizationResponse)deserializer.ReadObject(responseStream);
+
+            return orgs.organizations;
         }
 
 

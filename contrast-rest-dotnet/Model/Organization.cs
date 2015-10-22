@@ -26,24 +26,27 @@
  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace contrast_rest_dotnet
+namespace contrast_rest_dotnet.Model
 {
-    internal static class Endpoints
+    public class Organization
     {
-        internal static string APPLICATIONS = "api/{0}/applications/{1}";
-        internal static string LIBRARIES = "api/{0}/applications/{1}/libraries";
-        internal static string ENGINE_DOTNET = "api/{0}/engine/{1}/dotnet";
-        internal static string ENGINE_JAVA = "api/{0}/engine/{1}/java";
-        internal static string PROFILES = "api/{0}/engine/profiles/{1}";
-        internal static string SERVERS = "api/{0}/servers/";
-        internal static string TRACES = "api/{0}/traces/{1}";
-        internal static string TRACE_EXISTS = "s/traces/exists";
+        public string name { get; set; }
+        public string shortname { get; set; }
+        public string timezone { get; set; }
+        public List<Link> links { get; set; }
+        public string organization_uuid { get; set; }
+    }
+
+    public class OrganizationResponse
+    {
+        public List<Organization> organizations { get; set; }
+        public int count { get; set; }
+        public List<object> org_disabled { get; set; }
     }
 }

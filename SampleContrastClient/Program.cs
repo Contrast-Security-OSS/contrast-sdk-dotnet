@@ -38,6 +38,8 @@ namespace SampleContrastClient
 {
     class Program
     {
+        private static string _organizationId;
+
         static void Main(string[] args)
         {
             Console.WriteLine("SampleContrastClient Started.  Reading configuration...");
@@ -51,23 +53,38 @@ namespace SampleContrastClient
             {
                 Console.WriteLine("Connecting to Contrast Team Server: '{0}' as user: '{1}'", url, user);
 
-                var servers = client.GetServers();
+                var orgs = client.GetOrganizations();
+                Console.WriteLine("User is associated with {0} orgs. {1}", orgs.Count,
+                    (orgs.Count > 0 ? "First Organization: " + orgs[0].name : string.Empty));
+
+                if( orgs.Count > 0 )
+                {
+                    _organizationId = orgs[0].organization_uuid;
+                }
+
+                var servers = client.GetServers(_organizationId);
                 Console.WriteLine("Found {0} servers.", servers.Count);
 
-                var apps = client.GetApplications();
+                var apps = client.GetApplications(_organizationId);
                 Console.WriteLine("Found {0} applications.", apps.Count);
 
                 if (apps.Count > 0)
                 {
-                    string appId = apps[0].AppID;
-                    Console.WriteLine("Retrieving traces for the first application: " + appId);
+                    string appId = apps[6].AppID;
+                    string appName = apps[6].Name;
+                    Console.WriteLine("Retrieving traces for the first application: {0} ({1}", appName, appId);
 
-                    var traces = client.GetTraces(appId);
+                    var traces = client.GetTraces(_organizationId, appId);
                     Console.WriteLine("Found {0} traces for application.", traces.Count);
 
                     if (traces.Count > 0)
                     {
                         WriteFirstTenTraces(traces);
+
+                        //foreach (Trace trace in traces)
+                        //{
+                        //    Console.WriteLine("Trace Exists:{0}", DoesTraceExistForUrl(client, appId, trace.Request.Uri));
+                        //}
                     }
                 }
             }
@@ -106,17 +123,17 @@ namespace SampleContrastClient
         private static void DownloadAgentToDesktop(TeamServerClient client)
         {
             string filename = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\dotnetagent.zip";
-            var agentStream = client.GetAgent(AgentType.DotNet);
+            var agentStream = client.GetAgent(AgentType.DotNet, _organizationId);
             var fs = new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write);
             agentStream.CopyTo(fs);
             fs.Close();
         }
 
         // Example usage of CheckForTrace method
-        private static bool DoesTraceExistForUrl( TeamServerClient client, string applicationName, string url )
+        private static bool DoesTraceExistForUrl( TeamServerClient client, string applicationId, string url )
         {
             string conditions = "request.uri=~" + url;
-            var statusCode = client.CheckForTrace(applicationName, conditions);
+            var statusCode = client.CheckForTrace(applicationId, conditions);
 
             return (statusCode == System.Net.HttpStatusCode.OK);
         }
