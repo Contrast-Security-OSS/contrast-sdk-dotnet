@@ -87,6 +87,8 @@ namespace SampleContrastClient
                         //}
                     }
                 }
+
+                // DownloadAgentToDesktop(client);
             }
 
             Console.WriteLine("SampleContrastClient Finished.");
@@ -123,10 +125,13 @@ namespace SampleContrastClient
         private static void DownloadAgentToDesktop(TeamServerClient client)
         {
             string filename = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\dotnetagent.zip";
-            var agentStream = client.GetAgent(AgentType.DotNet, _organizationId);
-            var fs = new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write);
-            agentStream.CopyTo(fs);
-            fs.Close();
+            using (var agentStream = client.GetAgent(AgentType.DotNet, _organizationId))
+            {
+                using (var fs = new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+                {
+                    agentStream.CopyTo(fs);
+                }
+            }
         }
 
         // Example usage of CheckForTrace method
