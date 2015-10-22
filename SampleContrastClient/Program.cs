@@ -70,8 +70,8 @@ namespace SampleContrastClient
 
                 if (apps.Count > 0)
                 {
-                    string appId = apps[6].AppID;
-                    string appName = apps[6].Name;
+                    string appId = apps[0].AppID;
+                    string appName = apps[0].Name;
                     Console.WriteLine("Retrieving traces for the first application: {0} ({1}", appName, appId);
 
                     var traces = client.GetTraces(_organizationId, appId);

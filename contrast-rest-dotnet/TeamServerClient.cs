@@ -61,6 +61,15 @@ namespace contrast_rest_dotnet
             _contrastRestClient = contrastRestClient;
         }
 
+        private T GetResponseAndDeserialize<T>( string endpoint )
+        {
+            using (Stream responseStream = _contrastRestClient.GetResponseStream(endpoint))
+            {
+                var deserializer = new DataContractJsonSerializer(typeof(T));
+                return (T)deserializer.ReadObject(responseStream);
+            }
+        }
+
         /// <summary>
         /// Returns whether a trace exists for an application based on ID and trace conditions.
         /// </summary>
@@ -124,12 +133,7 @@ namespace contrast_rest_dotnet
         public ContrastApplication GetApplication(string organizationId, string appId)
         {
             string endpoint = String.Format(Endpoints.APPLICATIONS, organizationId, appId);
-            Stream responseStream = _contrastRestClient.GetResponseStream( endpoint );
-
-            var deserializer = new DataContractJsonSerializer(typeof(ContrastApplication));
-            var app = (ContrastApplication)deserializer.ReadObject(responseStream);
-
-            return app;
+            return GetResponseAndDeserialize<ContrastApplication>(endpoint);
         }
 
         /// <summary>
@@ -141,12 +145,7 @@ namespace contrast_rest_dotnet
         public List<ContrastApplication> GetApplications(string organizationId)
         {
             string endpoint = String.Format(Endpoints.APPLICATIONS, organizationId, string.Empty);
-            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
-
-            var deserializer = new DataContractJsonSerializer(typeof(ContrastApplication[]));
-            var apps = (ContrastApplication[])deserializer.ReadObject(responseStream);           
-
-            return new List<ContrastApplication>( apps );
+            return new List<ContrastApplication>(GetResponseAndDeserialize<ContrastApplication[]>(endpoint));
         }
 
         /// <summary>
@@ -159,12 +158,7 @@ namespace contrast_rest_dotnet
         public List<Library> GetLibraries(string organizationId, string appId)
         {
             string endpoint = String.Format(Endpoints.LIBRARIES, organizationId, appId);
-            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
-
-            var deserializer = new DataContractJsonSerializer(typeof(Library[]));
-            var libraries = (Library[])deserializer.ReadObject(responseStream);
-
-            return new List<Library>(libraries);
+            return new List<Library>(GetResponseAndDeserialize<Library[]>(endpoint));
         }
 
         /// <summary>
@@ -177,12 +171,7 @@ namespace contrast_rest_dotnet
         public Profile GetProfile(string organizationId, string profileName)
         {
             string endpoint = String.Format(Endpoints.PROFILES, organizationId, profileName);
-            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
-
-            var deserializer = new DataContractJsonSerializer(typeof(Profile));
-            var profile = (Profile)deserializer.ReadObject(responseStream);
-
-            return profile;
+            return GetResponseAndDeserialize<Profile>(endpoint);
         }
 
         /// <summary>
@@ -194,12 +183,7 @@ namespace contrast_rest_dotnet
         public List<Profile> GetProfiles(string organizationId)
         {
             string endpoint = String.Format(Endpoints.PROFILES, organizationId, string.Empty);
-            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
-
-            var deserializer = new DataContractJsonSerializer(typeof(Profile[]));
-            var profiles = (Profile[])deserializer.ReadObject(responseStream);
-
-            return new List<Profile>( profiles );
+            return new List<Profile>(GetResponseAndDeserialize<Profile[]>(endpoint));
         }
 
         /// <summary>
@@ -212,12 +196,7 @@ namespace contrast_rest_dotnet
         public Server GetServer(string organizationId, string serverId)
         {
             string endpoint = String.Format(Endpoints.SERVERS, organizationId, serverId);
-            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
-
-            var deserializer = new DataContractJsonSerializer(typeof(Server));
-            var server = (Server)deserializer.ReadObject(responseStream);
-
-            return server;
+            return GetResponseAndDeserialize<Server>(endpoint);
         }
 
         /// <summary>
@@ -229,12 +208,7 @@ namespace contrast_rest_dotnet
         public List<Server> GetServers(string organizationId)
         {
             string endpoint = String.Format(Endpoints.SERVERS, organizationId, string.Empty);
-            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
-
-            var deserializer = new DataContractJsonSerializer(typeof(Server[]));
-            var servers = (Server[])deserializer.ReadObject(responseStream);
-
-            return new List<Server>(servers);
+            return new List<Server>(GetResponseAndDeserialize<Server[]>(endpoint));
         }
 
         /// <summary>
@@ -246,12 +220,7 @@ namespace contrast_rest_dotnet
         public List<Trace> GetTraces(string organizationId, string appId)
         {
             string endpoint = String.Format(Endpoints.TRACES, organizationId, appId);
-            Stream responseStream = _contrastRestClient.GetResponseStream(endpoint);
-
-            var deserializer = new DataContractJsonSerializer(typeof(Trace[]));
-            var traces = (Trace[])deserializer.ReadObject(responseStream);
-
-            return new List<Trace>(traces);
+            return new List<Trace>(GetResponseAndDeserialize<Trace[]>(endpoint));
         }
 
         /// <summary>
