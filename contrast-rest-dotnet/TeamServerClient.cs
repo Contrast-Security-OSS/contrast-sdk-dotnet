@@ -229,13 +229,20 @@ namespace contrast_rest_dotnet
         /// <returns>a List of Organization objects representing the organizations</returns>
         public List<Organization> GetOrganizations()
         {
-            Stream responseStream = _contrastRestClient.GetResponseStream(NgEndpoints.ORGANIZATIONS);
-            var deserializer = new DataContractJsonSerializer(typeof(OrganizationResponse));
-            var orgs = (OrganizationResponse)deserializer.ReadObject(responseStream);
-
-            return orgs.organizations;
+            var organizationResponse = GetResponseAndDeserialize<OrganizationResponse>(NgEndpoints.ORGANIZATIONS);
+            return organizationResponse.organizations;
         }
 
+        /// <summary>
+        /// Get the organizations associated with the API user in non EAC environments.
+        /// </summary>
+        /// <returns>a List of Organization objects representing the organizations</returns>
+        public Organization GetDefaultOrganization()
+        {
+            string endpoint = NgEndpoints.ORGANIZATIONS + "default";
+            var response = GetResponseAndDeserialize<DefaultOrganizationResponse>(endpoint);
+            return response.organization;
+        }
 
         private bool _disposed;
         protected virtual void Dispose(bool disposing)

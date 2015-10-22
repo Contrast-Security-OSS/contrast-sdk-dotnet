@@ -62,6 +62,9 @@ namespace SampleContrastClient
                     _organizationId = orgs[0].organization_uuid;
                 }
 
+                var defaultOrg = client.GetDefaultOrganization();
+                Console.WriteLine("User's default org is:{0}({1})", defaultOrg.name, defaultOrg.organization_uuid);
+
                 var servers = client.GetServers(_organizationId);
                 Console.WriteLine("Found {0} servers.", servers.Count);
 

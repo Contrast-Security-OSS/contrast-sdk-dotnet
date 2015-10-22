@@ -49,4 +49,14 @@ namespace contrast_rest_dotnet.Model
         public int count { get; set; }
         public List<object> org_disabled { get; set; }
     }
+
+    public class DefaultOrganizationResponse
+    {
+        public bool success { get; set; }
+        public List<string> messages { get; set; }
+        public Organization organization { get; set; }
+        public List<string> roles { get; set; }
+        public bool enterprise { get; set; }
+    }
+
 }
