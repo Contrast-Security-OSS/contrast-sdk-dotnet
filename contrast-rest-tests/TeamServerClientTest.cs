@@ -109,7 +109,7 @@ namespace sdk_tests
             string libraryJson = "[ {  \"libraryId\" : 127302,  \"filename\" : \"log4net.dll\",  \"sha1\" : \"08D926E9EFE56C69A370A30737E3346F86F7FB77\",  \"url\" : \"file:/C:\\\\inetpub\\\\wwwroot\\\\MyTestApp\\\\bin\\\\log4net.dll\",  \"version\" : \"1.2.13.0\",  \"profiled\" : false,  \"common\" : false,  \"sponsored\" : false,  \"links\" : [ {    \"rel\" : \"self\",    \"href\" : \"https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb/libraries/127302\"  }, {    \"rel\" : \"cves\",    \"href\" : \"https://localhost/Contrast/api/applications/c744888c-96e2-4e1d-926d-c3d715cedeeb/libraries/127302/cves\"  }, {    \"rel\" : \"servers\",    \"href\" : \"https://localhost/Contrast/api/servers/libraries/127302\"  } ],  \"lines-of-code\" : 4515,  \"internal-date\" : \"2013-11-17\",  \"external-date\" : \"2014-11-04\",  \"class-count\" : 289,  \"used-class-count\" : 0,  \"cve-count\" : 0} ]";
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
-            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/orgId/applications/" + appId + "/libraries/")).Returns(
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/orgId/applications/arbitraryId/libraries")).Returns(
                 new MemoryStream(Encoding.Unicode.GetBytes(libraryJson))
                 );
 
