@@ -107,6 +107,17 @@ namespace contrast_rest_dotnet.Http
             return _httpClient.SendAsync(request);
         }
 
+        public Task<HttpResponseMessage> DeleteAsync(string endpoint)
+        {
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(_teamServerUrl + endpoint),
+                Method = HttpMethod.Delete
+            };
+
+            return _httpClient.SendAsync(request);
+        }
+
         private bool _disposed;
         protected virtual void Dispose(bool disposing)
         {

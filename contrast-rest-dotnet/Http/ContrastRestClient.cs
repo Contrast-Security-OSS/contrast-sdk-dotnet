@@ -99,6 +99,11 @@ namespace contrast_rest_dotnet.Http
             return responseTask.Result;
         }
 
+        public System.Net.Http.HttpResponseMessage DeleteMessage(string endpoint)
+        {
+            return _httpClient.DeleteAsync(endpoint).Result;
+        }
+
         private bool _disposed;
         protected virtual void Dispose(bool disposing)
         {

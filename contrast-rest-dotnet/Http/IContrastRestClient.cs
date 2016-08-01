@@ -29,12 +29,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+
 namespace contrast_rest_dotnet.Http
 {
     public interface IContrastRestClient : IDisposable
     {
         System.IO.Stream GetResponseStream(string apiEndpoint);
-        System.Net.Http.HttpResponseMessage PostApplicatonSpecificMessage(string endpoint, string postBody, string application);
-        System.Net.Http.HttpResponseMessage PostMessage(string endpoint, string postBody, List<Tuple<string,string>> additionalHeaders );
+        HttpResponseMessage PostApplicatonSpecificMessage(string endpoint, string postBody, string application);
+        HttpResponseMessage PostMessage(string endpoint, string postBody, List<Tuple<string,string>> additionalHeaders );
+        HttpResponseMessage DeleteMessage(string endpoint);
     }
 }

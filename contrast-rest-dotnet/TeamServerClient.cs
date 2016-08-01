@@ -149,6 +149,19 @@ namespace contrast_rest_dotnet
         }
 
         /// <summary>
+        /// Resets an application's library, coverage, statistics and trace information.
+        /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
+        /// <param name="appId">the ID of the application</param>
+        /// <returns>a ContrastApplication object for the appId supplied</returns>
+        /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
+        public void ResetApplication(string organizationId, string appId )
+        {
+            string endpoint = string.Format(Endpoints.APPLICATIONS, organizationId, appId);
+            _contrastRestClient.DeleteMessage(endpoint);
+        }
+
+        /// <summary>
         /// Return the libraries of the monitored Contrast application.
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
