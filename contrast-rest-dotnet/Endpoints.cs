@@ -35,6 +35,7 @@ using System.Threading.Tasks;
 
 namespace contrast_rest_dotnet
 {
+    [System.Obsolete("Use NgEndpoints class instead.")]
     internal static class Endpoints
     {
         internal static string APPLICATIONS = "api/{0}/applications/{1}";

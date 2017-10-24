@@ -35,9 +35,12 @@ namespace contrast_rest_dotnet.Serialization
     {
         private static DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        internal static DateTime ConvertFromEpochTime(long epochTime)
+        internal static DateTime? ConvertFromEpochTime(long? epochTime)
         {
-            return _epoch.AddMilliseconds((long)epochTime);
+            if (epochTime != null)
+                return _epoch.AddMilliseconds((long)epochTime);
+            else
+                return null;
         }
 
     }
