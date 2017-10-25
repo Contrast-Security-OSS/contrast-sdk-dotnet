@@ -34,7 +34,6 @@ using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
 {
-    //TODO Server must inherit from ServerBase
     /// <summary>
     /// A server with the contrast agent installed.
     /// </summary>
@@ -47,7 +46,11 @@ namespace contrast_rest_dotnet.Model
         [DataMember(Name = "agent_version")]
         public string AgentVersion { get; set; }
 
-        //TODO Include applications field if required.
+        /// <summary>
+        /// Return the list of applications in this server.
+        /// </summary>
+        [DataMember(Name = "applications")]
+        public List<ContrastApplication> Applications { get; set; }
 
         /// <summary>
         /// If this server has assess enabled.
@@ -119,12 +122,6 @@ namespace contrast_rest_dotnet.Model
         [DataMember(Name = "hostname")]
         public string Hostname { get; set; }
 
-        /// <summary>
-        /// Language
-        /// </summary>
-        [DataMember(Name = "language")]
-        public string Language { get; set; }
-
         [DataMember(Name = "lastActivity")]
         private long LastActivityRawValue { get; set; }
 
@@ -140,18 +137,6 @@ namespace contrast_rest_dotnet.Model
         /// Gets the last time this server was started or restarted.
         /// </summary>
         public DateTime? LastStartup{ get; set; }
-
-        /// <summary>
-        /// Protection license
-        /// </summary>
-        [DataMember(Name = "license")]
-        public string License { get; set; }//TODO Update its type
-
-        /// <summary>
-        /// Gets a list of Contrast REST endpoint URLs for this server.
-        /// </summary>
-        [DataMember(Name = "links")]
-        public List<Link> Links { get; set; }
 
         /// <summary>
         /// If server s changing Log Enhancers on restart.
@@ -245,40 +230,6 @@ namespace contrast_rest_dotnet.Model
             LastStartup = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastStartupRawValue);
             LastActivity = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastActivityRawValue);
         }
-    }
-
-    [DataContract]
-    public class ServerBase
-    {
-        /// <summary>
-        /// Server environment. Allowed values: DEVELOPMENT, QA, PRODUCTION.
-        /// </summary>
-        [DataMember(Name = "environment")]
-        public string Environment { get; set; }
-
-        /// <summary>
-        /// Hostname.
-        /// </summary>
-        [DataMember(Name = "hostname")]
-        public string Hostname { get; set; }
-
-        /// <summary>
-        /// Server name.
-        /// </summary>
-        [DataMember(Name = "name")]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Server path.
-        /// </summary>
-        [DataMember(Name = "path")]
-        public string Path { get; set; }
-
-        /// <summary>
-        /// Server id.
-        /// </summary>
-        [DataMember(Name = "server_id")]
-        public string ServerId { get; set; }
     }
 
     [DataContract]

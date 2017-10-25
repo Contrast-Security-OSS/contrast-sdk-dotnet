@@ -27,6 +27,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -41,80 +42,42 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the ID of this library.
         /// </summary>
-        [DataMember(Name = "libraryId")]
+        [DataMember(Name = "library_id")]
         public string LibraryId { get; set; }
 
         /// <summary>
         /// Gets the filename of this library.
         /// </summary>
-        [DataMember(Name = "filename")]
+        [DataMember(Name = "file_name")]
         public string FileName { get; set; }
 
         /// <summary>
         /// Gets the SHA1 has of this library.
         /// </summary>
         [DataMember(Name = "sha1")]
+        [Obsolete("Use hash field instead.")]
         public string SHA1 { get; set; }
 
         /// <summary>
         /// Gets the URL for a library.
         /// </summary>
         [DataMember(Name = "url")]
+        [Obsolete("Not used anymore. It will be removed in the future.")]
         public string Url { get; set; }
 
-        /// <summary>
-        /// Gets the version of this library according to the library authority
-	    /// like Maven Central or NuGet.
-        /// </summary>
-        [DataMember(Name = "version")]
-        public string Version { get; set; }
+        [DataMember(Name = "app_language")]
+        public string AppLanguage { get; set; }
 
         /// <summary>
-        /// Gets whether this library was profiled.
+        /// If this library is custom.
         /// </summary>
-        [DataMember(Name = "profiled")]
-        public bool Profiled { get; set; }
-
-        /// <summary>
-        /// Gets whether this library is common.
-        /// </summary>
-        [DataMember(Name = "common")]
-        public bool Common { get; set; }
-
-        /// <summary>
-        /// Gets whether this library is sponsored.
-        /// </summary>
-        [DataMember(Name = "sponsored")]
-        public bool Sponsored { get; set; }
-
-        /// <summary>
-        /// Gets a list of Contrast REST endpoint URLs for this library.
-        /// </summary>
-        [DataMember(Name = "links")]
-        public List<Link> Links { get; set; }
-
-        /// <summary>
-        /// Gets an estimate of the number of lines of code in this library.
-        /// </summary>
-        [DataMember(Name = "lines-of-code")]
-        public int LinesOfCode { get; set; }
-
-        /// <summary>
-        /// Gets the last date that an entry within this file was altered.
-        /// </summary>
-        [DataMember(Name = "internal-date")]
-        public string InternalDate { get; set; }
-
-        /// <summary>
-        /// Gets the last date the library was altered on disk.
-        /// </summary>
-        [DataMember(Name = "external-date")]
-        public string ExternalDate { get; set; }
+        [DataMember(Name = "custom")]
+        public bool Custom { get; set; }
 
         /// <summary>
         /// Gets the number of classes in this library.
         /// </summary>
-        [DataMember(Name = "class-count")]
+        [DataMember(Name = "class_count")]
         public int ClassCount { get; set; }
 
         /// <summary>
@@ -124,13 +87,64 @@ namespace contrast_rest_dotnet.Model
 	    /// the total number of distinct classes used across all instances of the
 	    /// running application.
         /// </summary>
-        [DataMember(Name = "used-class-count")]
+        [DataMember(Name = "class_used")]
         public int UsedClassCount { get; set; }
 
         /// <summary>
         /// Gets the CVE count for this library.
         /// </summary>
         [DataMember(Name = "cve-count")]
+        [Obsolete("Currently not working. Might be removed.")]
         public int CveCount { get; set; }
+
+        /// <summary>
+        /// Gets the version of this library according to the library authority
+	    /// like Maven Central or NuGet.
+        /// </summary>
+        [DataMember(Name = "file_version")]
+        public string Version { get; set; }
+
+        [DataMember(Name = "grade")]
+        public String Grade { get; set; }
+
+        /// <summary>
+        /// Library hash.
+        /// </summary>
+        [DataMember(Name = "hash")]
+        public string Hash { get; set; }
+
+        /// <summary>
+        /// Gets a list of Contrast REST endpoint URLs for this library.
+        /// </summary>
+        [DataMember(Name = "links")]
+        public List<Link> Links { get; set; }
+
+        [DataMember(Name = "latest_release_date")]
+        public long? LatestReleaseDate { get; set; }
+
+        [DataMember(Name = "months_outdated")]
+        public long? MonthsOutdated { get; set; }
+
+        [DataMember(Name = "release_date")]
+        public long? ReleaseDate { get; set; }
+
+        [DataMember(Name = "total_vulnerabilities")]
+        public long TotalVulnerabilities { get; set; }
+    }
+
+    [DataContract]
+    public class LibraryResponse
+    {
+        [DataMember(Name = "averageScoreLetter")]
+        public string AverageScoreLetter { get; set; }
+
+        [DataMember(Name = "averageScore")]
+        public string AverageScore { get; set; }
+
+        [DataMember(Name = "averageMonths")]
+        public string averageMonths { get; set; }
+
+        [DataMember(Name = "libraries")]
+        public List<Library> Libraries { get; set; }
     }
 }

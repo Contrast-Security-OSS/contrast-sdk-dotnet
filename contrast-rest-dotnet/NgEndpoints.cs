@@ -12,9 +12,10 @@ namespace contrast_rest_dotnet
         internal static string APPLICATION_LIBRARIES = "api/ng/{0}/applications/{1}/libraries";
         internal static string APPLICATION_TRACES = "api/ng/{0}/traces/{1}/filter";
         internal static string DEFAULT_ORGANIZATION = "api/ng/profile/organizations/default";
-        internal static string ENGINE_DOTNET = "api/{0}/engine/{1}/dotnet";//TODO Update
-        internal static string ENGINE_JAVA = "api/{0}/engine/{1}/java";//TODO Update
-        internal static string LIBRARIES = "api/ng/{0}/libraries";
+        internal static string ENGINE_DOTNET = "api/api/{0}/engine/{1}/dotnet";
+        internal static string ENGINE_JAVA1_5 = "api/ng/{0}/agent/{1}/java?jvm=1_5";
+        internal static string ENGINE_JAVA = "api/ng/{0}/agent/{1}/java?jvm=1_6";
+        internal static string ENGINE_NODE = "api/ng/{0}/agent/{1}/node";
         internal static string ORGANIZATIONS = "api/ng/profile/organizations/";
         internal static string ORGANIZATION_TRACES = "api/ng/{0}/orgtraces/filter";
         internal static string PROFILES = "api/{0}/engine/profiles/{1}";//TODO Update

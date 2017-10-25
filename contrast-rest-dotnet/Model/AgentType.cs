@@ -45,8 +45,16 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         Java,
         /// <summary>
+        /// Java 1.5 engine type
+        /// </summary>
+        Java1_5,
+        /// <summary>
         /// .NET engine type
         /// </summary>
-        DotNet
+        DotNet,
+        /// <summary>
+        /// NodeJS engine type
+        /// </summary>
+        Node
     }
 }

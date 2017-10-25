@@ -56,11 +56,13 @@
     <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\IContrastRestClient.cs" />
+    <Compile Include="Http\ServerFilter.cs" />
+    <Compile Include="Http\TraceFilter.cs" />
     <Compile Include="Model\AgentType.cs" />
+    <Compile Include="Model\Card.cs" />
     <Compile Include="Model\NgApplication.cs" />
     <Compile Include="Model\Organization.cs" />
     <Compile Include="Model\Profile.cs" />
-    <Compile Include="Model\RemediationPolicy.cs" />
     <Compile Include="Model\Score.cs" />
     <Compile Include="Model\TraceBreakdown.cs" />
     <Compile Include="NgEndpoints.cs" />

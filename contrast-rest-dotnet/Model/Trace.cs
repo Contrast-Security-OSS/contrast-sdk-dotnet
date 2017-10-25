@@ -56,7 +56,7 @@ namespace contrast_rest_dotnet.Model
         /// This trace Application
         /// </summary>
         [DataMember(Name = "application")]
-        public NgApplicationTraceBase Application { get; set; }
+        public ContrastApplication Application { get; set; }
 
         /// <summary>
         /// Period of Remediation Policy that Auto-Remediated this trace
@@ -64,11 +64,8 @@ namespace contrast_rest_dotnet.Model
         [DataMember(Name = "auto_remediated_expiration_period")]
         public long? AutoRemediatedExpirationPeriod { get; set; }
 
-        [DataMember(Name = "bugtracker_tickets")]
-        public List<string> BugtrackerTickets { get; set; }//TODO Update its list type
-
         [DataMember(Name = "card")]
-        public string Card { get; set; }//TODO Update type
+        public Card Card { get; set; }
 
         /// <summary>
         /// Gets this trace category
@@ -162,7 +159,7 @@ namespace contrast_rest_dotnet.Model
         /// List of notes
         /// </summary>
         [DataMember(Name = "notes")]
-        public List<TraceNoteResource> Notes { get; set; }
+        public List<TraceNote> Notes { get; set; }
 
         /// <summary>
         /// Organization Name
@@ -174,7 +171,7 @@ namespace contrast_rest_dotnet.Model
         /// Parent Application ID
         /// </summary>
         [DataMember(Name = "parent_application")]
-        public string ParentApplication { get; set; }//TODO Update type to ngapplicationtracebaseresource
+        public ContrastApplication ParentApplication { get; set; }
 
         /// <summary>
         /// Is reported to bug tacker
@@ -203,7 +200,7 @@ namespace contrast_rest_dotnet.Model
         public string RuleName { get; set; }
 
         [DataMember(Name = "servers")]
-        public List<ServerBase> Servers { get; set; }
+        public List<Server> Servers { get; set; }
 
         /// <summary>
         /// Gets the severity of this trace.
@@ -241,12 +238,6 @@ namespace contrast_rest_dotnet.Model
         [DataMember(Name = "total_traces_received")]
         public int? TotalTracesReceived { get; set; }
 
-        /// <summary>
-        /// Remediation policy violations
-        /// </summary>
-        [DataMember(Name = "violations")]
-        public List<RemediationPolicy> Violations { get; set; }
-
         [DataMember(Name = "visible")]
         public bool Visible { get; set; }
 
@@ -260,7 +251,7 @@ namespace contrast_rest_dotnet.Model
     }
 
     [DataContract]
-    public class TraceNoteResource
+    public class TraceNote
     {
         [DataMember(Name = "creation")]
         private long? CreationRawValue { get; set; }
@@ -319,8 +310,6 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [DataMember(Name = "note")]
         public string Note { get; set; }
-
-        //TODO Add properties and readOnlyPropertyType if required.
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)

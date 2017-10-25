@@ -1,12 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using contrast_rest_dotnet.Serialization;
+﻿/*
+ * Copyright (c) 2017, Contrast Security, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list of
+ * conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this list of
+ * conditions and the following disclaimer in the documentation and/or other materials
+ * provided with the distribution.
+ *
+ * Neither the name of the Contrast Security, Inc. nor the names of its contributors may
+ * be used to endorse or promote products derived from this software without specific
+ * prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+ * THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+ * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+using System;
 using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
 {
     [DataContract]
-    public class ApplicationIdentity
+    public class ApplicationModule
     {
         /// <summary>
         /// Application id.
@@ -15,81 +42,39 @@ namespace contrast_rest_dotnet.Model
         public string AppId { get; set; }
 
         /// <summary>
-        /// If this application is a child of another.
+        /// If the application is archived.
         /// </summary>
-        [DataMember(Name = "child")]
-        public bool Child { get; set; }
+        [DataMember(Name = "archived")]
+        public bool Archived { get; set; }
 
         /// <summary>
-        /// Application context path.
+        /// Service level. Allowed values: Unlicensed, Enterprise.
         /// </summary>
-        [DataMember(Name = "context_path")]
-        public string ContextPath { get; set; }
+        [DataMember(Name = "level")]
+        public string Level { get; set; }
 
-        /// <summary>
-        /// Application importance
-        /// </summary>
-        [DataMember(Name = "importance")]
-        public int? Importance { get; set; }
-
-        /// <summary>
-        /// Application language.
-        /// </summary>
-        [DataMember(Name = "language")]
-        public string Language { get; set; }
-
-        [DataMember(Name = "last_seen")]
-        public long? LastSeenRawValue { get; set; }
-
-        /// <summary>
-        /// Time last seen.
-        /// </summary>
-        public DateTime? LastSeen { get; set; }
-
-        /// <summary>
-        /// License level. Allowed values: ReadOnly, Unlicensed, Licensed.
-        /// </summary>
-        [DataMember(Name = "license_level")]
-        public string LicenseLevel { get; set; }
-
-        /// <summary>
-        /// If this application is master.
-        /// </summary>
-        [DataMember(Name = "master")]
-        public bool Master { get; set; }
-
-        /// <summary>
-        /// Parent app id.
-        /// </summary>
-        [DataMember(Name = "parent_app_id")]
-        public string ParentAppId { get; set; }
-
-        /// <summary>
-        /// List of allowed roles.
-        /// </summary>
-        [DataMember(Name = "roles")]
-        public List<string> Roles { get; set; }
-
-        /// <summary>
-        /// Number of app modules
-        /// </summary>
-        [DataMember(Name = "total_modules")]
-        public long TotalModules { get; set; }
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            LastSeen = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastSeenRawValue);
-        }
-    }
-
-    [DataContract]
-    public class NgApplicationTraceBase : ApplicationIdentity
-    {
         /// <summary>
         /// Application name.
         /// </summary>
         [DataMember(Name = "name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Application path.
+        /// </summary>
+        [DataMember(Name = "path")]
+        public string Path { get; set; }
+
+        /// <summary>
+        /// Total LoC shorthand.
+        /// </summary>
+        [DataMember(Name = "size_shorthand")]
+        public string SizeShorthand { get; set; }
+
+        /// <summary>
+        /// Short name.
+        /// </summary>
+        [DataMember(Name = "short_name")]
+        public string ShortName { get; set; }
     }
 }

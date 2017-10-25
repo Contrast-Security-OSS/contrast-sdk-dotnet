@@ -161,7 +161,11 @@ namespace contrast_rest_dotnet.Model
         [DataMember(Name = "master")]
         public bool Master { get; set; }
 
-        // TODO Include modules if required
+        /// <summary>
+        /// Application child modules
+        /// </summary>
+        [DataMember(Name = "modules")]
+        public List<ApplicationModule> Modules { get; set; }
 
         /// <summary>
         /// Gets the human-readable name of the web application. Note that this method will
@@ -193,8 +197,6 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [DataMember(Name = "path")]
         public string Path { get; set; }
-
-        // TODO Include production_protected if required 
 
         /// <summary>
         /// List of allowed roles.
