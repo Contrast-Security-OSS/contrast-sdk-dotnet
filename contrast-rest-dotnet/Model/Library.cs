@@ -42,6 +42,7 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the ID of this library.
         /// </summary>
+        [Obsolete("Not supported.")]
         [DataMember(Name = "library_id")]
         public string LibraryId { get; set; }
 
@@ -50,20 +51,6 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [DataMember(Name = "file_name")]
         public string FileName { get; set; }
-
-        /// <summary>
-        /// Gets the SHA1 has of this library.
-        /// </summary>
-        [DataMember(Name = "sha1")]
-        [Obsolete("Use hash field instead.")]
-        public string SHA1 { get; set; }
-
-        /// <summary>
-        /// Gets the URL for a library.
-        /// </summary>
-        [DataMember(Name = "url")]
-        [Obsolete("Not used anymore. It will be removed in the future.")]
-        public string Url { get; set; }
 
         [DataMember(Name = "app_language")]
         public string AppLanguage { get; set; }
@@ -89,13 +76,6 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [DataMember(Name = "class_used")]
         public int UsedClassCount { get; set; }
-
-        /// <summary>
-        /// Gets the CVE count for this library.
-        /// </summary>
-        [DataMember(Name = "cve-count")]
-        [Obsolete("Currently not working. Might be removed.")]
-        public int CveCount { get; set; }
 
         /// <summary>
         /// Gets the version of this library according to the library authority
@@ -135,14 +115,23 @@ namespace contrast_rest_dotnet.Model
     [DataContract]
     public class LibraryResponse
     {
+        /// <summary>
+        /// Average months
+        /// </summary>
+        [DataMember(Name = "averageMonths")]
+        public int? AverageMonths { get; set; }
+
+        /// <summary>
+        /// Average score.
+        /// </summary>
+        [DataMember(Name = "averageScore")]
+        public int? AverageScore { get; set; }
+
+        /// <summary>
+        /// Average score letter.
+        /// </summary>
         [DataMember(Name = "averageScoreLetter")]
         public string AverageScoreLetter { get; set; }
-
-        [DataMember(Name = "averageScore")]
-        public string AverageScore { get; set; }
-
-        [DataMember(Name = "averageMonths")]
-        public string averageMonths { get; set; }
 
         [DataMember(Name = "libraries")]
         public List<Library> Libraries { get; set; }

@@ -60,11 +60,15 @@
     <Compile Include="Http\TraceFilter.cs" />
     <Compile Include="Model\AgentType.cs" />
     <Compile Include="Model\Card.cs" />
+    <Compile Include="Model\CodeView.cs" />
     <Compile Include="Model\NgApplication.cs" />
     <Compile Include="Model\Organization.cs" />
     <Compile Include="Model\Profile.cs" />
     <Compile Include="Model\Score.cs" />
+    <Compile Include="Model\Snippet.cs" />
     <Compile Include="Model\TraceBreakdown.cs" />
+    <Compile Include="Model\TraceEventDetail.cs" />
+    <Compile Include="Model\TraceStory.cs" />
     <Compile Include="NgEndpoints.cs" />
     <Compile Include="ResourceNotFoundException.cs" />
     <Compile Include="Model\ContrastApplication.cs" />

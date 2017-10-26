@@ -77,7 +77,7 @@ namespace SampleContrastClient
                     string appName = apps[0].Name;
                     Console.WriteLine("Retrieving traces for the first application: {0} ({1}", appName, appId);
 
-                    var traces = client.GetTraces(_organizationId, appId);
+                    var traces = client.GetTraces(_organizationId);
                     Console.WriteLine("Found {0} traces for application.", traces.Count);
 
                     if (traces.Count > 0)
@@ -86,7 +86,7 @@ namespace SampleContrastClient
 
                         //foreach (Trace trace in traces)
                         //{
-                        //    Console.WriteLine("Trace Exists:{0}", DoesTraceExistForUrl(client, appId, trace.Request.Uri));
+                        //    Console.WriteLine("Trace Exists:{0}", GetTraceByUUID(client, traces.Uuid, _organizationId));
                         //}
                     }
                 }
@@ -137,13 +137,12 @@ namespace SampleContrastClient
             }
         }
 
-        // Example usage of CheckForTrace method
-        private static bool DoesTraceExistForUrl( TeamServerClient client, string applicationId, string url )
+        // Example usage of GetTracesByUUID method
+        private static bool GetTraceByUUID( TeamServerClient client, string traceUuid, string organizationId )
         {
-            string conditions = "request.uri=~" + url;
-            var statusCode = client.CheckForTrace(applicationId, conditions);
+            var traces = client.GetTracesByUuid(organizationId, traceUuid);
 
-            return (statusCode == System.Net.HttpStatusCode.OK);
+            return (traces != null && traces.Count > 0);
         }
     }
 }

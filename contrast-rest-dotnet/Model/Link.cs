@@ -48,5 +48,11 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [DataMember(Name = "href")]
         public string Href { get; set; }
+
+        /// <summary>
+        /// Get the request method.
+        /// </summary>
+        [DataMember(Name = "method")]
+        public string Method { get; set; }
     }
 }

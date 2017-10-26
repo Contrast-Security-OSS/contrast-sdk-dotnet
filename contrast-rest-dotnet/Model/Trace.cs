@@ -152,6 +152,7 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets a list of Contrast REST endpoint URLs for this trace.
         /// </summary>
+        [Obsolete("Use the field from TraceFilterResponse object.")]
         [DataMember(Name = "links")]
         public List<Link> Links { get; set; }
 
@@ -334,6 +335,28 @@ namespace contrast_rest_dotnet.Model
         [DataMember(Name = "licensedCount")]
         public long LicensedCount { get; set; }
 
+        /// <summary>
+        /// List of messages
+        /// </summary>
+        [DataMember(Name = "messages")]
+        public List<string> Messages { get; set; }
+
+        /// <summary>
+        /// Indicates whether API response was successful or not
+        /// </summary>
+        [DataMember(Name = "success")]
+        public bool Success { get; set; }
+
+        /// <summary>
+        /// List of traces
+        /// </summary>
+        [DataMember(Name = "traces")]
+        public List<Trace> Traces { get; set; }
+    }
+
+    [DataContract]
+    public class TracesSearchResponse
+    {
         /// <summary>
         /// List of messages
         /// </summary>

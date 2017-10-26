@@ -92,4 +92,17 @@ namespace contrast_rest_dotnet.Model
         [DataMember(Name = "links")]
         public List<Link> Links { get; set; }
     }
+
+    [DataContract]
+    public class TraceRequestResponse
+    {
+        [DataMember(Name = "success")]
+        public bool Success { get; set; }
+
+        [DataMember(Name = "messages")]
+        public List<string> Messages { get; set; }
+
+        [DataMember(Name = "http_request")]
+        public Snippet HttpRequest { get; set; }
+    }
 }

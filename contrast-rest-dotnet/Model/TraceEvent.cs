@@ -27,6 +27,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
@@ -55,5 +56,109 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [DataMember(Name = "codeContext")]
         public object CodeContext { get; set; }
+    }
+
+    [DataContract]
+    public class TraceEventSummary
+    {
+        /// <summary>
+        /// Raw code creation.
+        /// </summary>
+        [DataMember(Name = "codeView")]
+        public CodeView CodeView { get; set; }
+
+        /// <summary>
+        /// List of collapsed events
+        /// </summary>
+        [DataMember(Name = "collapsedEvents")]
+        public List<TraceEventSummary> CollapsedEvents { get; set; }
+
+        /// <summary>
+        /// Data snapshot
+        /// </summary>
+        [DataMember(Name = "dataView")]
+        public CodeView DataView { get; set; }
+
+        /// <summary>
+        /// Event description
+        /// </summary>
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Number of duplicated events collapsed.
+        /// </summary>
+        [DataMember(Name = "dupes")]
+        public int? Dupes { get; set; }
+
+        /// <summary>
+        /// Event extra details.
+        /// </summary>
+        [DataMember(Name = "extraDetails")]
+        public string ExtraDetails { get; set; }
+
+        /// <summary>
+        /// Event id.
+        /// </summary>
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// If this event is important.
+        /// </summary>
+        [DataMember(Name = "important")]
+        public bool Important { get; set; }
+
+        /// <summary>
+        /// Probable start location/
+        /// </summary>
+        [DataMember(Name = "probableStartLocation")]
+        public CodeView ProbableStartLocation { get; set; }
+
+        /// <summary>
+        /// Event type.
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+    }
+
+    [DataContract]
+    public class TraceEventSummaryResponse
+    {
+        /// <summary>
+        /// List of events
+        /// </summary>
+        [DataMember(Name = "events")]
+        public List<TraceEvent> Events { get; set; }
+
+        /// <summary>
+        /// Evidence
+        /// </summary>
+        [DataMember(Name = "evidence")]
+        public string Evidence { get; set; }
+
+        /// <summary>
+        /// List of messages
+        /// </summary>
+        [DataMember(Name = "messages")]
+        public List<string> Messages { get; set; }
+
+        /// <summary>
+        /// If events are shown.
+        /// </summary>
+        [DataMember(Name = "showEvents")]
+        public bool ShowEvents { get; set; }
+
+        /// <summary>
+        /// If evidence is shown.
+        /// </summary>
+        [DataMember(Name = "showEvidence")]
+        public bool ShowEvidence { get; set; }
+
+        /// <summary>
+        /// Indicates whether API response was successful or not
+        /// </summary>
+        [DataMember(Name = "success")]
+        public bool Success { get; set; }
     }
 }
