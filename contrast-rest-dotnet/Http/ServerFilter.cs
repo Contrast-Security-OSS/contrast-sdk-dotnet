@@ -59,8 +59,8 @@ namespace contrast_rest_dotnet.Http
         {
             QueryParam = "";
             IncludeArchived = false;
-            ApplicationIds = new List<string>();
-            LogLevels = new List<string>();
+            ApplicationIds = null;
+            LogLevels = null;
 
             StartDate = null;
             EndDate = null;
@@ -81,10 +81,10 @@ namespace contrast_rest_dotnet.Http
 
             filters.Add("includeArchived=" + IncludeArchived);
 
-            if (ApplicationIds.Count > 0)
+            if (ApplicationIds != null && ApplicationIds.Count > 0)
                 filters.Add("applicationIds=" + String.Join(",", ApplicationIds));
 
-            if (LogLevels.Count > 0)
+            if (LogLevels != null && LogLevels.Count > 0)
                 filters.Add("logLevels=" + String.Join(",", LogLevels));
 
             if (Expand != null && Expand.Count > 0)
