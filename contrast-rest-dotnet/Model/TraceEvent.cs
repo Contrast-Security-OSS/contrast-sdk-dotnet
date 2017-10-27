@@ -129,7 +129,7 @@ namespace contrast_rest_dotnet.Model
         /// List of events
         /// </summary>
         [DataMember(Name = "events")]
-        public List<TraceEvent> Events { get; set; }
+        public List<TraceEventSummary> Events { get; set; }
 
         /// <summary>
         /// Evidence

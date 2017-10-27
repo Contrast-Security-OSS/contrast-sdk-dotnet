@@ -415,11 +415,10 @@ namespace contrast_rest_dotnet
         /// </summary>
         /// <param name="organizationId">User's organization UUID</param>
         /// <param name="traceUuid">Trace UUID></param>
-        /// <param name="eventId">Trace event Id.</param>
         /// <returns>A response cont</returns>
-        public TraceRequestResponse GetTraceHttpRequest(string organizationId, string traceUuid, long eventId)
+        public TraceRequestResponse GetTraceHttpRequest(string organizationId, string traceUuid)
         {
-            string endpoint = String.Format(NgEndpoints.TRACE_HTTP_REQUEST, organizationId, traceUuid, eventId);
+            string endpoint = String.Format(NgEndpoints.TRACE_HTTP_REQUEST, organizationId, traceUuid);
             return GetResponseAndDeserialize<TraceRequestResponse>(endpoint);
         }
 

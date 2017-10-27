@@ -88,6 +88,12 @@ namespace contrast_rest_dotnet.Model
     public class TraceStoryResponse
     {
         /// <summary>
+        /// Custom risk.
+        /// </summary>
+        [DataMember(Name = "custom_risk")]
+        public Snippet CustomRisk { get; set; }
+
+        /// <summary>
         /// List of messages.
         /// </summary>
         [DataMember(Name = "messages")]

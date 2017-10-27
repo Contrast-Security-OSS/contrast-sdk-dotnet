@@ -98,19 +98,9 @@ namespace sdk_tests
                                     ""method"": ""POST""
                                   },
                                   {
-                                    ""rel"": ""archive"",
-                                    ""href"": ""https://localhost/Contrast/api/ng/3c646b24-48bf-4345-9dac-6933324bafb4/applications/2b75b619-8a37-463e-b605-bd8f340d03aa/archive"",
-                                    ""method"": ""POST""
-                                  },
-                                  {
                                     ""rel"": ""reset"",
                                     ""href"": ""https://localhost/Contrast/api/ng/3c646b24-48bf-4345-9dac-6933324bafb4/applications/2b75b619-8a37-463e-b605-bd8f340d03aa/reset"",
                                     ""method"": ""POST""
-                                  },
-                                  {
-                                    ""rel"": ""delete"",
-                                    ""href"": ""https://localhost/Contrast/api/ng/3c646b24-48bf-4345-9dac-6933324bafb4/applications/2b75b619-8a37-463e-b605-bd8f340d03aa"",
-                                    ""method"": ""DELETE""
                                   }
                                 ],
                                 ""app_id"": ""2b75b619-8a37-463e-b605-bd8f340d03aa"",
@@ -443,5 +433,333 @@ namespace sdk_tests
             Assert.AreEqual(expectedDate, trace.FirstTimeSeen);
         }
 
+        [TestMethod]
+        public void GetTraceEventsSummary_PropertiesMatched()
+        {
+            string eventSummaryJson = @"{
+                                      ""success"": true,
+                                      ""messages"": [
+                                        ""Trace Events Summary loaded successfully""
+                                      ],
+                                      ""showEvidence"": false,
+                                      ""showEvents"": true,
+                                      ""events"": [
+                                        {
+                                          ""id"": ""1762213"",
+                                          ""important"": true,
+                                          ""type"": ""Creation"",
+                                          ""description"": ""Dangerous Data Received"",
+                                          ""extraDetails"": null,
+                                          ""codeView"": {
+                                            ""lines"": [
+                                              {
+                                                ""fragments"": [
+                                                  {
+                                                    ""type"": ""NORMAL_CODE"",
+                                                    ""value"": ""str = facade.getParameter(""
+                                                  },
+                                                  {
+                                                    ""type"": ""CODE_STRING"",
+                                                    ""value"": ""&quot;name&quot;""
+                                                  },
+                                                  {
+                                                    ""type"": ""NORMAL_CODE"",
+                                                    ""value"": "")""
+                                                  }
+                                                ],
+                                                ""text"": ""str = facade.getParameter(&quot;name&quot;)""
+                                              }
+                                            ],
+                                            ""nested"": false
+                                          },
+                                          ""probableStartLocationView"": {
+                                            ""lines"": [
+                                              {
+                                                ""fragments"": [
+                                                  {
+                                                    ""type"": ""STACKTRACE_LINE"",
+                                                    ""value"": ""getValue() @ JasperELResolver.java:104""
+                                                  }
+                                                ],
+                                                ""text"": ""getValue() @ JasperELResolver.java:104""
+                                              }
+                                            ],
+                                            ""nested"": false
+                                          },
+                                          ""dataView"": {
+                                            ""lines"": [
+                                              {
+                                                ""fragments"": [
+                                                  {
+                                                    ""type"": ""TAINT_VALUE"",
+                                                    ""value"": ""Hi""
+                                                  }
+                                                ],
+                                                ""text"": ""{{#taint}}Hi{{/taint}}""
+                                              }
+                                            ],
+                                            ""nested"": false
+                                          },
+                                          ""collapsedEvents"": [],
+                                          ""dupes"": 0
+                                        },
+                                        {
+                                          ""id"": ""1762214"",
+                                          ""important"": true,
+                                          ""type"": ""Trigger"",
+                                          ""description"": ""Untrusted Data Sent in HTTP Response"",
+                                          ""extraDetails"": null,
+                                          ""codeView"": {
+                                            ""lines"": [
+                                              {
+                                                ""fragments"": [
+                                                  {
+                                                    ""type"": ""NORMAL_CODE"",
+                                                    ""value"": ""impl.write(""
+                                                  },
+                                                  {
+                                                    ""type"": ""CODE_STRING"",
+                                                    ""value"": ""&quot;Hi&quot;""
+                                                  },
+                                                  {
+                                                    ""type"": ""NORMAL_CODE"",
+                                                    ""value"": "",0,2)""
+                                                  }
+                                                ],
+                                                ""text"": ""impl.write(&quot;Hi&quot;,0,2)""
+                                              }
+                                            ],
+                                            ""nested"": false
+                                          },
+                                          ""probableStartLocationView"": {
+                                            ""lines"": [
+                                              {
+                                                ""fragments"": [
+                                                  {
+                                                    ""type"": ""STACKTRACE_LINE"",
+                                                    ""value"": ""out() @ OutSupport.java:199""
+                                                  }
+                                                ],
+                                                ""text"": ""out() @ OutSupport.java:199""
+                                              }
+                                            ],
+                                            ""nested"": false
+                                          },
+                                          ""dataView"": {
+                                            ""lines"": [
+                                              {
+                                                ""fragments"": [
+                                                  {
+                                                    ""type"": ""TAINT_VALUE"",
+                                                    ""value"": ""Hi""
+                                                  }
+                                                ],
+                                                ""text"": ""{{#taint}}Hi{{/taint}}""
+                                              }
+                                            ],
+                                            ""nested"": false
+                                          },
+                                          ""collapsedEvents"": [],
+                                          ""dupes"": 0
+                                        }
+                                      ]
+                                    }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/events/summary")).Returns(
+                new MemoryStream(Encoding.Unicode.GetBytes(eventSummaryJson))
+                );
+
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var summaryResponse = teamServerClient.GetEventsSummary("orgId", "traceId");
+
+            Assert.AreEqual(2, summaryResponse.Events.Count);
+            var summary = summaryResponse.Events[0];
+
+            Assert.AreEqual("1762213", summary.Id);
+            Assert.AreEqual("Dangerous Data Received", summary.Description);
+            Assert.IsTrue(summary.Important);
+            Assert.AreEqual("Creation", summary.Type);
+            Assert.AreEqual(1, summary.CodeView.Lines.Count);
+        }
+
+        [TestMethod]
+        public void GetTraceEventDetails_PropertiesAndStacktraceExpected()
+        {
+            string detailsJson = @"{
+                                ""success"": true,
+                                ""messages"": [
+                                ""Trace Event Details loaded successfully""
+                                ],
+                                ""event"": {
+                                ""object"": ""org.apache.catalina.connector.RequestFacade@53af461a"",
+                                ""method"": ""getParameter(java.lang.String)"",
+                                ""parameters"": [
+                                    {
+                                    ""parameter"": ""name"",
+                                    ""tracked"": false
+                                    }
+                                ],
+                                ""stacktraces"": [
+                                    {
+                                    ""description"": ""javax.servlet.jsp.el.ImplicitObjectELResolver$ScopeManager$7.getAttribute(ImplicitObjectELResolver.java:410)"",
+                                    ""type"": ""common"",
+                                    ""stackFrameIndex"": 0
+                                    },
+                                    {
+                                    ""description"": ""javax.servlet.jsp.el.ImplicitObjectELResolver$ScopeManager$7.getAttribute(ImplicitObjectELResolver.java:402)"",
+                                    ""type"": ""common"",
+                                    ""stackFrameIndex"": 1
+                                    },
+                                    {
+                                    ""description"": ""javax.servlet.jsp.el.ImplicitObjectELResolver$ScopeMap.get(ImplicitObjectELResolver.java:601)"",
+                                    ""type"": ""common"",
+                                    ""stackFrameIndex"": 2
+                                    },
+                                    {
+                                    ""description"": ""javax.el.MapELResolver.getValue(MapELResolver.java:52)"",
+                                    ""type"": ""common"",
+                                    ""stackFrameIndex"": 3
+                                    },
+                                    {
+                                    ""description"": ""org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)"",
+                                    ""type"": ""common"",
+                                    ""stackFrameIndex"": 4
+                                    },
+                                    {
+                                    ""description"": ""org.apache.el.parser.AstValue.getValue(AstValue.java:183)"",
+                                    ""type"": ""common"",
+                                    ""stackFrameIndex"": 5
+                                    },
+                                    {
+                                    ""description"": ""org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:184)"",
+                                    ""type"": ""common"",
+                                    ""stackFrameIndex"": 6
+                                    }
+                                ],
+                                ""class"": ""org.apache.catalina.connector.RequestFacade"",
+                                ""object_tracked"": false,
+                                ""return"": ""Hi"",
+                                ""return_tracked"": false,
+                                ""last_custom_frame"": 9
+                                }
+                            }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/events/12/details")).Returns(
+                new MemoryStream(Encoding.Unicode.GetBytes(detailsJson))
+                );
+
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var detailsResponse = teamServerClient.GetTraceEventDetail("orgId", "traceId", 12);
+
+            Assert.AreEqual("org.apache.catalina.connector.RequestFacade", detailsResponse.Event.ClassName);
+            Assert.AreEqual("getParameter(java.lang.String)", detailsResponse.Event.Method);
+            Assert.AreEqual(7, detailsResponse.Event.StackTraces.Count);
+        }
+
+        [TestMethod]
+        public void GetTraceHttpRequest_PropertiesExpected()
+        {
+            string httpJson = @"{
+                              ""success"": true,
+                              ""messages"": [
+                                ""Trace HTTP Request loaded successfully""
+                              ],
+                              ""http_request"": {
+                                ""text"": ""POST /ticketbook/xss.jsp HTTP/1.0\nContent-Length: 15\nReferer: http://localhost/ticketbook/xss.jsp\nAccept-Language: en-US,en;q=0.8\nCookie: JSESSIONID=E4AE5E48864216D33BAC490A159F0A6A; hudson_auto_refresh=false; JSESSIONID=6378B7D127B2BB06E3A7B4E3A1F6F256\nOrigin: http://localhost:9090\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\nHost: localhost:9090\nUpgrade-Insecure-Requests: 1\nConnection: keep-alive\nContent-Type: application/x-www-form-urlencoded\nCache-Control: max-age=0\nAccept-Encoding: gzip, deflate\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36\n\nname=Hi&submit="",
+                                ""formattedText"": ""POST /ticketbook/xss.jsp HTTP/1.0{{{nl}}}Content-Length: 15{{{nl}}}Referer: http://localhost/ticketbook/xss.jsp{{{nl}}}Accept-Language: en-US,en;q=0.8{{{nl}}}Cookie: JSESSIONID=E4AE5E48864216D33BAC490A159F0A6A; hudson_auto_refresh=false; JSESSIONID=6378B7D127B2BB06E3A7B4E3A1F6F256{{{nl}}}Origin: http://localhost:9090{{{nl}}}Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8{{{nl}}}Host: localhost:9090{{{nl}}}Upgrade-Insecure-Requests: 1{{{nl}}}Connection: keep-alive{{{nl}}}Content-Type: application/x-www-form-urlencoded{{{nl}}}Cache-Control: max-age=0{{{nl}}}Accept-Encoding: gzip, deflate{{{nl}}}User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36{{{nl}}}{{{nl}}}name={{#taint}}Hi{{/taint}}&submit="",
+                                ""formattedTextVariables"": {}
+                              }
+                            }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/httprequest")).Returns(
+                new MemoryStream(Encoding.Unicode.GetBytes(httpJson))
+                );
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var httpRequestResponse = teamServerClient.GetTraceHttpRequest("orgId", "traceId");
+
+            Assert.IsTrue(httpRequestResponse.HttpRequest.Text.Contains("POST /ticketbook/xss.jsp HTTP/1.0\nContent-Length: 15\nReferer:"));
+            Assert.IsTrue(httpRequestResponse.HttpRequest.FormattedText.Contains("POST /ticketbook/xss.jsp HTTP/1.0{{{nl}}}Content-Length: 15{{{nl}}}Referer:"));
+        }
+
+        [TestMethod]
+        public void GetTraceStory_PropertiesMatch()
+        {
+            string storyJson = @"{
+                                  ""success"": true,
+                                  ""messages"": [
+                                    ""Trace Story loaded successfully""
+                                  ],
+                                  ""story"": {
+                                    ""traceId"": ""KVX4-GT1J-ZUR2-OXZN"",
+                                    ""chapters"": [
+                                      {
+                                        ""type"": ""source"",
+                                        ""introText"": ""We tracked the following data from \""name\"" Parameter:"",
+                                        ""introTextFormat"": ""We tracked the following data from \""{{source0}}\"" Parameter:"",
+                                        ""introTextVariables"": {
+                                          ""source0"": ""name""
+                                        },
+                                        ""body"": ""POST /ticketbook/xss.jsp\n\nname=Hi&submit="",
+                                        ""bodyFormat"": ""POST /ticketbook/xss.jsp{{{nl}}}{{{nl}}}name={{#taint}}Hi{{/taint}}&submit="",
+                                        ""bodyFormatVariables"": {}
+                                      },
+                                      {
+                                        ""type"": ""location"",
+                                        ""introText"": ""...which was accessed within the following code:"",
+                                        ""introTextFormat"": ""...which was accessed within the following code:"",
+                                        ""introTextVariables"": {},
+                                        ""body"": ""xss.jsp, line 57"",
+                                        ""bodyFormat"": ""{{jsp}}, line {{line}}"",
+                                        ""bodyFormatVariables"": {
+                                          ""jsp"": ""xss.jsp"",
+                                          ""line"": ""57""
+                                        }
+                                      },
+                                      {
+                                        ""type"": ""dataflow"",
+                                        ""introText"": ""...and observed going into the HTTP response below, without validation or encoding:"",
+                                        ""introTextFormat"": ""...and observed going into the HTTP response below, without validation or encoding:"",
+                                        ""introTextVariables"": {},
+                                        ""body"": ""Hi"",
+                                        ""bodyFormat"": ""{{#taint}}Hi{{/taint}}"",
+                                        ""bodyFormatVariables"": {},
+                                        ""vector"": null
+                                      }
+                                    ],
+                                    ""risk"": {
+                                      ""text"": ""The vulnerable code for this issue is in xss.jsp, line 57.Cross-Site Scripting (XSS) enables attackers to inject client-side script into trusted Web pages viewed by other users. They can use this malicious script to force users to silently perform actions that benefit the attacker, like sending them their account or session credentials. Any view code that takes data controlled by a user and puts it on the page without validation or encoding is likely to be vulnerable to this attack."",
+                                      ""formattedText"": ""{{#paragraph}}The vulnerable code for this issue is in xss.jsp, line 57.{{/paragraph}}{{#paragraph}}Cross-Site Scripting (XSS) enables attackers to inject client-side script into trusted Web pages viewed by other users. They can use this malicious script to force users to silently perform actions that benefit the attacker, like sending them their account or session credentials. Any view code that takes data controlled by a user and puts it on the page without validation or encoding is likely to be vulnerable to this attack.{{/paragraph}}"",
+                                      ""formattedTextVariables"": {}
+                                    }
+                                  },
+                                  ""custom_risk"": {
+                                    ""text"": ""This is a test to see if this Description shows up in the rule."",
+                                    ""formattedText"": ""This is a test to see if this Description shows up in the rule."",
+                                    ""formattedTextVariables"": {}
+                                  }
+                                }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/story")).Returns(
+                new MemoryStream(Encoding.Unicode.GetBytes(storyJson))
+                );
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var storyResponse = teamServerClient.GetTraceStory("orgId", "traceId");
+
+            Assert.AreEqual(3, storyResponse.Story.Chapters.Count);
+
+            var chapter = storyResponse.Story.Chapters[0];
+            Assert.AreEqual("source", chapter.Type);
+            Assert.AreEqual("We tracked the following data from \"name\" Parameter:", chapter.IntroText);
+
+            chapter = storyResponse.Story.Chapters[1];
+            Assert.AreEqual("location", chapter.Type);
+            Assert.AreEqual("...which was accessed within the following code:", chapter.IntroTextFormat);
+
+            Assert.AreEqual(0, storyResponse.Story.Risk.FormattedTextVariables.Count);
+        }
     }
 }
