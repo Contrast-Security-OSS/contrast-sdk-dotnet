@@ -151,11 +151,11 @@ namespace contrast_rest_dotnet.Http
 
     public enum RuleSeverity
     {
-        Note,
-        Low,
-        Medium,
-        High,
-        Critical
+        NOTE,
+        LOW,
+        MEDIUM,
+        HIGH,
+        CRITICAL
     }
 
     public enum ServerEnvironment
