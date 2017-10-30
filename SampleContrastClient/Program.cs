@@ -86,7 +86,7 @@ namespace SampleContrastClient
 
                         //foreach (Trace trace in traces)
                         //{
-                        //    Console.WriteLine("Trace Exists:{0}", GetTraceByUUID(client, traces.Uuid, _organizationId));
+                        //    Console.WriteLine("Trace Exists:{0}", DoesTraceExist(client, traces.Uuid, _organizationId));
                         //}
                     }
                 }
@@ -137,8 +137,8 @@ namespace SampleContrastClient
             }
         }
 
-        // Example usage of GetTracesByUUID method
-        private static bool GetTraceByUUID( TeamServerClient client, string traceUuid, string organizationId )
+        // Example usage of DoesTraceExist method
+        private static bool DoesTraceExist( TeamServerClient client, string traceUuid, string organizationId )
         {
             var traces = client.GetTracesByUuid(organizationId, traceUuid);
 
