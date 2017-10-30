@@ -5,3 +5,5 @@ image: Visual Studio 2015
 platform: Any CPU
 
 configuration: Release
+
+before_build: nuget restore
