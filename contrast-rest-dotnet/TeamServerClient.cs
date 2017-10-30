@@ -323,7 +323,9 @@ namespace contrast_rest_dotnet
             string endpoint = String.Format(NgEndpoints.APPLICATION_TRACES, organizationId, appId);
             if (filter != null)
                 endpoint += filter.ToString();
-            return new List<Trace>(GetResponseAndDeserialize<Trace[]>(endpoint));
+
+            TraceFilterResponse response = (GetResponseAndDeserialize<TraceFilterResponse>(endpoint));
+            return response?.Traces;
         }
 
         /// <summary>
@@ -332,7 +334,7 @@ namespace contrast_rest_dotnet
         /// <param name="organizationId">The uuid of the user's organization.</param>
         /// <param name="serverId">The ID of the server.</param>
         /// <returns></returns>
-        public List<Trace> GetServerTraces(string organizationId, string serverId)
+        public List<Trace> GetServerTraces(string organizationId, long serverId)
         {
             return GetServerTraces(organizationId, serverId, null);
         }
@@ -344,12 +346,13 @@ namespace contrast_rest_dotnet
         /// <param name="serverId">The ID of the server.</param>
         /// <param name="filter">Query params that can be added to request.</param>
         /// <returns></returns>
-        public List<Trace> GetServerTraces(string organizationId, string serverId, TraceFilter filter)
+        public List<Trace> GetServerTraces(string organizationId, long serverId, TraceFilter filter)
         {
             string endpoint = String.Format(NgEndpoints.SERVER_TRACES, organizationId, serverId);
             if (filter != null)
                 endpoint += filter.ToString();
-            return new List<Trace>(GetResponseAndDeserialize<Trace[]>(endpoint));
+            TraceFilterResponse response = GetResponseAndDeserialize<TraceFilterResponse>(endpoint);
+            return response?.Traces;
         }
 
         /// <summary>

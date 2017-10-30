@@ -434,6 +434,140 @@ namespace sdk_tests
         }
 
         [TestMethod]
+        public void GetTracesByApp_PropertiesMatchExpected()
+        {
+            string orgId = "orgId";
+            string appId = "appId";
+            string configTraceJson = @"{
+                                      ""success"": true,
+                                      ""messages"": [
+                                        ""Organization Vulnerabilities loaded successfully""
+                                      ],
+                                      ""traces"": [
+                                        {
+                                          ""app_version_tags"": [],
+                                          ""bugtracker_tickets"": [],
+                                          ""category"": ""Injection"",
+                                          ""closed_time"": null,
+                                          ""confidence"": ""High"",
+                                          ""default_severity"": ""CRITICAL"",
+                                          ""evidence"": null,
+                                          ""first_time_seen"": 1461239904769,
+                                          ""hasParentApp"": false,
+                                          ""impact"": ""High"",
+                                          ""language"": ""Java"",
+                                          ""last_time_seen"": 1461239904769,
+                                          ""license"": ""Licensed"",
+                                          ""likelihood"": ""High"",
+                                          ""organization_name"": ""Organization Test"",
+                                          ""reported_to_bug_tracker"": false,
+                                          ""reported_to_bug_tracker_time"": null,
+                                          ""rule_name"": ""sql-injection"",
+                                          ""severity"": ""Critical"",
+                                          ""status"": ""Reported"",
+                                          ""sub_status"": """",
+                                          ""sub_title"": ""from \""account_name\"" Parameter on \""attack\"" page"",
+                                          ""title"": ""SQL Injection from \""account_name\"" Parameter on \""attack\"" page"",
+                                          ""total_traces_received"": 1,
+                                          ""uuid"": ""4AD2-6HT1-X845-IVXE"",
+                                          ""visible"": true
+                                        }
+                                      ],
+                                      ""count"": 202,
+                                      ""licensedCount"": 145,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""nextPage"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3c646b24-48bf-4345-9dac-6933324bafb4/orgtraces/filter?expand=events&limit=1&offset=9&sort=-lastTimeSeen"",
+                                          ""method"": ""GET""
+                                        }
+                                      ]
+                                    }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/traces/" + appId +"/filter")).Returns(
+                new MemoryStream(Encoding.Unicode.GetBytes(configTraceJson))
+                );
+
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+
+            var traces = teamServerClient.GetApplicationTraces(orgId, appId);
+
+            Assert.AreEqual(1, traces.Count);
+            Trace trace = traces[0];
+            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Uuid);
+            Assert.AreEqual("Critical", trace.Severity);
+            Assert.AreEqual("sql-injection", trace.RuleName);
+        }
+
+        [TestMethod]
+        public void GetTracesByServer_PropertiesMatchExpected()
+        {
+            string orgId = "orgId";
+            long serverId = 123456;
+            string configTraceJson = @"{
+                                      ""success"": true,
+                                      ""messages"": [
+                                        ""Organization Vulnerabilities loaded successfully""
+                                      ],
+                                      ""traces"": [
+                                        {
+                                          ""app_version_tags"": [],
+                                          ""bugtracker_tickets"": [],
+                                          ""category"": ""Injection"",
+                                          ""closed_time"": null,
+                                          ""confidence"": ""High"",
+                                          ""default_severity"": ""CRITICAL"",
+                                          ""evidence"": null,
+                                          ""first_time_seen"": 1461239904769,
+                                          ""hasParentApp"": false,
+                                          ""impact"": ""High"",
+                                          ""language"": ""Java"",
+                                          ""last_time_seen"": 1461239904769,
+                                          ""license"": ""Licensed"",
+                                          ""likelihood"": ""High"",
+                                          ""organization_name"": ""Organization Test"",
+                                          ""reported_to_bug_tracker"": false,
+                                          ""reported_to_bug_tracker_time"": null,
+                                          ""rule_name"": ""sql-injection"",
+                                          ""severity"": ""Critical"",
+                                          ""status"": ""Reported"",
+                                          ""sub_status"": """",
+                                          ""sub_title"": ""from \""account_name\"" Parameter on \""attack\"" page"",
+                                          ""title"": ""SQL Injection from \""account_name\"" Parameter on \""attack\"" page"",
+                                          ""total_traces_received"": 1,
+                                          ""uuid"": ""4AD2-6HT1-X845-IVXE"",
+                                          ""visible"": true
+                                        }
+                                      ],
+                                      ""count"": 202,
+                                      ""licensedCount"": 145,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""nextPage"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3c646b24-48bf-4345-9dac-6933324bafb4/orgtraces/filter?expand=events&limit=1&offset=9&sort=-lastTimeSeen"",
+                                          ""method"": ""GET""
+                                        }
+                                      ]
+                                    }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/servertraces/" + serverId +"/filter")).Returns(
+                new MemoryStream(Encoding.Unicode.GetBytes(configTraceJson))
+                );
+
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+
+            var traces = teamServerClient.GetServerTraces(orgId, serverId);
+
+            Assert.AreEqual(1, traces.Count);
+            Trace trace = traces[0];
+            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Uuid);
+            Assert.AreEqual("CRITICAL", trace.DefaultSeverity);
+            Assert.IsFalse(trace.HasParentApp);
+        }
+
+        [TestMethod]
         public void GetTraceEventsSummary_PropertiesMatched()
         {
             string eventSummaryJson = @"{
