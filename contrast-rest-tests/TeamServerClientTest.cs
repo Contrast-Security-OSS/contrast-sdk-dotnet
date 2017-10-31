@@ -124,7 +124,8 @@ namespace sdk_tests
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var apps = teamServerClient.GetApplications("orgId");
+            var response = teamServerClient.GetApplications("orgId");
+            var apps = response.Applications;
 
             Assert.AreEqual(1, apps.Count);
             ContrastApplication app = apps[0];
@@ -185,7 +186,8 @@ namespace sdk_tests
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var libs = teamServerClient.GetLibraries("orgId", appId);
+            var libsResponse = teamServerClient.GetLibraries("orgId", appId);
+            var libs = libsResponse.Libraries;
 
             Assert.AreEqual(1, libs.Count);
             Library lib = libs[0];
@@ -334,7 +336,8 @@ namespace sdk_tests
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var traces = teamServerClient.GetTraces("orgId");
+            var traceResponse = teamServerClient.GetTraces("orgId");
+            var traces = traceResponse.Traces;
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
@@ -423,7 +426,8 @@ namespace sdk_tests
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var traces = teamServerClient.GetTraces(orgId);
+            var traceResponse = teamServerClient.GetTraces(orgId);
+            var traces = traceResponse.Traces;
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
@@ -491,7 +495,8 @@ namespace sdk_tests
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var traces = teamServerClient.GetApplicationTraces(orgId, appId);
+            var traceResponse = teamServerClient.GetApplicationTraces(orgId, appId);
+            var traces = traceResponse.Traces;
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
@@ -558,7 +563,8 @@ namespace sdk_tests
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
 
-            var traces = teamServerClient.GetServerTraces(orgId, serverId);
+            var traceResponse = teamServerClient.GetServerTraces(orgId, serverId);
+            var traces = traceResponse.Traces;
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
