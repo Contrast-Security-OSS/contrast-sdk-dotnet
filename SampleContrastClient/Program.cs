@@ -65,28 +65,40 @@ namespace SampleContrastClient
                 var defaultOrg = client.GetDefaultOrganization();
                 Console.WriteLine("User's default org is:{0}({1})", defaultOrg.name, defaultOrg.organization_uuid);
 
-                var servers = client.GetServers(_organizationId);
-                Console.WriteLine("Found {0} servers.", servers.Count);
+                var serverResponse = client.GetServers(_organizationId);
+                if(serverResponse != null)
+                    Console.WriteLine("Found {0} servers.", serverResponse.Servers.Count);
+                else
+                    Console.WriteLine("No servers found.");
 
-                var apps = client.GetApplications(_organizationId);
-                Console.WriteLine("Found {0} applications.", apps.Count);
+                var appsResponse = client.GetApplications(_organizationId);
+                if(appsResponse != null)
+                    Console.WriteLine("Found {0} applications.", appsResponse.Applications.Count);
+                else
+                    Console.WriteLine("No applications found.");
 
-                if (apps.Count > 0)
+                if (appsResponse != null && appsResponse.Applications.Count > 0)
                 {
+                    var apps = appsResponse.Applications;
                     string appId = apps[0].AppID;
                     string appName = apps[0].Name;
                     Console.WriteLine("Retrieving traces for the first application: {0} ({1}", appName, appId);
 
-                    var traces = client.GetTraces(_organizationId, appId);
-                    Console.WriteLine("Found {0} traces for application.", traces.Count);
+                    var traceResponse = client.GetTraces(_organizationId);
 
-                    if (traces.Count > 0)
+                    if(traceResponse != null)
+                        Console.WriteLine("Found {0} traces for application.", traceResponse.Traces.Count);
+                    else
+                        Console.WriteLine("No traces found for application.");
+
+                    if (traceResponse != null && traceResponse.Traces.Count > 0)
                     {
+                        var traces = traceResponse.Traces;
                         WriteFirstTenTraces(traces);
 
                         //foreach (Trace trace in traces)
                         //{
-                        //    Console.WriteLine("Trace Exists:{0}", DoesTraceExistForUrl(client, appId, trace.Request.Uri));
+                        //    Console.WriteLine("Trace Exists:{0}", DoesTraceExist(client, traces.Uuid, _organizationId));
                         //}
                     }
                 }
@@ -137,13 +149,12 @@ namespace SampleContrastClient
             }
         }
 
-        // Example usage of CheckForTrace method
-        private static bool DoesTraceExistForUrl( TeamServerClient client, string applicationId, string url )
+        // Example usage of DoesTraceExist method
+        private static bool DoesTraceExist( TeamServerClient client, string traceUuid, string organizationId )
         {
-            string conditions = "request.uri=~" + url;
-            var statusCode = client.CheckForTrace(applicationId, conditions);
+            var traces = client.GetTracesByUuid(organizationId, traceUuid)?.Traces;
 
-            return (statusCode == System.Net.HttpStatusCode.OK);
+            return (traces != null && traces.Count > 0);
         }
     }
 }

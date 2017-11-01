@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2015, Contrast Security, Inc.
+ * Copyright (c) 2017, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -29,32 +29,69 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
 {
-    /// <summary>
-    /// Enumerate the agent downloads.
-    /// </summary>
-    public enum AgentType
+    [DataContract]
+    public class Score
     {
         /// <summary>
-        /// Java engine type
+        /// Grade
         /// </summary>
-        Java,
+        [DataMember(Name = "grade")]
+        public int? Grade { get; set; }
+
         /// <summary>
-        /// Java 1.5 engine type
+        /// Letter grade
         /// </summary>
-        Java1_5,
+        [DataMember(Name = "letter_grade")]
+        public string LetterGrade { get; set; }
+
         /// <summary>
-        /// .NET engine type
+        /// Library scoring type. Allowed values: DEFAULT, VULN
         /// </summary>
-        DotNet,
+        [DataMember(Name = "library_scoring_type")]
+        public string LibraryScoringType { get; set; }
+
+        [DataMember(Name = "links")]
+        public List<Link> Links { get; set; }
+
         /// <summary>
-        /// NodeJS engine type
+        /// Overall scoring type
         /// </summary>
-        Node
+        [DataMember(Name = "overall_scoring_type")]
+        public string OverallScoringType { get; set; }
+
+        /// <summary>
+        /// Platform score
+        /// </summary>
+        [DataMember(Name = "platform")]
+        public ScoreMetricResource Platform { get; set; }
+
+        /// <summary>
+        /// Security score
+        /// </summary>
+        [DataMember(Name = "security")]
+        public ScoreMetricResource Security { get; set; }
+    }
+
+    [DataContract]
+    public class ScoreMetricResource
+    {
+        /// <summary>
+        /// Grade
+        /// </summary>
+        [DataMember(Name = "grade")]
+        public int? Grade { get; set; }
+
+        /// <summary>
+        /// Letter grade
+        /// </summary>
+        [DataMember(Name = "letter_grade")]
+        public string LetterGrade { get; set; }
+
+        [DataMember(Name = "links")]
+        public List<Link> Links { get; set; }
     }
 }

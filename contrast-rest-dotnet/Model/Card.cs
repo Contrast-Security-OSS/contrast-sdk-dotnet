@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2015, Contrast Security, Inc.
+ * Copyright (c) 2017, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -28,26 +28,48 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
-namespace contrast_rest_dotnet.Serialization
+namespace contrast_rest_dotnet.Model
 {
-    internal static class MicrosecondDateTimeConverter 
+    [DataContract]
+    public class Card
     {
-        private static DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        /// <summary>
+        /// Returns the body snippet as a Dictionary
+        /// </summary>
+        [DataMember(Name = "body")]
+        public object Body { get; set; }
 
-        internal static DateTime? ConvertFromEpochTime(long? epochTime)
-        {
-            if (epochTime != null)
-                return _epoch.AddMilliseconds((long)epochTime);
-            else
-                return null;
-        }
+        /// <summary>
+        /// Returns the header snippet as a Dictionary
+        /// </summary>
+        [DataMember(Name = "header")]
+        public object Header { get; set; }
 
-        internal static long? ConvertFromDateTime(DateTime? dateTime)
-        {
-            dateTime = dateTime?.ToUniversalTime();
-            return dateTime?.Millisecond - _epoch.Millisecond;
-        }
+        /// <summary>
+        /// Hidden status of Card.
+        /// </summary>
+        [DataMember(Name = "is_hidden")]
+        public bool IsHidden { get; set; }
 
+        /// <summary>
+        /// Severity level of card.
+        /// </summary>
+        [DataMember(Name = "severity")]
+        public string Severity { get; set; }
+
+        /// <summary>
+        /// Card title.
+        /// </summary>
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Trace id the card belongs to.
+        /// </summary>
+        [DataMember(Name = "traceId")]
+        public string TraceId { get; set; }
     }
 }

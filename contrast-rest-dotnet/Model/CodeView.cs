@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2015, Contrast Security, Inc.
+ * Copyright (c) 2017, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -27,27 +27,56 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
-namespace contrast_rest_dotnet.Serialization
+namespace contrast_rest_dotnet.Model
 {
-    internal static class MicrosecondDateTimeConverter 
+    [DataContract]
+    public class CodeView
     {
-        private static DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        /// <summary>
+        /// List of code lines.
+        /// </summary>
+        [DataMember(Name = "lines")]
+        public List<CodeLine> Lines { get; set; }
 
-        internal static DateTime? ConvertFromEpochTime(long? epochTime)
-        {
-            if (epochTime != null)
-                return _epoch.AddMilliseconds((long)epochTime);
-            else
-                return null;
-        }
+        /// <summary>
+        /// If the code view is nested.
+        /// </summary>
+        [DataMember(Name = "nested")]
+        public bool Nested { get; set; }
+    }
+    
+    [DataContract]
+    public class CodeLine
+    {
+        /// <summary>
+        /// Formatted fragments of code.
+        /// </summary>
+        [DataMember(Name = "fragments")]
+        public List<LineFragment> Fragments { get; set; }
 
-        internal static long? ConvertFromDateTime(DateTime? dateTime)
-        {
-            dateTime = dateTime?.ToUniversalTime();
-            return dateTime?.Millisecond - _epoch.Millisecond;
-        }
+        /// <summary>
+        /// Full line of code.
+        /// </summary>
+        [DataMember(Name = "text")]
+        public string Text { get; set; }
+    }
 
+    [DataContract]
+    public class LineFragment
+    {
+        /// <summary>
+        /// Type of fragment.
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        /// <summary>
+        /// Fragment content.
+        /// </summary>
+        [DataMember(Name = "value")]
+        public string value { get; set; }
     }
 }

@@ -41,34 +41,80 @@ namespace contrast_rest_dotnet.Model
     public class Server
     {
         /// <summary>
-        /// Gets the ID for the server.
+        /// Agent version
         /// </summary>
-        [DataMember(Name = "serverId")]
-        public string ServerId { get; set; }
-
-        [DataMember(Name = "lastStartupReceived")]
-        private long lastStartupReceived { get; set; }
+        [DataMember(Name = "agent_version")]
+        public string AgentVersion { get; set; }
 
         /// <summary>
-        /// Gets the last time this server was started or restarted.
+        /// Return the list of applications in this server.
         /// </summary>
-        public DateTime LastStartupReceived { get; set; }
-
-        [DataMember(Name = "lastTraceReceived")]
-        private long lastTraceReceived { get; set; }
+        [DataMember(Name = "applications")]
+        public List<ContrastApplication> Applications { get; set; }
 
         /// <summary>
-        /// Gets the last time a trace was received from this server.
+        /// If this server has assess enabled.
         /// </summary>
-        public DateTime LastTraceReceived { get; set; }
-
-        [DataMember(Name = "lastActivity")]
-        private long lastActivity { get; set; }
+        [DataMember(Name = "assess")]
+        public bool Assess { get; set; }
 
         /// <summary>
-        /// Gets the last time any activity was received from this server.
+        /// If the server is changing Assess on restart.
         /// </summary>
-        public DateTime LastActivity { get; set; }
+        [DataMember(Name = "assessPending")]
+        public bool AssessPending { get; set; }
+
+        [DataMember(Name = "assess_last_update")]
+        private long? AssessLastUpdateRawValue { get; set; }
+
+        /// <summary>
+        /// Last assess change time.
+        /// </summary>
+        public DateTime? AssessLastUpdate { get; set; }
+
+        /// <summary>
+        /// If the assess sensors are active.
+        /// </summary>
+        [DataMember(Name = "assess_sensonrs")]
+        public bool AssessSensors { get; set; }
+
+        /// <summary>
+        /// Container
+        /// </summary>
+        [DataMember(Name = "container")]
+        public string Container { get; set; }
+
+        /// <summary>
+        /// If server has Defend.
+        /// </summary>
+        [DataMember(Name = "defend")]
+        public bool Defend { get; set; }
+
+        /// <summary>
+        /// If server is changing Defend on restart.
+        /// </summary>
+        [DataMember(Name = "defendPending")]
+        public bool DefendPending { get; set; }
+
+        /// <summary>
+        /// If server has defend sensors active.
+        /// </summary>
+        [DataMember(Name = "defend_sensors")]
+        public bool DefendSensors { get; set; }
+
+        [DataMember(Name = "defense_last_update")]
+        private long? DefenseLastUpdateRawValue { get; set; }
+
+        /// <summary>
+        /// Last defense change time.
+        /// </summary>
+        public DateTime? DefenseLastUpdate { get; set; }
+
+        /// <summary>
+        /// Server environment. Allowed values: DEVELOPMENT, QA, PRODUCTION.
+        /// </summary>
+        [DataMember(Name = "environment")]
+        public string Environment { get; set; }
 
         /// <summary>
         /// Gets the hostname of this server.
@@ -76,42 +122,142 @@ namespace contrast_rest_dotnet.Model
         [DataMember(Name = "hostname")]
         public string Hostname { get; set; }
 
-        /// <summary>
-        /// Gets the path on disk of this server, e.g., /opt/tomcat6/ or C:\Windows\System32\inetsrv\
-        /// </summary>
-        [DataMember(Name = "serverPath")]
-        public string ServerPath { get; set; }
+        [DataMember(Name = "lastActivity")]
+        private long LastActivityRawValue { get; set; }
 
         /// <summary>
-        /// Gets the Contrast "server code" for the server, e.g., "IIS7", "jboss5"
+        /// Gets the last time any activity was received from this server.
         /// </summary>
-        [DataMember(Name = "serverType")]
-        public string ServerType { get; set; }
+        public DateTime? LastActivity { get; set; }
+
+        [DataMember(Name = "last_startup")]
+        private long LastStartupRawValue { get; set; }
 
         /// <summary>
-        /// Gets whether the server has Contrast enabled.
+        /// Gets the last time this server was started or restarted.
         /// </summary>
-        [DataMember(Name = "enabled")]
-        public bool Enabled { get; set; }
+        public DateTime? LastStartup{ get; set; }
 
         /// <summary>
-        /// Gets the version of the engine.
+        /// If server s changing Log Enhancers on restart.
         /// </summary>
-        [DataMember(Name = "engineVersion")]
-        public string EngineVersion { get; set; }
+        [DataMember(Name = "logEnhancerPending")]
+        public bool LogEnhancerPending { get; set; }
 
         /// <summary>
-        /// Gets a list of Contrast REST endpoint URLs for this server.
+        /// Security log level.
         /// </summary>
-        [DataMember(Name = "links")]
-        public List<Link> Links { get; set; }
+        [DataMember(Name = "logLevel")]
+        public string LogLevel { get; set; }
+
+        /// <summary>
+        /// Log path
+        /// </summary>
+        [DataMember(Name = "logPath")]
+        public string LogPath { get; set; }
+
+        /// <summary>
+        /// Server name
+        /// </summary>
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// If server is changing any settings on restart.
+        /// </summary>
+        [DataMember(Name = "noPending")]
+        public bool NoPending { get; set; }
+
+        /// <summary>
+        /// Number of applications on server.
+        /// </summary>
+        [DataMember(Name = "num_apps")]
+        public long? TotalApps { get; set; }
+
+        /// <summary>
+        /// If the agent on this server is out of date.
+        /// </summary>
+        [DataMember(Name = "out_of_date")]
+        public bool OutOfDate { get; set; }
+
+        /// <summary>
+        /// Server path
+        /// </summary>
+        [DataMember(Name = "path")]
+        public string Path { get; set; }
+
+        /// <summary>
+        /// Gets the ID for the server.
+        /// </summary>
+        [DataMember(Name = "server_id")]
+        public long ServerId { get; set; }
+
+        /// <summary>
+        /// Server status. Allowed values: ONLINE, OFFLINE.
+        /// </summary>
+        [DataMember(Name = "status")]
+        public string Status { get; set; }
+
+        /// <summary>
+        /// If Syslog is enabled.
+        /// </summary>
+        [DataMember(Name = "syslog_enabled")]
+        public bool SyslogEnabled { get; set; }
+
+        /// <summary>
+        /// Syslog IP adress.
+        /// </summary>
+        [DataMember(Name = "syslog_ip_address")]
+        public string SyslogIpAddress { get; set; }
+
+        /// <summary>
+        /// List of tags.
+        /// </summary>
+        [DataMember(Name = "tags")]
+        public List<string> Tags { get; set; }
+
+        /// <summary>
+        /// Get this server's type.
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            LastStartupReceived = MicrosecondDateTimeConverter.ConvertFromEpochTime(lastStartupReceived);
-            LastTraceReceived = MicrosecondDateTimeConverter.ConvertFromEpochTime(lastTraceReceived);
-            LastActivity = MicrosecondDateTimeConverter.ConvertFromEpochTime(lastActivity);
+            AssessLastUpdate = MicrosecondDateTimeConverter.ConvertFromEpochTime(AssessLastUpdateRawValue);
+            DefenseLastUpdate = MicrosecondDateTimeConverter.ConvertFromEpochTime(DefenseLastUpdateRawValue);
+            LastStartup = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastStartupRawValue);
+            LastActivity = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastActivityRawValue);
         }
+    }
+
+    [DataContract]
+    public class ServerResponse
+    {
+        [DataMember(Name = "messages")]
+        public List<string> Messages { get; set; }
+
+        [DataMember(Name = "server")]
+        public Server Server { get; set; }
+
+        [DataMember(Name = "success")]
+        public bool Success { get; set; }
+    }
+
+    [DataContract]
+    public class ServersResponse
+    {
+        [DataMember(Name = "count")]
+        public long Count { get; set; }
+
+        [DataMember(Name = "messages")]
+        public List<string> Messages { get; set; }
+
+        [DataMember(Name = "servers")]
+        public List<Server> Servers { get; set; }
+
+        [DataMember(Name = "success")]
+        public bool Success { get; set; }
     }
 }

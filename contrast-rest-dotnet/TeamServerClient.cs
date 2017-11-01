@@ -44,6 +44,8 @@ namespace contrast_rest_dotnet
     {
         private IContrastRestClient _contrastRestClient;
 
+        private const string DEFAULT_AGENT_PROFILE = "default";
+
         /// <summary>
         /// Creates the client that will interact with TeamServer. 
         /// </summary>
@@ -52,16 +54,16 @@ namespace contrast_rest_dotnet
         /// <param name="apiKey">API Key</param>
         /// <param name="teamServerUrl">he base Contrast API URL (e.g., https://app.contrastsecurity.com/Contrast/api/)</param>
         /// <exception cref="System.ArgumentException">Thrown when an invalid Uri is passed in teamServerUrl or a null/empty value is provided for other parameters</exception>
-        public TeamServerClient( string user, string serviceKey, string apiKey, string teamServerUrl ) 
-            : this( new ContrastRestClient( new HttpClientWrapper( user, serviceKey, apiKey, teamServerUrl ) ) )
-        {}
+        public TeamServerClient(string user, string serviceKey, string apiKey, string teamServerUrl)
+            : this(new ContrastRestClient(new HttpClientWrapper(user, serviceKey, apiKey, teamServerUrl)))
+        { }
 
         public TeamServerClient(IContrastRestClient contrastRestClient)
         {
             _contrastRestClient = contrastRestClient;
         }
 
-        private T GetResponseAndDeserialize<T>( string endpoint )
+        private T GetResponseAndDeserialize<T>(string endpoint)
         {
             using (Stream responseStream = _contrastRestClient.GetResponseStream(endpoint))
             {
@@ -70,6 +72,7 @@ namespace contrast_rest_dotnet
             }
         }
 
+        // TODO  Remove this method if not exists on new API
         /// <summary>
         /// Returns whether a trace exists for an application based on ID and trace conditions.
         /// </summary>
@@ -77,6 +80,7 @@ namespace contrast_rest_dotnet
         /// <param name="conditions">a name=value pair querystring of trace conditions</param>
         /// <returns>the HTTP response code of the given query</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
+        [Obsolete("This method is no longer supported and should not be used.")]
         public System.Net.HttpStatusCode CheckForTrace(string appId, string conditions)
         {
             var responseMessage = _contrastRestClient.PostApplicatonSpecificMessage(Endpoints.TRACE_EXISTS, conditions, appId);
@@ -94,7 +98,7 @@ namespace contrast_rest_dotnet
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
         public Stream GetAgent(AgentType agentType, string organizationId)
         {
-            return GetAgent(agentType, organizationId, "default");
+            return GetAgent(agentType, organizationId, DEFAULT_AGENT_PROFILE);
         }
 
         /// <summary>
@@ -111,13 +115,21 @@ namespace contrast_rest_dotnet
         public Stream GetAgent(AgentType agentType, string organizationId, string profileName)
         {
             string agentEndpoint = null;
-            if(agentType == AgentType.DotNet)
+
+            switch (agentType)
             {
-                agentEndpoint = string.Format(Endpoints.ENGINE_DOTNET, organizationId, profileName);
-            }
-            else if (agentType == AgentType.Java)
-            {
-                agentEndpoint = string.Format(Endpoints.ENGINE_JAVA, organizationId, profileName);
+                case AgentType.DotNet:
+                    agentEndpoint = string.Format(NgEndpoints.ENGINE_DOTNET, organizationId, profileName);
+                    break;
+                case AgentType.Java:
+                    agentEndpoint = string.Format(NgEndpoints.ENGINE_JAVA, organizationId, profileName);
+                    break;
+                case AgentType.Java1_5:
+                    agentEndpoint = string.Format(NgEndpoints.ENGINE_JAVA1_5, organizationId, profileName);
+                    break;
+                case AgentType.Node:
+                    agentEndpoint = string.Format(NgEndpoints.ENGINE_NODE, organizationId, profileName);
+                    break;
             }
 
             return _contrastRestClient.GetResponseStream(agentEndpoint);
@@ -130,22 +142,22 @@ namespace contrast_rest_dotnet
         /// <param name="appId">the ID of the application</param>
         /// <returns>a ContrastApplication object for the appId supplied</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public ContrastApplication GetApplication(string organizationId, string appId)
+        public ApplicationResponse GetApplication(string organizationId, string appId)
         {
-            string endpoint = String.Format(Endpoints.APPLICATIONS, organizationId, appId);
-            return GetResponseAndDeserialize<ContrastApplication>(endpoint);
+            string endpoint = String.Format(NgEndpoints.APPLICATIONS, organizationId, appId);
+            return GetResponseAndDeserialize<ApplicationResponse>(endpoint);
         }
 
         /// <summary>
         /// Get the list of applications being monitored by Contrast.
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
-        /// <returns>a List of ContrastApplication objects that are being monitored</returns>
+        /// <returns>A response object which contains a list of ContrastApplication objects that are being monitored</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public List<ContrastApplication> GetApplications(string organizationId)
+        public ApplicationsResponse GetApplications(string organizationId)
         {
-            string endpoint = String.Format(Endpoints.APPLICATIONS, organizationId, string.Empty);
-            return new List<ContrastApplication>(GetResponseAndDeserialize<ContrastApplication[]>(endpoint));
+            string endpoint = String.Format(NgEndpoints.APPLICATIONS, organizationId, string.Empty);
+            return (GetResponseAndDeserialize<ApplicationsResponse>(endpoint));
         }
 
         /// <summary>
@@ -155,7 +167,8 @@ namespace contrast_rest_dotnet
         /// <param name="appId">the ID of the application</param>
         /// <returns>a ContrastApplication object for the appId supplied</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public void ResetApplication(string organizationId, string appId )
+        [Obsolete("Currently unsupported. A new method will be generated to perform this action.")]
+        public void ResetApplication(string organizationId, string appId)
         {
             string endpoint = string.Format(Endpoints.APPLICATIONS, organizationId, appId);
             _contrastRestClient.DeleteMessage(endpoint);
@@ -166,12 +179,12 @@ namespace contrast_rest_dotnet
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="appId">the ID of the application</param>
-        /// <returns>a List of Library objects for the given app</returns>
+        /// <returns>A response object which contains a list of Library objects for the given app</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public List<Library> GetLibraries(string organizationId, string appId)
+        public LibraryResponse GetLibraries(string organizationId, string appId)
         {
-            string endpoint = String.Format(Endpoints.LIBRARIES, organizationId, appId);
-            return new List<Library>(GetResponseAndDeserialize<Library[]>(endpoint));
+            string endpoint = String.Format(NgEndpoints.APPLICATION_LIBRARIES, organizationId, appId);
+            return (GetResponseAndDeserialize<LibraryResponse>(endpoint));
         }
 
         /// <summary>
@@ -181,6 +194,7 @@ namespace contrast_rest_dotnet
         /// <param name="profileName">the agent profile name</param>
         /// <returns>a Profile object for the named supplied</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
+        [Obsolete("Not supported at the moment. Might be removed in the future.")]
         public Profile GetProfile(string organizationId, string profileName)
         {
             string endpoint = String.Format(Endpoints.PROFILES, organizationId, profileName);
@@ -193,6 +207,7 @@ namespace contrast_rest_dotnet
         /// <param name="organizationId">The uuid of the user's organization</param>
         /// <returns>a List of Profile objects</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
+        [Obsolete("Not supported at the moment. Might be removed in the future.")]
         public List<Profile> GetProfiles(string organizationId)
         {
             string endpoint = String.Format(Endpoints.PROFILES, organizationId, string.Empty);
@@ -204,24 +219,78 @@ namespace contrast_rest_dotnet
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="serverId">the ID of the server</param>
-        /// <returns>a Server object for the ID supplied</returns>
+        /// <returns>a ServerResponse object for the ID supplied</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public Server GetServer(string organizationId, string serverId)
+        public ServerResponse GetServer(string organizationId, long serverId)
         {
-            string endpoint = String.Format(Endpoints.SERVERS, organizationId, serverId);
-            return GetResponseAndDeserialize<Server>(endpoint);
+            string endpoint = String.Format(NgEndpoints.SERVERS, organizationId, serverId);
+            return GetResponseAndDeserialize<ServerResponse>(endpoint);
         }
 
         /// <summary>
         /// Return the servers monitored by Contrast agents.
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
-        /// <returns>a List of Server objects being monitored</returns>
+        /// <returns>A ServerResponse object which contains a list of Server objects being monitored</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public List<Server> GetServers(string organizationId)
+        public ServersResponse GetServers(string organizationId)
         {
-            string endpoint = String.Format(Endpoints.SERVERS, organizationId, string.Empty);
-            return new List<Server>(GetResponseAndDeserialize<Server[]>(endpoint));
+            return GetServers(organizationId, null);
+        }
+
+        /// <summary>
+        /// Return the servers monitored by Contrast agents.
+        /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
+        /// <param name="filter">Query params that can be added to filter request.</param>
+        /// <returns>A ServerResponse object which contains a list of Server objects being monitored</returns>
+        /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
+        public ServersResponse GetServers(string organizationId, ServerFilter filter)
+        {
+            string endpoint = String.Format(NgEndpoints.SERVERS, organizationId, string.Empty);
+            if (filter != null)
+                endpoint += filter.ToString();
+
+            return (GetResponseAndDeserialize<ServersResponse>(endpoint));
+        }
+
+        /// <summary>
+        /// Search a trace by trace uuid coincidence.
+        /// </summary>
+        /// <param name="organizationId">User's organization UUID.</param>
+        /// <param name="traceUuid">Trace UUID.</param>
+        /// <returns>A TraceSearchResponse object which contains a list of all the traces with the given UUID.</returns>
+        public TracesSearchResponse GetTracesByUuid(string organizationId, string traceUuid)
+        {
+            string endpoit = String.Format(NgEndpoints.TRACE, organizationId, traceUuid);
+            return GetResponseAndDeserialize<TracesSearchResponse>(endpoit);
+        }
+
+        /// <summary>
+        /// Returns a list of traces from a certain organization. Other filtering options are available
+        /// through the use of TraceFilter params.
+        /// </summary>
+        /// <param name="organizationId">Organization from which the traces will be retrieved.</param>
+        /// <returns>A TraceFilterResponse object with the List of Trace objects.</returns>
+        public TraceFilterResponse GetTraces(string organizationId)
+        {
+            return GetTraces(organizationId, null);
+        }
+
+        /// <summary>
+        /// Returns a list of traces from a certain organization. Other filtering options are available
+        /// through the use of TraceFilter params.
+        /// </summary>
+        /// <param name="organizationId">Organization from which the traces will be retrieved.</param>
+        /// <param name="filter">Query params that can be added to request.</param>
+        /// <returns>A TraceFilterResponse object with the List of Trace objects.</returns>
+        public TraceFilterResponse GetTraces(string organizationId, TraceFilter filter)
+        {
+            string endpoint = String.Format(NgEndpoints.ORGANIZATION_TRACES, organizationId);
+            if (filter != null)
+                endpoint += filter.ToString();
+
+            return (GetResponseAndDeserialize<TraceFilterResponse>(endpoint));
         }
 
         /// <summary>
@@ -229,11 +298,52 @@ namespace contrast_rest_dotnet
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="appId">the ID of the application</param>
-        /// <returns>a List of Trace objects representing the vulnerabilities</returns>
-        public List<Trace> GetTraces(string organizationId, string appId)
+        /// <returns>A TraceFilterResponse object with the List of Trace objects.</returns>
+        public TraceFilterResponse GetApplicationTraces(string organizationId, string appId)
         {
-            string endpoint = String.Format(Endpoints.TRACES, organizationId, appId);
-            return new List<Trace>(GetResponseAndDeserialize<Trace[]>(endpoint));
+            return GetApplicationTraces(organizationId, appId, null);
+        }
+
+        /// <summary>
+        /// Get the vulnerabilities in the application for the ID supplied.
+        /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization</param>
+        /// <param name="appId">the ID of the application</param>
+        /// <param name="filter">Query params that can be added to request.</param>
+        /// <returns>A TraceFilterResponse object with the List of Trace objects.</returns>
+        public TraceFilterResponse GetApplicationTraces(string organizationId, string appId, TraceFilter filter)
+        {
+            string endpoint = String.Format(NgEndpoints.APPLICATION_TRACES, organizationId, appId);
+            if (filter != null)
+                endpoint += filter.ToString();
+
+            return (GetResponseAndDeserialize<TraceFilterResponse>(endpoint));
+        }
+
+        /// <summary>
+        /// Get the vulnerabilities in the Server for the ID supplied.
+        /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization.</param>
+        /// <param name="serverId">The ID of the server.</param>
+        /// <returns>A TraceFilterResponse object with the List of Trace objects.</returns>
+        public TraceFilterResponse GetServerTraces(string organizationId, long serverId)
+        {
+            return GetServerTraces(organizationId, serverId, null);
+        }
+
+        /// <summary>
+        /// Get the vulnerabilities in the Server for the ID supplied.
+        /// </summary>
+        /// <param name="organizationId">The uuid of the user's organization.</param>
+        /// <param name="serverId">The ID of the server.</param>
+        /// <param name="filter">Query params that can be added to request.</param>
+        /// <returns>A TraceFilterResponse object with the List of Trace objects.</returns>
+        public TraceFilterResponse GetServerTraces(string organizationId, long serverId, TraceFilter filter)
+        {
+            string endpoint = String.Format(NgEndpoints.SERVER_TRACES, organizationId, serverId);
+            if (filter != null)
+                endpoint += filter.ToString();
+            return GetResponseAndDeserialize<TraceFilterResponse>(endpoint);
         }
 
         /// <summary>
@@ -252,9 +362,58 @@ namespace contrast_rest_dotnet
         /// <returns>a List of Organization objects representing the organizations</returns>
         public Organization GetDefaultOrganization()
         {
-            string endpoint = NgEndpoints.ORGANIZATIONS + "default";
+            string endpoint = NgEndpoints.DEFAULT_ORGANIZATION;
             var response = GetResponseAndDeserialize<DefaultOrganizationResponse>(endpoint);
             return response.organization;
+        }
+
+        /// <summary>
+        /// Gets a trace list of events with their summary
+        /// </summary>
+        /// <param name="organizationId">User's organization UUID</param>
+        /// <param name="traceUuid">Trace UUID.</param>
+        /// <returns>A response object containing the list of events summary.</returns>
+        public TraceEventSummaryResponse GetEventsSummary(string organizationId, string traceUuid)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACE_EVENTS_SUMMARY, organizationId, traceUuid);
+            return GetResponseAndDeserialize<TraceEventSummaryResponse>(endpoint);
+        }
+        
+        /// <summary>
+        /// Gets the details for the indicated trace event.
+        /// </summary>
+        /// <param name="organizationId">User's organization UUID</param>
+        /// <param name="traceUuid">Trace UUID></param>
+        /// <param name="eventId">Trace event Id.</param>
+        /// <returns>A response object that contains the event data.</returns>
+        public TraceEventDetailResponse GetTraceEventDetail(string organizationId, string traceUuid, long eventId)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACE_EVENT_DETAIL, organizationId, traceUuid, eventId);
+            return GetResponseAndDeserialize<TraceEventDetailResponse>(endpoint);
+        }
+        
+        /// <summary>
+        /// Retrieves a trace story.
+        /// </summary>
+        /// <param name="organizationId">User's organization UUID.</param>
+        /// <param name="traceUuid">Trace UUID.</param>
+        /// <returns>A response object that contains the trace story.</returns>
+        public TraceStoryResponse GetTraceStory(string organizationId, string traceUuid)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACE_STORY, organizationId, traceUuid);
+            return GetResponseAndDeserialize<TraceStoryResponse>(endpoint);
+        }
+
+        /// <summary>
+        /// Retrieves the trace request text with mustache format.
+        /// </summary>
+        /// <param name="organizationId">User's organization UUID</param>
+        /// <param name="traceUuid">Trace UUID></param>
+        /// <returns>A response cont</returns>
+        public TraceRequestResponse GetTraceHttpRequest(string organizationId, string traceUuid)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACE_HTTP_REQUEST, organizationId, traceUuid);
+            return GetResponseAndDeserialize<TraceRequestResponse>(endpoint);
         }
 
         private bool _disposed;

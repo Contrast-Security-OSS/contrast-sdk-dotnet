@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2015, Contrast Security, Inc.
+ * Copyright (c) 2017, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -27,27 +27,21 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
-namespace contrast_rest_dotnet.Serialization
+namespace contrast_rest_dotnet.Model
 {
-    internal static class MicrosecondDateTimeConverter 
+    [DataContract]
+    public class Snippet
     {
-        private static DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        [DataMember(Name = "text")]
+        public string Text { get; set; }
 
-        internal static DateTime? ConvertFromEpochTime(long? epochTime)
-        {
-            if (epochTime != null)
-                return _epoch.AddMilliseconds((long)epochTime);
-            else
-                return null;
-        }
+        [DataMember(Name = "formattedText")]
+        public string FormattedText { get; set; }
 
-        internal static long? ConvertFromDateTime(DateTime? dateTime)
-        {
-            dateTime = dateTime?.ToUniversalTime();
-            return dateTime?.Millisecond - _epoch.Millisecond;
-        }
-
+        [DataMember(Name = "formattedTextVariables")]
+        public Dictionary<string, string> FormattedTextVariables { get; set; }
     }
 }

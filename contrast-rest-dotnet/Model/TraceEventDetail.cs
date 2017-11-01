@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2015, Contrast Security, Inc.
+ * Copyright (c) 2017, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -32,77 +32,103 @@ using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
 {
-    /// <summary>
-    /// An HTTP request associated with a trace.
-    /// </summary>
     [DataContract]
-    public class Request
+    public class TraceEventDetail
     {
         /// <summary>
-        /// Gets the protocol of the request.
+        /// [Optional] Class name
         /// </summary>
-        [DataMember(Name = "protocol")]
-        public string Protocol { get; set; }
+        [DataMember(Name = "class")]
+        public string ClassName { get; set; }
 
         /// <summary>
-        /// Gets the protocol version number.
+        /// Last custom frame.
         /// </summary>
-        [DataMember(Name = "version")]
-        public string Version { get; set; }
+        [DataMember(Name = "lastCustomFrame")]
+        public long? LastCustomFrame { get; set; }
 
         /// <summary>
-        /// Gets the URI of the request.
-        /// </summary>
-        [DataMember(Name = "uri")]
-        public string Uri { get; set; }
-
-        /// <summary>
-        /// Gets the request query string.
-        /// </summary>
-        [DataMember(Name = "queryString")]
-        public string QueryString { get; set; }
-
-        /// <summary>
-        /// Gets the HTTP method for the request.
+        /// [Optional] Method
         /// </summary>
         [DataMember(Name = "method")]
         public string Method { get; set; }
 
         /// <summary>
-        /// Gets the port the request used.
+        /// [Optional] Object
         /// </summary>
-        [DataMember(Name = "port")]
-        public int Port { get; set; }
+        [DataMember(Name = "object")]
+        public string Object { get; set; }
 
         /// <summary>
-        /// Gets a list of HTTP headers for the request.
+        /// If the object is being tracked.
         /// </summary>
-        [DataMember(Name = "headers")]
-        public List<Header> Headers { get; set; }
+        [DataMember(Name = "objectTracked")]
+        public bool ObjectTracked { get; set; }
 
         /// <summary>
-        /// Gets a list of parameters for the request.
+        /// List of parameters
         /// </summary>
         [DataMember(Name = "parameters")]
-        public List<Parameter> Parameters { get; set; }
+        public List<EventParameter> Parameters { get; set; }
 
         /// <summary>
-        /// Gets a list of Contrast REST endpoint URLs for this request.
+        /// If the return is tracked.
         /// </summary>
-        [DataMember(Name = "links")]
-        public List<Link> Links { get; set; }
+        [DataMember(Name = "returnTracked")]
+        public bool ReturnTracked { get; set; }
+
+        /// <summary>
+        /// [Optional] Return value.
+        /// </summary>
+        [DataMember(Name = "returnValue")]
+        public string ReturnValue { get; set; }
+
+        /// <summary>
+        /// List of stack traces.
+        /// </summary>
+        [DataMember(Name = "stacktraces")]
+        public List<Stacktrace> StackTraces { get; set; }
     }
 
     [DataContract]
-    public class TraceRequestResponse
+    public class EventParameter
     {
-        [DataMember(Name = "success")]
-        public bool Success { get; set; }
+        [DataMember(Name = "parameter")]
+        public string Parameter { get; set; }
 
+        [DataMember(Name = "tracked")]
+        public bool Tracked { get; set; }
+    }
+
+    [DataContract]
+    public class Stacktrace
+    {
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+    }
+
+    [DataContract]
+    public class TraceEventDetailResponse
+    {
+        /// <summary>
+        /// Event
+        /// </summary>
+        [DataMember(Name = "event")]
+        public TraceEventDetail Event { get; set; }
+
+        /// <summary>
+        /// List of messges
+        /// </summary>
         [DataMember(Name = "messages")]
         public List<string> Messages { get; set; }
 
-        [DataMember(Name = "http_request")]
-        public Snippet HttpRequest { get; set; }
+        /// <summary>
+        /// Indicates whether API response was successful or not
+        /// </summary>
+        [DataMember(Name = "succes")]
+        public bool Success { get; set; }
     }
 }

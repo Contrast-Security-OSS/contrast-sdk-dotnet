@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "contrast-rest-dotnet", "contrast-rest-dotnet\contrast-rest-dotnet.csproj", "{A03F8136-A1AB-4621-9D38-A47416C83EBE}"
 EndProject
@@ -11,6 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "contrast-rest-tests", "cont
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5700ED5C-D9E1-4049-8DA7-267FB3C113C1}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -35,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1653D463-0EDA-453A-9205-CF793D6D9109}
 	EndGlobalSection
 EndGlobal

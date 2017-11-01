@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2015, Contrast Security, Inc.
+ * Copyright (c) 2017, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -28,26 +28,53 @@
  */
 
 using System;
+using System.Runtime.Serialization;
 
-namespace contrast_rest_dotnet.Serialization
+namespace contrast_rest_dotnet.Model
 {
-    internal static class MicrosecondDateTimeConverter 
+    [DataContract]
+    public class ApplicationModule
     {
-        private static DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        /// <summary>
+        /// Application id.
+        /// </summary>
+        [DataMember(Name = "app_id")]
+        public string AppId { get; set; }
 
-        internal static DateTime? ConvertFromEpochTime(long? epochTime)
-        {
-            if (epochTime != null)
-                return _epoch.AddMilliseconds((long)epochTime);
-            else
-                return null;
-        }
+        /// <summary>
+        /// If the application is archived.
+        /// </summary>
+        [DataMember(Name = "archived")]
+        public bool Archived { get; set; }
 
-        internal static long? ConvertFromDateTime(DateTime? dateTime)
-        {
-            dateTime = dateTime?.ToUniversalTime();
-            return dateTime?.Millisecond - _epoch.Millisecond;
-        }
+        /// <summary>
+        /// Service level. Allowed values: Unlicensed, Enterprise.
+        /// </summary>
+        [DataMember(Name = "level")]
+        public string Level { get; set; }
 
+        /// <summary>
+        /// Application name.
+        /// </summary>
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Application path.
+        /// </summary>
+        [DataMember(Name = "path")]
+        public string Path { get; set; }
+
+        /// <summary>
+        /// Total LoC shorthand.
+        /// </summary>
+        [DataMember(Name = "size_shorthand")]
+        public string SizeShorthand { get; set; }
+
+        /// <summary>
+        /// Short name.
+        /// </summary>
+        [DataMember(Name = "short_name")]
+        public string ShortName { get; set; }
     }
 }

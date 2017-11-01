@@ -1,0 +1,9 @@
+#--- Environment configuration ---
+image: Visual Studio 2015
+
+#--- Build configuration ---
+platform: Any CPU
+
+configuration: Release
+
+before_build: nuget restore
