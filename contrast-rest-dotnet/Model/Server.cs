@@ -225,10 +225,10 @@ namespace contrast_rest_dotnet.Model
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            AssessLastUpdate = MicrosecondDateTimeConverter.ConvertFromEpochTime(AssessLastUpdateRawValue);
-            DefenseLastUpdate = MicrosecondDateTimeConverter.ConvertFromEpochTime(DefenseLastUpdateRawValue);
-            LastStartup = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastStartupRawValue);
-            LastActivity = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastActivityRawValue);
+            AssessLastUpdate = DateTimeConverter.ConvertToDateTime(AssessLastUpdateRawValue);
+            DefenseLastUpdate = DateTimeConverter.ConvertToDateTime(DefenseLastUpdateRawValue);
+            LastStartup = DateTimeConverter.ConvertToDateTime(LastStartupRawValue);
+            LastActivity = DateTimeConverter.ConvertToDateTime(LastActivityRawValue);
         }
     }
 

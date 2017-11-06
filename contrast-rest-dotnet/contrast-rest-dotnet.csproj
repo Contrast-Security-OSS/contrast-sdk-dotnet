@@ -81,7 +81,7 @@
     <Compile Include="Model\Request.cs" />
     <Compile Include="Model\Trace.cs" />
     <Compile Include="Model\Parameter.cs" />
-    <Compile Include="Serialization\MicrosecondDateTimeConverter.cs" />
+    <Compile Include="Serialization\DateTimeConverter.cs" />
     <Compile Include="TeamServerClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

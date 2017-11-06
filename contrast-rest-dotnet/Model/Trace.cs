@@ -245,9 +245,9 @@ namespace contrast_rest_dotnet.Model
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            LastTimeSeen = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastTimeSeenRawValue);
-            FirstTimeSeen = MicrosecondDateTimeConverter.ConvertFromEpochTime(FirstTimeSeenRawValue);
-            ReportedToBugTrackerTime = MicrosecondDateTimeConverter.ConvertFromEpochTime(ReportedToBugTrackerTimeRawValue);
+            LastTimeSeen = DateTimeConverter.ConvertToDateTime(LastTimeSeenRawValue);
+            FirstTimeSeen = DateTimeConverter.ConvertToDateTime(FirstTimeSeenRawValue);
+            ReportedToBugTrackerTime = DateTimeConverter.ConvertToDateTime(ReportedToBugTrackerTimeRawValue);
         }
     }
 
@@ -315,8 +315,8 @@ namespace contrast_rest_dotnet.Model
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            Creation = MicrosecondDateTimeConverter.ConvertFromEpochTime(CreationRawValue);
-            LastModification = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastModificationRawValue);
+            Creation = DateTimeConverter.ConvertToDateTime(CreationRawValue);
+            LastModification = DateTimeConverter.ConvertToDateTime(LastModificationRawValue);
         }
     }
 
