@@ -67,6 +67,7 @@ namespace contrast_rest_dotnet.Http
         public int Offset { get; set; }
         /// <summary>
         /// Sort by. Allowed values: lastTimeSeen, status, title, application, name, severity.
+        /// Append "-" to the value to indicate descending direction.
         /// </summary>
         public string Sort { get; set; }
 
