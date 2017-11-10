@@ -119,7 +119,7 @@ namespace sdk_tests
                         }";
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/applications/")).Returns(
-                new MemoryStream( Encoding.Unicode.GetBytes(json) )
+                new MemoryStream( Encoding.UTF8.GetBytes(json) )
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -181,7 +181,7 @@ namespace sdk_tests
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/applications/arbitraryId/libraries")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(libraryJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(libraryJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -331,7 +331,7 @@ namespace sdk_tests
                                     }";
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/orgtraces/filter")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(dataFlowTraceJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(dataFlowTraceJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -421,7 +421,7 @@ namespace sdk_tests
             DateTime expectedDate = new DateTime(1970, 1, 1).AddMilliseconds(1461239904769);
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/orgtraces/filter")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(configTraceJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -490,7 +490,7 @@ namespace sdk_tests
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/traces/" + appId +"/filter")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(configTraceJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -558,7 +558,7 @@ namespace sdk_tests
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/servertraces/" + serverId +"/filter")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(configTraceJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -707,7 +707,7 @@ namespace sdk_tests
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/events/summary")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(eventSummaryJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(eventSummaryJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -787,7 +787,7 @@ namespace sdk_tests
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/events/12/details")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(detailsJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(detailsJson))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -815,7 +815,7 @@ namespace sdk_tests
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/httprequest")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(httpJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(httpJson))
                 );
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
             var httpRequestResponse = teamServerClient.GetTraceHttpRequest("orgId", "traceId");
@@ -884,7 +884,7 @@ namespace sdk_tests
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/story")).Returns(
-                new MemoryStream(Encoding.Unicode.GetBytes(storyJson))
+                new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
                 );
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
             var storyResponse = teamServerClient.GetTraceStory("orgId", "traceId");
@@ -892,11 +892,11 @@ namespace sdk_tests
             Assert.AreEqual(3, storyResponse.Story.Chapters.Count);
 
             var chapter = storyResponse.Story.Chapters[0];
-            Assert.AreEqual("source", chapter.Type);
+            Assert.AreEqual(ChapterType.source, chapter.Type);
             Assert.AreEqual("We tracked the following data from \"name\" Parameter:", chapter.IntroText);
 
             chapter = storyResponse.Story.Chapters[1];
-            Assert.AreEqual("location", chapter.Type);
+            Assert.AreEqual(ChapterType.location, chapter.Type);
             Assert.AreEqual("...which was accessed within the following code:", chapter.IntroTextFormat);
 
             Assert.AreEqual(0, storyResponse.Story.Risk.FormattedTextVariables.Count);
