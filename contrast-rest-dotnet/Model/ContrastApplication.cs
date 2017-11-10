@@ -30,6 +30,7 @@
 using contrast_rest_dotnet.Serialization;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
@@ -37,59 +38,59 @@ namespace contrast_rest_dotnet.Model
     /// <summary>
     /// An application that is being monitored by Contrast.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class ContrastApplication
     {
         /// <summary>
         /// Gets the ID of this application, which is a long, alphanumeric token.
         /// </summary>
-        [DataMember(Name="app_id")]
+        [JsonProperty(PropertyName="app_id")]
         public string AppID { get; set; }
 
         /// <summary>
         /// If the application is archived
         /// </summary>
-        [DataMember(Name = "archived")]
+        [JsonProperty(PropertyName = "archived")]
         public bool Archived { get; set; }
 
         /// <summary>
         /// If the application has assessment enabled.
         /// </summary>
-        [DataMember(Name = "assess")]
+        [JsonProperty(PropertyName = "assess")]
         public bool Assess { get; set; }
 
         /// <summary>
         /// If application has assessment pending for at least one of this
         /// application's server.
         /// </summary>
-        [DataMember(Name = "assessPending")]
+        [JsonProperty(PropertyName = "assessPending")]
         public bool AssessPending { get; set; }
 
         /// <summary>
         /// Attack status label.
         /// </summary>
-        [DataMember(Name = "attack_label")]
+        [JsonProperty(PropertyName = "attack_label")]
         public string AttackLabel { get; set; }
 
         /// <summary>
         /// Attack status. Allowed values: PROBED, EXPLOITED.
         /// </summary>
-        [DataMember(Name = "attack_status")]
+        [JsonProperty(PropertyName = "attack_status")]
         public string AttackStatus { get; set; }
 
         /// <summary>
         /// Custom classes LoC
         /// </summary>
-        [DataMember(Name = "code")]
+        [JsonProperty(PropertyName = "code")]
         public long? Code { get; set; }
 
         /// <summary>
         /// Custom classes LoC shorthand
         /// </summary>
-        [DataMember(Name = "code_shorthand")]
+        [JsonProperty(PropertyName = "code_shorthand")]
         public string CodeShorthand { get; set; }
 
-        [DataMember(Name = "created")]
+        [JsonProperty(PropertyName = "created")]
         public long? CreatedRawValue { get; set; }
 
         /// <summary>
@@ -100,34 +101,34 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// If Defense is enabled.
         /// </summary>
-        [DataMember(Name = "defend")]
+        [JsonProperty(PropertyName = "defend")]
         public bool Defend { get; set; }
 
         /// <summary>
         /// If Defense is pending for any of this application's servers.
         /// </summary>
-        [DataMember(Name = "defendPending")]
+        [JsonProperty(PropertyName = "defendPending")]
         public bool DefendPending { get; set; }
 
         /// <summary>
         /// Gets the group name.
         /// </summary>
-        [DataMember(Name = "group_name")]
+        [JsonProperty(PropertyName = "group_name")]
         public string GroupName { get; set; }
 
         /// <summary>
         /// Application importance.
         /// </summary>
-        [DataMember(Name = "importance")]
+        [JsonProperty(PropertyName = "importance")]
         public int? Importance { get; set; }
 
         /// <summary>
         /// Gets the language of the application, e.g., Java.
         /// </summary>
-        [DataMember(Name = "language")]
+        [JsonProperty(PropertyName = "language")]
         public string Language { get; set; }
 
-        [DataMember(Name = "last_reset")]
+        [JsonProperty(PropertyName = "last_reset")]
         private long? LastResetRawValue { get; set; }
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         public DateTime? LastReset { get; set; }
 
-        [DataMember(Name = "last_seen")]
+        [JsonProperty(PropertyName = "last_seen")]
         private long LastSeenRawValue { get; set; }
 
         /// <summary>
@@ -146,122 +147,122 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the license level of the applied; one of Enterprise, Business, Pro, Trial 
         /// </summary>
-        [DataMember(Name = "license")]
+        [JsonProperty(PropertyName = "license")]
         public ApplicationLicense License { get; set; }
 
         /// <summary>
         /// Gets a list of Contrast REST URLs for this application.
         /// </summary>
-        [DataMember(Name = "links")]
+        [JsonProperty(PropertyName = "links")]
         public List<Link> Links { get; set; }
 
         /// <summary>
         /// If this application is master.
         /// </summary>
-        [DataMember(Name = "master")]
+        [JsonProperty(PropertyName = "master")]
         public bool Master { get; set; }
 
         /// <summary>
         /// Application child modules
         /// </summary>
-        [DataMember(Name = "modules")]
+        [JsonProperty(PropertyName = "modules")]
         public List<ApplicationModule> Modules { get; set; }
 
         /// <summary>
         /// Gets the human-readable name of the web application. Note that this method will
         /// return the site name for apps that run at the root of the app.
         /// </summary>
-        [DataMember(Name="name")]
+        [JsonProperty(PropertyName="name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Application notes.
         /// </summary>
-        [DataMember(Name = "notes")]
+        [JsonProperty(PropertyName = "notes")]
         public string Notes { get; set; }
 
         /// <summary>
         /// Override url for this application.
         /// </summary>
-        [DataMember(Name = "override_url")]
+        [JsonProperty(PropertyName = "override_url")]
         public string OverrideUrl { get; set; }
 
         /// <summary>
         /// Parent application ID.
         /// </summary>
-        [DataMember(Name = "parentApplication")]
+        [JsonProperty(PropertyName = "parentApplication")]
         public string ParentApplicationId { get; set; }
 
         /// <summary>
         /// Gets the path of the web application, e.g., /AcmeApp
         /// </summary>
-        [DataMember(Name = "path")]
+        [JsonProperty(PropertyName = "path")]
         public string Path { get; set; }
 
         /// <summary>
         /// List of allowed roles.
         /// </summary>
-        [DataMember(Name = "roles")]
+        [JsonProperty(PropertyName = "roles")]
         public List<string> Roles { get; set; }
 
         /// <summary>
         /// List of application scores.
         /// </summary>
-        [DataMember(Name = "scores")]
+        [JsonProperty(PropertyName = "scores")]
         public List<Score> Scores { get; set; }
 
         /// <summary>
         /// If this application has servers without protection enabled.
         /// </summary>
-        [DataMember(Name = "serversWithoutDefend")]
+        [JsonProperty(PropertyName = "serversWithoutDefend")]
         public bool ServersWithoutDefend { get; set; }
 
         /// <summary>
         /// Application's short name.
         /// </summary>
-        [DataMember(Name = "short_name")]
+        [JsonProperty(PropertyName = "short_name")]
         public string ShortName { get; set; }
 
         /// <summary>
         /// Total LoC
         /// </summary>
-        [DataMember(Name = "size")]
+        [JsonProperty(PropertyName = "size")]
         public long? Size { get; set; }
 
         /// <summary>
         /// Total LoC shorthand.
         /// </summary>
-        [DataMember(Name = "size_shorthand")]
+        [JsonProperty(PropertyName = "size_shorthand")]
         public string SizeShorthand { get; set; }
 
         /// <summary>
         /// Application status
         /// </summary>
-        [DataMember(Name = "status")]
+        [JsonProperty(PropertyName = "status")]
         public string Stauts { get; set; }
 
         /// <summary>
         /// List of tags
         /// </summary>
-        [DataMember(Name = "tags")]
+        [JsonProperty(PropertyName = "tags")]
         public List<string> Tags { get; set; }
 
         /// <summary>
         /// Gets a list of technologies the app is using, e.g., WebForms, Spring, Applet, JSF, Flash, etc.
         /// </summary>
-        [DataMember(Name = "techs")]
+        [JsonProperty(PropertyName = "techs")]
         public List<string> Technologies { get; set; }
 
         /// <summary>
         /// Number of app modules.
         /// </summary>
-        [DataMember(Name = "total_modules")]
+        [JsonProperty(PropertyName = "total_modules")]
         public long? TotalModules { get; set; }
 
         /// <summary>
         /// Application vulnerability breakdown.
         /// </summary>
-        [DataMember(Name = "trace_breakdown")]
+        [JsonProperty(PropertyName = "trace_breakdown")]
         public TraceBreakdown TraceBreakdown { get; set; }
 
         [OnDeserialized]
@@ -273,57 +274,57 @@ namespace contrast_rest_dotnet.Model
         }
     }
 
-    [DataContract]
+    [JsonObject]
     public class ApplicationLicense
     {
         /// <summary>
         /// License end time
         /// </summary>
-        [DataMember(Name = "end")]
+        [JsonProperty(PropertyName = "end")]
         public long End { get; set; }
 
         /// <summary>
         /// Service level
         /// </summary>
-        [DataMember(Name = "level")]
+        [JsonProperty(PropertyName = "level")]
         public string Level { get; set; }
 
         /// <summary>
         /// If license is near expiration time.
         /// </summary>
-        [DataMember(Name = "near_expiration")]
+        [JsonProperty(PropertyName = "near_expiration")]
         public bool NearExpiration { get; set; }
 
         /// <summary>
         /// License start time.
         /// </summary>
-        [DataMember(Name = "start")]
+        [JsonProperty(PropertyName = "start")]
         public long Start { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class ApplicationResponse
     {
-        [DataMember(Name = "application")]
+        [JsonProperty(PropertyName = "application")]
         public ContrastApplication Application { get; set; }
 
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class ApplicationsResponse
     {
-        [DataMember(Name = "applications")]
+        [JsonProperty(PropertyName = "applications")]
         public List<ContrastApplication> Applications { get; set; }
 
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
     }
 }

@@ -29,42 +29,42 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
     /// <summary>
     /// An application library.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Library
     {
         /// <summary>
         /// Gets the ID of this library.
         /// </summary>
         [Obsolete("Not supported.")]
-        [DataMember(Name = "library_id")]
+        [JsonProperty(PropertyName = "library_id")]
         public string LibraryId { get; set; }
 
         /// <summary>
         /// Gets the filename of this library.
         /// </summary>
-        [DataMember(Name = "file_name")]
+        [JsonProperty(PropertyName = "file_name")]
         public string FileName { get; set; }
 
-        [DataMember(Name = "app_language")]
+        [JsonProperty(PropertyName = "app_language")]
         public string AppLanguage { get; set; }
 
         /// <summary>
         /// If this library is custom.
         /// </summary>
-        [DataMember(Name = "custom")]
+        [JsonProperty(PropertyName = "custom")]
         public bool Custom { get; set; }
 
         /// <summary>
         /// Gets the number of classes in this library.
         /// </summary>
-        [DataMember(Name = "class_count")]
+        [JsonProperty(PropertyName = "class_count")]
         public int ClassCount { get; set; }
 
         /// <summary>
@@ -74,66 +74,66 @@ namespace contrast_rest_dotnet.Model
 	    /// the total number of distinct classes used across all instances of the
 	    /// running application.
         /// </summary>
-        [DataMember(Name = "class_used")]
+        [JsonProperty(PropertyName = "class_used")]
         public int UsedClassCount { get; set; }
 
         /// <summary>
         /// Gets the version of this library according to the library authority
 	    /// like Maven Central or NuGet.
         /// </summary>
-        [DataMember(Name = "file_version")]
+        [JsonProperty(PropertyName = "file_version")]
         public string Version { get; set; }
 
-        [DataMember(Name = "grade")]
+        [JsonProperty(PropertyName = "grade")]
         public String Grade { get; set; }
 
         /// <summary>
         /// Library hash.
         /// </summary>
-        [DataMember(Name = "hash")]
+        [JsonProperty(PropertyName = "hash")]
         public string Hash { get; set; }
 
         /// <summary>
         /// Gets a list of Contrast REST endpoint URLs for this library.
         /// </summary>
-        [DataMember(Name = "links")]
+        [JsonProperty(PropertyName = "links")]
         public List<Link> Links { get; set; }
 
-        [DataMember(Name = "latest_release_date")]
+        [JsonProperty(PropertyName = "latest_release_date")]
         public long? LatestReleaseDate { get; set; }
 
-        [DataMember(Name = "months_outdated")]
+        [JsonProperty(PropertyName = "months_outdated")]
         public long? MonthsOutdated { get; set; }
 
-        [DataMember(Name = "release_date")]
+        [JsonProperty(PropertyName = "release_date")]
         public long? ReleaseDate { get; set; }
 
-        [DataMember(Name = "total_vulnerabilities")]
+        [JsonProperty(PropertyName = "total_vulnerabilities")]
         public long TotalVulnerabilities { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class LibraryResponse
     {
         /// <summary>
         /// Average months
         /// </summary>
-        [DataMember(Name = "averageMonths")]
+        [JsonProperty(PropertyName = "averageMonths")]
         public int? AverageMonths { get; set; }
 
         /// <summary>
         /// Average score.
         /// </summary>
-        [DataMember(Name = "averageScore")]
+        [JsonProperty(PropertyName = "averageScore")]
         public int? AverageScore { get; set; }
 
         /// <summary>
         /// Average score letter.
         /// </summary>
-        [DataMember(Name = "averageScoreLetter")]
+        [JsonProperty(PropertyName = "averageScoreLetter")]
         public string AverageScoreLetter { get; set; }
 
-        [DataMember(Name = "libraries")]
+        [JsonProperty(PropertyName = "libraries")]
         public List<Library> Libraries { get; set; }
     }
 }

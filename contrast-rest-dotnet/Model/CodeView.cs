@@ -28,55 +28,55 @@
  */
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
-    [DataContract]
+    [JsonObject]
     public class CodeView
     {
         /// <summary>
         /// List of code lines.
         /// </summary>
-        [DataMember(Name = "lines")]
+        [JsonProperty(PropertyName = "lines")]
         public List<CodeLine> Lines { get; set; }
 
         /// <summary>
         /// If the code view is nested.
         /// </summary>
-        [DataMember(Name = "nested")]
+        [JsonProperty(PropertyName = "nested")]
         public bool Nested { get; set; }
     }
     
-    [DataContract]
+    [JsonObject]
     public class CodeLine
     {
         /// <summary>
         /// Formatted fragments of code.
         /// </summary>
-        [DataMember(Name = "fragments")]
+        [JsonProperty(PropertyName = "fragments")]
         public List<LineFragment> Fragments { get; set; }
 
         /// <summary>
         /// Full line of code.
         /// </summary>
-        [DataMember(Name = "text")]
+        [JsonProperty(PropertyName = "text")]
         public string Text { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class LineFragment
     {
         /// <summary>
         /// Type of fragment.
         /// </summary>
-        [DataMember(Name = "type")]
+        [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
 
         /// <summary>
         /// Fragment content.
         /// </summary>
-        [DataMember(Name = "value")]
+        [JsonProperty(PropertyName = "value")]
         public string value { get; set; }
     }
 }

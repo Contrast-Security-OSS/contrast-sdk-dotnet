@@ -32,7 +32,7 @@ using contrast_rest_dotnet.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet
 {
@@ -65,10 +65,21 @@ namespace contrast_rest_dotnet
 
         private T GetResponseAndDeserialize<T>(string endpoint)
         {
-            using (Stream responseStream = _contrastRestClient.GetResponseStream(endpoint))
+            Stream responseStream = null;
+            try
             {
-                var deserializer = new DataContractJsonSerializer(typeof(T));
-                return (T)deserializer.ReadObject(responseStream);
+                responseStream = _contrastRestClient.GetResponseStream(endpoint);
+                using (JsonTextReader textReader = new JsonTextReader(new StreamReader(responseStream)))
+                {
+                    responseStream = null;
+                    JsonSerializer deserializer = new JsonSerializer();
+                    return (T)deserializer.Deserialize(textReader, typeof(T));
+                }
+            }
+            finally
+            {
+                if(responseStream != null)
+                    responseStream.Dispose();
             }
         }
 

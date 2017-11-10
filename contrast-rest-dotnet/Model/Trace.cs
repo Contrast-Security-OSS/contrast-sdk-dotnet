@@ -30,6 +30,7 @@
 using contrast_rest_dotnet.Serialization;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
@@ -37,73 +38,73 @@ namespace contrast_rest_dotnet.Model
     /// <summary>
     /// A vulnerability identified by Contrast.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Trace
     {
         /// <summary>
         /// Gets the unique ID for the trace.
         /// </summary>
-        [DataMember(Name = "uuid")]
+        [JsonProperty(PropertyName = "uuid")]
         public string Uuid { get; set; }
 
         /// <summary>
         /// List of application version tags
         /// </summary>
-        [DataMember(Name = "app_version_tags")]
+        [JsonProperty(PropertyName = "app_version_tags")]
         public List<string> AppVersionTags { get; set; }
 
         /// <summary>
         /// This trace Application
         /// </summary>
-        [DataMember(Name = "application")]
+        [JsonProperty(PropertyName = "application")]
         public ContrastApplication Application { get; set; }
 
         /// <summary>
         /// Period of Remediation Policy that Auto-Remediated this trace
         /// </summary>
-        [DataMember(Name = "auto_remediated_expiration_period")]
+        [JsonProperty(PropertyName = "auto_remediated_expiration_period")]
         public long? AutoRemediatedExpirationPeriod { get; set; }
 
-        [DataMember(Name = "card")]
+        [JsonProperty(PropertyName = "card")]
         public Card Card { get; set; }
 
         /// <summary>
         /// Gets this trace category
         /// </summary>
-        [DataMember(Name = "category")]
+        [JsonProperty(PropertyName = "category")]
         public string Category { get; set; }
 
         /// <summary>
         /// Gets this trace closed time
         /// </summary>
-        [DataMember(Name = "closed_time")]
+        [JsonProperty(PropertyName = "closed_time")]
         public long? ClosedTime { get; set; }
 
         /// <summary>
         /// Get this trace Confidence
         /// </summary>
-        [DataMember(Name = "confidence")]
+        [JsonProperty(PropertyName = "confidence")]
         public string Confidence { get; set; }
 
         /// <summary>
         /// Default Severity. Allowed values: NOTE, LOW, MEDIUM, HIGH, CRITICAL.
         /// </summary>
-        [DataMember(Name = "default_severity")]
+        [JsonProperty(PropertyName = "default_severity")]
         public string DefaultSeverity { get; set; }
 
         /// <summary>
         /// List of events
         /// </summary>
-        [DataMember(Name = "events")]
+        [JsonProperty(PropertyName = "events")]
         public List<TraceEvent> Events { get; set; }
 
         /// <summary>
         /// Gets this trace Evidence
         /// </summary>
-        [DataMember(Name = "evidence")]
+        [JsonProperty(PropertyName = "evidence")]
         public string Evidence { get; set; }
 
-        [DataMember(Name = "first_time_seen")]
+        [JsonProperty(PropertyName = "first_time_seen")]
         private long FirstTimeSeenRawValue { get; set; }
 
         /// <summary>
@@ -114,22 +115,22 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets whether this trace has a parent app or not.
         /// </summary>
-        [DataMember(Name = "hasParentApp")]
+        [JsonProperty(PropertyName = "hasParentApp")]
         public bool HasParentApp { get; set; }
 
         /// <summary>
         /// Gets this trace impact.
         /// </summary>
-        [DataMember(Name = "impact")]
+        [JsonProperty(PropertyName = "impact")]
         public string Impact { get; set; }
 
         /// <summary>
         /// Gets the language for the trace.
         /// </summary>
-        [DataMember(Name = "language")]
+        [JsonProperty(PropertyName = "language")]
         public string Language { get; set; }
 
-        [DataMember(Name = "last_time_seen")]
+        [JsonProperty(PropertyName = "last_time_seen")]
         private long LastTimeSeenRawValue { get; set; }
 
         /// <summary>
@@ -140,47 +141,47 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets this trace license. Allowed values: ReadOnly, Unlincensed, Licensed.
         /// </summary>
-        [DataMember(Name = "license")]
+        [JsonProperty(PropertyName = "license")]
         public string License { get; set; }
 
         /// <summary>
         /// Gets likelihood for this trace
         /// </summary>
-        [DataMember(Name = "likelihood")]
+        [JsonProperty(PropertyName = "likelihood")]
         public string Likelihood { get; set; }
 
         /// <summary>
         /// Gets a list of Contrast REST endpoint URLs for this trace.
         /// </summary>
         [Obsolete("Use the field from TraceFilterResponse object.")]
-        [DataMember(Name = "links")]
+        [JsonProperty(PropertyName = "links")]
         public List<Link> Links { get; set; }
 
         /// <summary>
         /// List of notes
         /// </summary>
-        [DataMember(Name = "notes")]
+        [JsonProperty(PropertyName = "notes")]
         public List<TraceNote> Notes { get; set; }
 
         /// <summary>
         /// Organization Name
         /// </summary>
-        [DataMember(Name = "organization_name")]
+        [JsonProperty(PropertyName = "organization_name")]
         public string OrganizationName { get; set; }
 
         /// <summary>
         /// Parent Application ID
         /// </summary>
-        [DataMember(Name = "parent_application")]
+        [JsonProperty(PropertyName = "parent_application")]
         public ContrastApplication ParentApplication { get; set; }
 
         /// <summary>
         /// Is reported to bug tacker
         /// </summary>
-        [DataMember(Name = "reported_to_bug_tracker")]
+        [JsonProperty(PropertyName = "reported_to_bug_tracker")]
         public bool ReportedToBugTracker { get; set; }
 
-        [DataMember(Name = "reported_to_bug_tracker_time")]
+        [JsonProperty(PropertyName = "reported_to_bug_tracker_time")]
         public long? ReportedToBugTrackerTimeRawValue { get; set; }
 
         /// <summary>
@@ -191,55 +192,55 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the HTTP request that caused this trace to occur.
         /// </summary>
-        [DataMember(Name = "request")]
+        [JsonProperty(PropertyName = "request")]
         public Request Request { get; set; }
 
         /// <summary>
         /// Gets the rule-name for the vulnerability.
         /// </summary>
-        [DataMember(Name = "rule_name")]
+        [JsonProperty(PropertyName = "rule_name")]
         public string RuleName { get; set; }
 
-        [DataMember(Name = "servers")]
+        [JsonProperty(PropertyName = "servers")]
         public List<Server> Servers { get; set; }
 
         /// <summary>
         /// Gets the severity of this trace.
         /// </summary>
-        [DataMember(Name = "severity")]
+        [JsonProperty(PropertyName = "severity")]
         public string Severity { get; set; }
 
         /// <summary>
         /// Gets the status of this trace, like "Reported", "Verified", "Suspicious", etc.
         /// </summary>
-        [DataMember(Name = "status")]
+        [JsonProperty(PropertyName = "status")]
         public string Status { get; set; }
 
         /// <summary>
         /// Gets the sub status of this trace
         /// </summary>
-        [DataMember(Name = "sub_status")]
+        [JsonProperty(PropertyName = "sub_status")]
         public string SubStatus { get; set; }
 
         /// <summary>
         /// Gets the sub-title of the trace.
         /// </summary>
-        [DataMember(Name = "sub_title")]
+        [JsonProperty(PropertyName = "sub_title")]
         public string SubTitle { get; set; }
 
         /// <summary>
         /// Gets the title of the trace.
         /// </summary>
-        [DataMember(Name = "title")]
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets the total traces received.
         /// </summary>
-        [DataMember(Name = "total_traces_received")]
+        [JsonProperty(PropertyName = "total_traces_received")]
         public int? TotalTracesReceived { get; set; }
 
-        [DataMember(Name = "visible")]
+        [JsonProperty(PropertyName = "visible")]
         public bool Visible { get; set; }
 
         [OnDeserialized]
@@ -251,10 +252,10 @@ namespace contrast_rest_dotnet.Model
         }
     }
 
-    [DataContract]
+    [JsonObject]
     public class TraceNote
     {
-        [DataMember(Name = "creation")]
+        [JsonProperty(PropertyName = "creation")]
         private long? CreationRawValue { get; set; }
 
         /// <summary>
@@ -265,28 +266,28 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Creator name.
         /// </summary>
-        [DataMember(Name = "creator")]
+        [JsonProperty(PropertyName = "creator")]
         public string Creator { get; set; }
 
         /// <summary>
         /// Creator UUID.
         /// </summary>
-        [DataMember(Name = "creator_uuid")]
+        [JsonProperty(PropertyName = "creator_uuid")]
         public string CreatorUUID { get; set; }
 
         /// <summary>
         /// If this note is deletable.
         /// </summary>
-        [DataMember(Name = "deletable")]
+        [JsonProperty(PropertyName = "deletable")]
         public bool Deletable { get; set; }
 
         /// <summary>
         /// Note id.
         /// </summary>
-        [DataMember(Name = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
-        [DataMember(Name = "last_modification")]
+        [JsonProperty(PropertyName = "last_modification")]
         public long? LastModificationRawValue { get; set; }
 
         /// <summary>
@@ -297,19 +298,19 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Last updater name.
         /// </summary>
-        [DataMember(Name = "last_updater")]
+        [JsonProperty(PropertyName = "last_updater")]
         public string LastUpdater { get; set; }
 
         /// <summary>
         /// Last updater UUID.
         /// </summary>
-        [DataMember(Name = "last_updater_uuid")]
+        [JsonProperty(PropertyName = "last_updater_uuid")]
         public string LastUpdaterUUID { get; set; }
 
         /// <summary>
         /// Note contents.
         /// </summary>
-        [DataMember(Name = "note")]
+        [JsonProperty(PropertyName = "note")]
         public string Note { get; set; }
 
         [OnDeserialized]
@@ -320,59 +321,59 @@ namespace contrast_rest_dotnet.Model
         }
     }
 
-    [DataContract]
+    [JsonObject]
     public class TraceFilterResponse
     {
         /// <summary>
         /// Count
         /// </summary>
-        [DataMember(Name = "count")]
+        [JsonProperty(PropertyName = "count")]
         public long Count { get; set; }
 
         /// <summary>
         /// Number of Traces from a licensed app
         /// </summary>
-        [DataMember(Name = "licensedCount")]
+        [JsonProperty(PropertyName = "licensedCount")]
         public long LicensedCount { get; set; }
 
         /// <summary>
         /// List of messages
         /// </summary>
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
         /// <summary>
         /// Indicates whether API response was successful or not
         /// </summary>
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
 
         /// <summary>
         /// List of traces
         /// </summary>
-        [DataMember(Name = "traces")]
+        [JsonProperty(PropertyName = "traces")]
         public List<Trace> Traces { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class TracesSearchResponse
     {
         /// <summary>
         /// List of messages
         /// </summary>
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
         /// <summary>
         /// Indicates whether API response was successful or not
         /// </summary>
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
 
         /// <summary>
         /// List of traces
         /// </summary>
-        [DataMember(Name = "traces")]
+        [JsonProperty(PropertyName = "traces")]
         public List<Trace> Traces { get; set; }
     }
 }

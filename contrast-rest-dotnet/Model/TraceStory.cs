@@ -29,86 +29,58 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
-    [DataContract]
+    [JsonObject]
     public class TraceStory
     {
-        [DataMember(Name = "traceId")]
+        [JsonProperty(PropertyName = "traceId")]
         public string TraceId { get; set; }
 
-        [DataMember(Name = "chapters")]
+        [JsonProperty(PropertyName = "chapters")]
         public List<Chapter> Chapters { get; set; }
 
-        [DataMember(Name = "risk")]
+        [JsonProperty(PropertyName = "risk")]
         public Snippet Risk { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class Property
     {
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "value")]
+        [JsonProperty(PropertyName = "value")]
         public string Value { get; set; }
     }
 
-    [DataContract]
-    public class Chapter
-    {
-        [DataMember(Name = "type")]
-        public String Type { get; set; }
-        
-        [DataMember(Name = "introText")]
-        public string IntroText { get; set; }
-
-        [DataMember(Name = "introTextFormat")]
-        public string IntroTextFormat { get; set; }
-
-        [DataMember(Name = "introTextVariables")]
-        public Dictionary<string,string> IntroTextVariables { get; set; }
-
-        [DataMember(Name = "body")]
-        public string Body { get; set; }
-
-        [DataMember(Name = "bodyFormat")]
-        public string BodyFormat { get; set; }
-
-        [DataMember(Name = "bodyFormatVariables")]
-        public Dictionary<string, string> BodyFormatVariables { get; set; }
-
-        [DataMember(Name = "propertyResources")]
-        public List<Property> Properties { get; set; }
-    }
-
-    [DataContract]
+    [JsonObject]
     public class TraceStoryResponse
     {
         /// <summary>
         /// Custom risk.
         /// </summary>
-        [DataMember(Name = "custom_risk")]
+        [JsonProperty(PropertyName = "custom_risk")]
         public Snippet CustomRisk { get; set; }
 
         /// <summary>
         /// List of messages.
         /// </summary>
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
         /// <summary>
         /// Trace story.
         /// </summary>
-        [DataMember(Name = "story")]
+        [JsonProperty(PropertyName = "story")]
         public TraceStory Story { get; set; }
 
         /// <summary>
         /// Indicate whether API response was successful or not.
         /// </summary>
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
     }
 }

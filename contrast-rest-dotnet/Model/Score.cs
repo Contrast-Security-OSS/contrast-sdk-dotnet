@@ -29,69 +29,69 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
-    [DataContract]
+    [JsonObject]
     public class Score
     {
         /// <summary>
         /// Grade
         /// </summary>
-        [DataMember(Name = "grade")]
+        [JsonProperty(PropertyName = "grade")]
         public int? Grade { get; set; }
 
         /// <summary>
         /// Letter grade
         /// </summary>
-        [DataMember(Name = "letter_grade")]
+        [JsonProperty(PropertyName = "letter_grade")]
         public string LetterGrade { get; set; }
 
         /// <summary>
         /// Library scoring type. Allowed values: DEFAULT, VULN
         /// </summary>
-        [DataMember(Name = "library_scoring_type")]
+        [JsonProperty(PropertyName = "library_scoring_type")]
         public string LibraryScoringType { get; set; }
 
-        [DataMember(Name = "links")]
+        [JsonProperty(PropertyName = "links")]
         public List<Link> Links { get; set; }
 
         /// <summary>
         /// Overall scoring type
         /// </summary>
-        [DataMember(Name = "overall_scoring_type")]
+        [JsonProperty(PropertyName = "overall_scoring_type")]
         public string OverallScoringType { get; set; }
 
         /// <summary>
         /// Platform score
         /// </summary>
-        [DataMember(Name = "platform")]
+        [JsonProperty(PropertyName = "platform")]
         public ScoreMetricResource Platform { get; set; }
 
         /// <summary>
         /// Security score
         /// </summary>
-        [DataMember(Name = "security")]
+        [JsonProperty(PropertyName = "security")]
         public ScoreMetricResource Security { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class ScoreMetricResource
     {
         /// <summary>
         /// Grade
         /// </summary>
-        [DataMember(Name = "grade")]
+        [JsonProperty(PropertyName = "grade")]
         public int? Grade { get; set; }
 
         /// <summary>
         /// Letter grade
         /// </summary>
-        [DataMember(Name = "letter_grade")]
+        [JsonProperty(PropertyName = "letter_grade")]
         public string LetterGrade { get; set; }
 
-        [DataMember(Name = "links")]
+        [JsonProperty(PropertyName = "links")]
         public List<Link> Links { get; set; }
     }
 }

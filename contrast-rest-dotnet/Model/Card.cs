@@ -28,48 +28,47 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
-    [DataContract]
+    [JsonObject]
     public class Card
     {
         /// <summary>
         /// Returns the body snippet as a Dictionary
         /// </summary>
-        [DataMember(Name = "body")]
+        [JsonProperty(PropertyName = "body")]
         public object Body { get; set; }
 
         /// <summary>
         /// Returns the header snippet as a Dictionary
         /// </summary>
-        [DataMember(Name = "header")]
+        [JsonProperty(PropertyName = "header")]
         public object Header { get; set; }
 
         /// <summary>
         /// Hidden status of Card.
         /// </summary>
-        [DataMember(Name = "is_hidden")]
+        [JsonProperty(PropertyName = "is_hidden")]
         public bool IsHidden { get; set; }
 
         /// <summary>
         /// Severity level of card.
         /// </summary>
-        [DataMember(Name = "severity")]
+        [JsonProperty(PropertyName = "severity")]
         public string Severity { get; set; }
 
         /// <summary>
         /// Card title.
         /// </summary>
-        [DataMember(Name = "title")]
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Trace id the card belongs to.
         /// </summary>
-        [DataMember(Name = "traceId")]
+        [JsonProperty(PropertyName = "traceId")]
         public string TraceId { get; set; }
     }
 }

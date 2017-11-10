@@ -28,81 +28,81 @@
  */
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
     /// <summary>
     /// An HTTP request associated with a trace.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Request
     {
         /// <summary>
         /// Gets the protocol of the request.
         /// </summary>
-        [DataMember(Name = "protocol")]
+        [JsonProperty(PropertyName = "protocol")]
         public string Protocol { get; set; }
 
         /// <summary>
         /// Gets the protocol version number.
         /// </summary>
-        [DataMember(Name = "version")]
+        [JsonProperty(PropertyName = "version")]
         public string Version { get; set; }
 
         /// <summary>
         /// Gets the URI of the request.
         /// </summary>
-        [DataMember(Name = "uri")]
+        [JsonProperty(PropertyName = "uri")]
         public string Uri { get; set; }
 
         /// <summary>
         /// Gets the request query string.
         /// </summary>
-        [DataMember(Name = "queryString")]
+        [JsonProperty(PropertyName = "queryString")]
         public string QueryString { get; set; }
 
         /// <summary>
         /// Gets the HTTP method for the request.
         /// </summary>
-        [DataMember(Name = "method")]
+        [JsonProperty(PropertyName = "method")]
         public string Method { get; set; }
 
         /// <summary>
         /// Gets the port the request used.
         /// </summary>
-        [DataMember(Name = "port")]
+        [JsonProperty(PropertyName = "port")]
         public int Port { get; set; }
 
         /// <summary>
         /// Gets a list of HTTP headers for the request.
         /// </summary>
-        [DataMember(Name = "headers")]
+        [JsonProperty(PropertyName = "headers")]
         public List<Header> Headers { get; set; }
 
         /// <summary>
         /// Gets a list of parameters for the request.
         /// </summary>
-        [DataMember(Name = "parameters")]
+        [JsonProperty(PropertyName = "parameters")]
         public List<Parameter> Parameters { get; set; }
 
         /// <summary>
         /// Gets a list of Contrast REST endpoint URLs for this request.
         /// </summary>
-        [DataMember(Name = "links")]
+        [JsonProperty(PropertyName = "links")]
         public List<Link> Links { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class TraceRequestResponse
     {
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
 
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
-        [DataMember(Name = "http_request")]
+        [JsonProperty(PropertyName = "http_request")]
         public Snippet HttpRequest { get; set; }
     }
 }
