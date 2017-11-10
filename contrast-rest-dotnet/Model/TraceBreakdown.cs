@@ -28,94 +28,94 @@
  */
 
 using System;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
-    [DataContract]
+    [JsonObject]
     public class TraceBreakdown
     {
         /// <summary>
         /// Number of vulnerabilities with status Confirmed
         /// </summary>
-        [DataMember(Name = "confirmed")]
+        [JsonProperty(PropertyName = "confirmed")]
         public long? Confirmed { get; set; }
 
         /// <summary>
         /// Number of critical vulnerabilities
         /// </summary>
-        [DataMember(Name = "criticals")]
+        [JsonProperty(PropertyName = "criticals")]
         public long? Criticals { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Fixed
         /// </summary>
-        [DataMember(Name = "fixed")]
+        [JsonProperty(PropertyName = "fixed")]
         public long? Fixed { get; set; }
 
         /// <summary>
         /// Number of high vulnerabilities
         /// </summary>
-        [DataMember(Name = "highs")]
+        [JsonProperty(PropertyName = "highs")]
         public long? HighVulns { get; set; }
 
         /// <summary>
         /// Number of low vulnerabilities
         /// </summary>
-        [DataMember(Name = "lows")]
+        [JsonProperty(PropertyName = "lows")]
         public long? LowVulns { get; set; }
 
         /// <summary>
         /// Number of medium vulnerabilities
         /// </summary>
-        [DataMember(Name = "meds")]
+        [JsonProperty(PropertyName = "meds")]
         public long? Mediums { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Not a problem
         /// </summary>
-        [DataMember(Name = "notProblem")]
+        [JsonProperty(PropertyName = "notProblem")]
         public long? NoProblemVulns { get; set; }
 
         /// <summary>
         /// Number of notes
         /// </summary>
-        [DataMember(Name = "notes")]
+        [JsonProperty(PropertyName = "notes")]
         public long? notes { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Remediated
         /// </summary>
-        [DataMember(Name = "remediated")]
+        [JsonProperty(PropertyName = "remediated")]
         public long? Remediated { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Reported
         /// </summary>
-        [DataMember(Name = "reported")]
+        [JsonProperty(PropertyName = "reported")]
         public long? Reported { get; set; }
         /// <summary>
         /// Number of vulnerabilities marked safe
         /// </summary>
-        [DataMember(Name = "safes")]
+        [JsonProperty(PropertyName = "safes")]
         public long? SafeVulns { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Suspicious
         /// </summary>
-        [DataMember(Name = "suspicious")]
+        [JsonProperty(PropertyName = "suspicious")]
         public long? Suspicious { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities
         /// </summary>
-        [DataMember(Name = "traces")]
+        [JsonProperty(PropertyName = "traces")]
         public long? Traces { get; set; }
 
         /// <summary>
         /// Number of triaged vulnerabilities
         /// </summary>
-        [DataMember(Name = "triaged")]
+        [JsonProperty(PropertyName = "triaged")]
         public long? Triaged { get; set; }
     }
 }

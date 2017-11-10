@@ -29,65 +29,62 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
     /// <summary>
     /// A profile for agent downloads containing specifics for TeamServer URL, proxy settings, etc.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Profile
     {
         /// <summary>
         /// Gets the name of the profile.
         /// </summary>
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets the sampling baseline.
         /// </summary>
-        [DataMember(Name = "samplingBaseline")]
+        [JsonProperty(PropertyName = "samplingBaseline")]
         public int SamplingBaseline { get; set; }
 
         /// <summary>
         /// Gets the sampling window.
         /// </summary>
-        [DataMember(Name = "samplingWindow")]
+        [JsonProperty(PropertyName = "samplingWindow")]
         public int SamplingWindow { get; set; }
 
         /// <summary>
         /// Gets the sampling frequency.
         /// </summary>
-        [DataMember(Name = "samplingFrequency")]
+        [JsonProperty(PropertyName = "samplingFrequency")]
         public int SamplingFrequency { get; set; }
 
         /// <summary>
         /// Gets the stack trace capture mode.
         /// </summary>
-        [DataMember(Name = "stacktraceCaptureMode")]
+        [JsonProperty(PropertyName = "stacktraceCaptureMode")]
         public string StackTraceCaptureMode { get; set; }
 
         /// <summary>
         /// Gets whether this agent will use a proxy.
         /// </summary>
-        [DataMember(Name = "useProxy")]
+        [JsonProperty(PropertyName = "useProxy")]
         public bool UseProxy { get; set; }
 
         /// <summary>
         /// Gets the TeamServerUrl.
         /// </summary>
-        [DataMember(Name = "overrideTeamServerUrl")]
+        [JsonProperty(PropertyName = "overrideTeamServerUrl")]
         public bool OverrideTeamServerUrl { get; set; }
 
         /// <summary>
         /// Gets a list of Contrast REST endpoint URLs for this profile.
         /// </summary>
-        [DataMember(Name = "links")]
+        [JsonProperty(PropertyName = "links")]
         public List<Link> Links { get; set; }
     }
 }

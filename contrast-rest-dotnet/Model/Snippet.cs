@@ -28,20 +28,20 @@
  */
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
-    [DataContract]
+    [JsonObject]
     public class Snippet
     {
-        [DataMember(Name = "text")]
+        [JsonProperty(PropertyName = "text")]
         public string Text { get; set; }
 
-        [DataMember(Name = "formattedText")]
+        [JsonProperty(PropertyName = "formattedText")]
         public string FormattedText { get; set; }
 
-        [DataMember(Name = "formattedTextVariables")]
+        [JsonProperty(PropertyName = "formattedTextVariables")]
         public Dictionary<string, string> FormattedTextVariables { get; set; }
     }
 }

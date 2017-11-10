@@ -8,6 +8,9 @@ This library is also provided as a nuget package: https://www.nuget.org/packages
 
 Please see http://www.contrastsecurity.com for more information about how Contrast can help secure your applications.
 
+## Dependencies
+* Newtonsoft.Json
+
 
 ## Contrast TeamServer API Credentials
 To access the TeamServer API, you'll first need access to TeamServer - either SAAS (https://app.contrastsecurity.com/Contrast/login.html) or an on-premises installation of TeamServer.

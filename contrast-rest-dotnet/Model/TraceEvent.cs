@@ -28,7 +28,7 @@
  */
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
@@ -36,129 +36,129 @@ namespace contrast_rest_dotnet.Model
     /// A collection of TraceEvents make up a vulnerability, or, "trace". They
     /// represent a method invocation that Contrast monitored.
     /// </summary>
-    [DataContract(Name="Event")]
+    [JsonObject]
     public class TraceEvent
     {
         /// <summary>
         /// Gets the event ID.
         /// </summary>
-        [DataMember(Name="eventId")]
+        [JsonProperty(PropertyName="eventId")]
         public string EventId { get; set; }
 
         /// <summary>
         /// Gets the event type.
         /// </summary>
-        [DataMember(Name = "type")]
+        [JsonProperty(PropertyName = "type")]
         public string EventType { get; set; }
 
         /// <summary>
         /// Gets the code context for the event.
         /// </summary>
-        [DataMember(Name = "codeContext")]
+        [JsonProperty(PropertyName = "codeContext")]
         public object CodeContext { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class TraceEventSummary
     {
         /// <summary>
         /// Raw code creation.
         /// </summary>
-        [DataMember(Name = "codeView")]
+        [JsonProperty(PropertyName = "codeView")]
         public CodeView CodeView { get; set; }
 
         /// <summary>
         /// List of collapsed events
         /// </summary>
-        [DataMember(Name = "collapsedEvents")]
+        [JsonProperty(PropertyName = "collapsedEvents")]
         public List<TraceEventSummary> CollapsedEvents { get; set; }
 
         /// <summary>
         /// Data snapshot
         /// </summary>
-        [DataMember(Name = "dataView")]
+        [JsonProperty(PropertyName = "dataView")]
         public CodeView DataView { get; set; }
 
         /// <summary>
         /// Event description
         /// </summary>
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Number of duplicated events collapsed.
         /// </summary>
-        [DataMember(Name = "dupes")]
+        [JsonProperty(PropertyName = "dupes")]
         public int? Dupes { get; set; }
 
         /// <summary>
         /// Event extra details.
         /// </summary>
-        [DataMember(Name = "extraDetails")]
+        [JsonProperty(PropertyName = "extraDetails")]
         public string ExtraDetails { get; set; }
 
         /// <summary>
         /// Event id.
         /// </summary>
-        [DataMember(Name = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// If this event is important.
         /// </summary>
-        [DataMember(Name = "important")]
+        [JsonProperty(PropertyName = "important")]
         public bool Important { get; set; }
 
         /// <summary>
         /// Probable start location/
         /// </summary>
-        [DataMember(Name = "probableStartLocation")]
+        [JsonProperty(PropertyName = "probableStartLocation")]
         public CodeView ProbableStartLocation { get; set; }
 
         /// <summary>
         /// Event type.
         /// </summary>
-        [DataMember(Name = "type")]
+        [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class TraceEventSummaryResponse
     {
         /// <summary>
         /// List of events
         /// </summary>
-        [DataMember(Name = "events")]
+        [JsonProperty(PropertyName = "events")]
         public List<TraceEventSummary> Events { get; set; }
 
         /// <summary>
         /// Evidence
         /// </summary>
-        [DataMember(Name = "evidence")]
+        [JsonProperty(PropertyName = "evidence")]
         public string Evidence { get; set; }
 
         /// <summary>
         /// List of messages
         /// </summary>
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
         /// <summary>
         /// If events are shown.
         /// </summary>
-        [DataMember(Name = "showEvents")]
+        [JsonProperty(PropertyName = "showEvents")]
         public bool ShowEvents { get; set; }
 
         /// <summary>
         /// If evidence is shown.
         /// </summary>
-        [DataMember(Name = "showEvidence")]
+        [JsonProperty(PropertyName = "showEvidence")]
         public bool ShowEvidence { get; set; }
 
         /// <summary>
         /// Indicates whether API response was successful or not
         /// </summary>
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
     }
 }

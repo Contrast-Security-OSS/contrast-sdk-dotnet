@@ -27,26 +27,26 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
     /// <summary>
     /// The name=value pair for HTTP request parameters.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Parameter
     {
         /// <summary>
         /// Gets the name of the parameter.
         /// </summary>
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets the value of the parameter.
         /// </summary>
-        [DataMember(Name = "value")]
+        [JsonProperty(PropertyName = "value")]
         public string Value { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2015, Contrast Security, Inc.
+ * Copyright (c) 2017, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -27,26 +27,55 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace contrast_rest_dotnet.Model
 {
-    /// <summary>
-    /// Name=value pair for HTTP headers.
-    /// </summary>
-    [JsonObject]
-    public class Header
+    public enum ChapterType
     {
-        /// <summary>
-        /// Gets the name of the header.
-        /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
+        recreation,
+        location,
+        configuration,
+        dataflow,
+        outcome,
+        properties,
+        request,
+        risk,
+        source
+    }
 
-        /// <summary>
-        /// Gets the value of the header.
-        /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        public string Value { get; set; }
+    [JsonObject]
+    public class Chapter
+    {
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty(PropertyName = "type")]
+        public ChapterType Type { get; set; }
+
+        [JsonProperty(PropertyName = "introText")]
+        public string IntroText { get; set; }
+
+        [JsonProperty(PropertyName = "introTextFormat")]
+        public string IntroTextFormat { get; set; }
+
+        [JsonProperty(PropertyName = "introTextVariables")]
+        public Dictionary<string, string> IntroTextVariables { get; set; }
+
+        [JsonProperty(PropertyName = "body")]
+        public string Body { get; set; }
+
+        [JsonProperty(PropertyName = "bodyFormat")]
+        public string BodyFormat { get; set; }
+
+        [JsonProperty(PropertyName = "bodyFormatVariables")]
+        public Dictionary<string, string> BodyFormatVariables { get; set; }
+
+        [JsonProperty(PropertyName = "properties")]
+        public Dictionary<string, Property> Properties { get; set; }
+
+        [JsonProperty(PropertyName = "vector")]
+        private string Vector { get; set; }
     }
 }

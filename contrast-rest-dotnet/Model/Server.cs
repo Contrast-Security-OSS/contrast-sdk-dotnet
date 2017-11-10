@@ -30,6 +30,7 @@
 using contrast_rest_dotnet.Serialization;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
@@ -37,227 +38,214 @@ namespace contrast_rest_dotnet.Model
     /// <summary>
     /// A server with the contrast agent installed.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Server
     {
         /// <summary>
         /// Agent version
         /// </summary>
-        [DataMember(Name = "agent_version")]
+        [JsonProperty(PropertyName = "agent_version")]
         public string AgentVersion { get; set; }
 
         /// <summary>
         /// Return the list of applications in this server.
         /// </summary>
-        [DataMember(Name = "applications")]
+        [JsonProperty(PropertyName = "applications")]
         public List<ContrastApplication> Applications { get; set; }
 
         /// <summary>
         /// If this server has assess enabled.
         /// </summary>
-        [DataMember(Name = "assess")]
+        [JsonProperty(PropertyName = "assess")]
         public bool Assess { get; set; }
 
         /// <summary>
         /// If the server is changing Assess on restart.
         /// </summary>
-        [DataMember(Name = "assessPending")]
+        [JsonProperty(PropertyName = "assessPending")]
         public bool AssessPending { get; set; }
-
-        [DataMember(Name = "assess_last_update")]
-        private long? AssessLastUpdateRawValue { get; set; }
 
         /// <summary>
         /// Last assess change time.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "assess_last_update")]
         public DateTime? AssessLastUpdate { get; set; }
 
         /// <summary>
         /// If the assess sensors are active.
         /// </summary>
-        [DataMember(Name = "assess_sensonrs")]
+        [JsonProperty(PropertyName = "assess_sensonrs")]
         public bool AssessSensors { get; set; }
 
         /// <summary>
         /// Container
         /// </summary>
-        [DataMember(Name = "container")]
+        [JsonProperty(PropertyName = "container")]
         public string Container { get; set; }
 
         /// <summary>
         /// If server has Defend.
         /// </summary>
-        [DataMember(Name = "defend")]
+        [JsonProperty(PropertyName = "defend")]
         public bool Defend { get; set; }
 
         /// <summary>
         /// If server is changing Defend on restart.
         /// </summary>
-        [DataMember(Name = "defendPending")]
+        [JsonProperty(PropertyName = "defendPending")]
         public bool DefendPending { get; set; }
 
         /// <summary>
         /// If server has defend sensors active.
         /// </summary>
-        [DataMember(Name = "defend_sensors")]
+        [JsonProperty(PropertyName = "defend_sensors")]
         public bool DefendSensors { get; set; }
-
-        [DataMember(Name = "defense_last_update")]
-        private long? DefenseLastUpdateRawValue { get; set; }
 
         /// <summary>
         /// Last defense change time.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "defense_last_update")]
         public DateTime? DefenseLastUpdate { get; set; }
 
         /// <summary>
         /// Server environment. Allowed values: DEVELOPMENT, QA, PRODUCTION.
         /// </summary>
-        [DataMember(Name = "environment")]
+        [JsonProperty(PropertyName = "environment")]
         public string Environment { get; set; }
 
         /// <summary>
         /// Gets the hostname of this server.
         /// </summary>
-        [DataMember(Name = "hostname")]
+        [JsonProperty(PropertyName = "hostname")]
         public string Hostname { get; set; }
-
-        [DataMember(Name = "lastActivity")]
-        private long LastActivityRawValue { get; set; }
 
         /// <summary>
         /// Gets the last time any activity was received from this server.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "lastActivity")]
         public DateTime? LastActivity { get; set; }
-
-        [DataMember(Name = "last_startup")]
-        private long LastStartupRawValue { get; set; }
 
         /// <summary>
         /// Gets the last time this server was started or restarted.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "last_startup")]
         public DateTime? LastStartup{ get; set; }
 
         /// <summary>
         /// If server s changing Log Enhancers on restart.
         /// </summary>
-        [DataMember(Name = "logEnhancerPending")]
+        [JsonProperty(PropertyName = "logEnhancerPending")]
         public bool LogEnhancerPending { get; set; }
 
         /// <summary>
         /// Security log level.
         /// </summary>
-        [DataMember(Name = "logLevel")]
+        [JsonProperty(PropertyName = "logLevel")]
         public string LogLevel { get; set; }
 
         /// <summary>
         /// Log path
         /// </summary>
-        [DataMember(Name = "logPath")]
+        [JsonProperty(PropertyName = "logPath")]
         public string LogPath { get; set; }
 
         /// <summary>
         /// Server name
         /// </summary>
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// If server is changing any settings on restart.
         /// </summary>
-        [DataMember(Name = "noPending")]
+        [JsonProperty(PropertyName = "noPending")]
         public bool NoPending { get; set; }
 
         /// <summary>
         /// Number of applications on server.
         /// </summary>
-        [DataMember(Name = "num_apps")]
+        [JsonProperty(PropertyName = "num_apps")]
         public long? TotalApps { get; set; }
 
         /// <summary>
         /// If the agent on this server is out of date.
         /// </summary>
-        [DataMember(Name = "out_of_date")]
+        [JsonProperty(PropertyName = "out_of_date")]
         public bool OutOfDate { get; set; }
 
         /// <summary>
         /// Server path
         /// </summary>
-        [DataMember(Name = "path")]
+        [JsonProperty(PropertyName = "path")]
         public string Path { get; set; }
 
         /// <summary>
         /// Gets the ID for the server.
         /// </summary>
-        [DataMember(Name = "server_id")]
+        [JsonProperty(PropertyName = "server_id")]
         public long ServerId { get; set; }
 
         /// <summary>
         /// Server status. Allowed values: ONLINE, OFFLINE.
         /// </summary>
-        [DataMember(Name = "status")]
+        [JsonProperty(PropertyName = "status")]
         public string Status { get; set; }
 
         /// <summary>
         /// If Syslog is enabled.
         /// </summary>
-        [DataMember(Name = "syslog_enabled")]
+        [JsonProperty(PropertyName = "syslog_enabled")]
         public bool SyslogEnabled { get; set; }
 
         /// <summary>
         /// Syslog IP adress.
         /// </summary>
-        [DataMember(Name = "syslog_ip_address")]
+        [JsonProperty(PropertyName = "syslog_ip_address")]
         public string SyslogIpAddress { get; set; }
 
         /// <summary>
         /// List of tags.
         /// </summary>
-        [DataMember(Name = "tags")]
+        [JsonProperty(PropertyName = "tags")]
         public List<string> Tags { get; set; }
 
         /// <summary>
         /// Get this server's type.
         /// </summary>
-        [DataMember(Name = "type")]
+        [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            AssessLastUpdate = DateTimeConverter.ConvertToDateTime(AssessLastUpdateRawValue);
-            DefenseLastUpdate = DateTimeConverter.ConvertToDateTime(DefenseLastUpdateRawValue);
-            LastStartup = DateTimeConverter.ConvertToDateTime(LastStartupRawValue);
-            LastActivity = DateTimeConverter.ConvertToDateTime(LastActivityRawValue);
-        }
     }
 
-    [DataContract]
+    [JsonObject]
     public class ServerResponse
     {
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
-        [DataMember(Name = "server")]
+        [JsonProperty(PropertyName = "server")]
         public Server Server { get; set; }
 
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class ServersResponse
     {
-        [DataMember(Name = "count")]
+        [JsonProperty(PropertyName = "count")]
         public long Count { get; set; }
 
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
-        [DataMember(Name = "servers")]
+        [JsonProperty(PropertyName = "servers")]
         public List<Server> Servers { get; set; }
 
-        [DataMember(Name = "success")]
+        [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
     }
 }

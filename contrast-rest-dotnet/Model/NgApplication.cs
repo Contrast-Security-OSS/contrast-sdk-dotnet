@@ -28,53 +28,53 @@
  */
 
 using System;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
-    [DataContract]
+    [JsonObject]
     public class ApplicationModule
     {
         /// <summary>
         /// Application id.
         /// </summary>
-        [DataMember(Name = "app_id")]
+        [JsonProperty(PropertyName = "app_id")]
         public string AppId { get; set; }
 
         /// <summary>
         /// If the application is archived.
         /// </summary>
-        [DataMember(Name = "archived")]
+        [JsonProperty(PropertyName = "archived")]
         public bool Archived { get; set; }
 
         /// <summary>
         /// Service level. Allowed values: Unlicensed, Enterprise.
         /// </summary>
-        [DataMember(Name = "level")]
+        [JsonProperty(PropertyName = "level")]
         public string Level { get; set; }
 
         /// <summary>
         /// Application name.
         /// </summary>
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Application path.
         /// </summary>
-        [DataMember(Name = "path")]
+        [JsonProperty(PropertyName = "path")]
         public string Path { get; set; }
 
         /// <summary>
         /// Total LoC shorthand.
         /// </summary>
-        [DataMember(Name = "size_shorthand")]
+        [JsonProperty(PropertyName = "size_shorthand")]
         public string SizeShorthand { get; set; }
 
         /// <summary>
         /// Short name.
         /// </summary>
-        [DataMember(Name = "short_name")]
+        [JsonProperty(PropertyName = "short_name")]
         public string ShortName { get; set; }
     }
 }

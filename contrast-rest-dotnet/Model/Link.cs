@@ -27,32 +27,32 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
     /// <summary>
     /// A link containing a URL to a Contrast REST endpoint.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Link
     {
         /// <summary>
         /// Gets the name of the endpoint.
         /// </summary>
-        [DataMember(Name="rel")]
+        [JsonProperty(PropertyName="rel")]
         public string Rel { get; set; }
 
         /// <summary>
         /// Gets the REST endpoint URL.
         /// </summary>
-        [DataMember(Name = "href")]
+        [JsonProperty(PropertyName = "href")]
         public string Href { get; set; }
 
         /// <summary>
         /// Get the request method.
         /// </summary>
-        [DataMember(Name = "method")]
+        [JsonProperty(PropertyName = "method")]
         public string Method { get; set; }
     }
 }

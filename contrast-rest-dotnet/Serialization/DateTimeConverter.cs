@@ -33,19 +33,18 @@ namespace contrast_rest_dotnet.Serialization
 {
     public static class DateTimeConverter 
     {
-        private static DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly long epochMilliseconds = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks / TimeSpan.TicksPerMillisecond;
 
         /// <summary>
         /// Converts a Unix time (or epoch) representation to a DateTime object with UTC timezone.
         /// </summary>
         /// <param name="epochTime">Unix time in milliseconds.</param>
         /// <returns>A DateTime object for the given time.</returns>
-        public static DateTime? ConvertToDateTime(long? epochTime)
+        public static DateTime ConvertFromEpochTime(long epochTime)
         {
-            if (epochTime != null)
-                return _epoch.AddMilliseconds((long)epochTime);
-            else
-                return null;
+            long totalTicks = (epochMilliseconds + epochTime) * TimeSpan.TicksPerMillisecond;
+
+            return new DateTime(totalTicks, DateTimeKind.Utc);
         }
 
         /// <summary>
@@ -53,13 +52,21 @@ namespace contrast_rest_dotnet.Serialization
         /// </summary>
         /// <param name="dateTime">DateTime object to be converted.</param>
         /// <returns>A milliseconds representation of Unix time.</returns>
-        public static long? ConvertToUnixTime(DateTime? dateTime)
+        public static long ConvertToEpochTime(DateTime dateTime)
         {
-            if (dateTime == null)
-                return null;
+            double mSecs = (dateTime.ToUniversalTime().Ticks / TimeSpan.TicksPerMillisecond) - epochMilliseconds;
+            long result;
 
-            TimeSpan difference = dateTime.Value.ToUniversalTime() - _epoch;
-            return Convert.ToInt64(Math.Floor(difference.TotalMilliseconds));
+            try
+            {
+                result = Convert.ToInt64(mSecs);
+            }
+            catch (OverflowException)
+            {
+                result = mSecs > 0 ? Int64.MaxValue : Int64.MinValue;
+            }
+
+            return result;
         }
     }
 }

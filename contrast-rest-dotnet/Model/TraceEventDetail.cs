@@ -28,107 +28,107 @@
  */
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
-    [DataContract]
+    [JsonObject]
     public class TraceEventDetail
     {
         /// <summary>
         /// [Optional] Class name
         /// </summary>
-        [DataMember(Name = "class")]
+        [JsonProperty(PropertyName = "class")]
         public string ClassName { get; set; }
 
         /// <summary>
         /// Last custom frame.
         /// </summary>
-        [DataMember(Name = "lastCustomFrame")]
+        [JsonProperty(PropertyName = "lastCustomFrame")]
         public long? LastCustomFrame { get; set; }
 
         /// <summary>
         /// [Optional] Method
         /// </summary>
-        [DataMember(Name = "method")]
+        [JsonProperty(PropertyName = "method")]
         public string Method { get; set; }
 
         /// <summary>
         /// [Optional] Object
         /// </summary>
-        [DataMember(Name = "object")]
+        [JsonProperty(PropertyName = "object")]
         public string Object { get; set; }
 
         /// <summary>
         /// If the object is being tracked.
         /// </summary>
-        [DataMember(Name = "objectTracked")]
+        [JsonProperty(PropertyName = "objectTracked")]
         public bool ObjectTracked { get; set; }
 
         /// <summary>
         /// List of parameters
         /// </summary>
-        [DataMember(Name = "parameters")]
+        [JsonProperty(PropertyName = "parameters")]
         public List<EventParameter> Parameters { get; set; }
 
         /// <summary>
         /// If the return is tracked.
         /// </summary>
-        [DataMember(Name = "returnTracked")]
+        [JsonProperty(PropertyName = "returnTracked")]
         public bool ReturnTracked { get; set; }
 
         /// <summary>
         /// [Optional] Return value.
         /// </summary>
-        [DataMember(Name = "returnValue")]
+        [JsonProperty(PropertyName = "returnValue")]
         public string ReturnValue { get; set; }
 
         /// <summary>
         /// List of stack traces.
         /// </summary>
-        [DataMember(Name = "stacktraces")]
+        [JsonProperty(PropertyName = "stacktraces")]
         public List<Stacktrace> StackTraces { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class EventParameter
     {
-        [DataMember(Name = "parameter")]
+        [JsonProperty(PropertyName = "parameter")]
         public string Parameter { get; set; }
 
-        [DataMember(Name = "tracked")]
+        [JsonProperty(PropertyName = "tracked")]
         public bool Tracked { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class Stacktrace
     {
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
-        [DataMember(Name = "type")]
+        [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
     }
 
-    [DataContract]
+    [JsonObject]
     public class TraceEventDetailResponse
     {
         /// <summary>
         /// Event
         /// </summary>
-        [DataMember(Name = "event")]
+        [JsonProperty(PropertyName = "event")]
         public TraceEventDetail Event { get; set; }
 
         /// <summary>
         /// List of messges
         /// </summary>
-        [DataMember(Name = "messages")]
+        [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }
 
         /// <summary>
         /// Indicates whether API response was successful or not
         /// </summary>
-        [DataMember(Name = "succes")]
+        [JsonProperty(PropertyName = "succes")]
         public bool Success { get; set; }
     }
 }

@@ -102,10 +102,10 @@ namespace contrast_rest_dotnet.Http
                 filters.Add("expand=" + String.Join(",", Expand));
 
             if (StartDate != null)
-                filters.Add("startDate=" + DateTimeConverter.ConvertToUnixTime(StartDate));
+                filters.Add("startDate=" + DateTimeConverter.ConvertToEpochTime(StartDate.Value));
 
             if(EndDate != null)
-                filters.Add("endDate=" + DateTimeConverter.ConvertToUnixTime(EndDate));
+                filters.Add("endDate=" + DateTimeConverter.ConvertToEpochTime(EndDate.Value));
 
             if (FilterTags != null && FilterTags.Count > 0)
                 filters.Add("filterTags=" + String.Join(",", FilterTags));
