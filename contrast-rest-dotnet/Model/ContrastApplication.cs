@@ -90,12 +90,11 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "code_shorthand")]
         public string CodeShorthand { get; set; }
 
-        [JsonProperty(PropertyName = "created")]
-        public long? CreatedRawValue { get; set; }
-
         /// <summary>
         /// Time it was created.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "created")]
         public DateTime? Created { get; set; }
 
         /// <summary>
@@ -128,20 +127,18 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "language")]
         public string Language { get; set; }
 
-        [JsonProperty(PropertyName = "last_reset")]
-        private long? LastResetRawValue { get; set; }
-
         /// <summary>
         /// Time last reset.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "last_reset")]
         public DateTime? LastReset { get; set; }
-
-        [JsonProperty(PropertyName = "last_seen")]
-        private long LastSeenRawValue { get; set; }
 
         /// <summary>
         /// Return the time the application was last monitored by Contrast.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "last_seen")]
         public DateTime? LastSeen { get; set; }
 
         /// <summary>
@@ -264,14 +261,6 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [JsonProperty(PropertyName = "trace_breakdown")]
         public TraceBreakdown TraceBreakdown { get; set; }
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Created = DateTimeConverter.ConvertToDateTime(CreatedRawValue);
-            LastReset = DateTimeConverter.ConvertToDateTime(LastResetRawValue);
-            LastSeen = DateTimeConverter.ConvertToDateTime(LastSeenRawValue);
-        }
     }
 
     [JsonObject]

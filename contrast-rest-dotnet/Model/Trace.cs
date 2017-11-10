@@ -104,12 +104,11 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "evidence")]
         public string Evidence { get; set; }
 
-        [JsonProperty(PropertyName = "first_time_seen")]
-        private long FirstTimeSeenRawValue { get; set; }
-
         /// <summary>
         /// Time first seen
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "first_time_seen")]
         public DateTime? FirstTimeSeen { get; set; }
 
         /// <summary>
@@ -130,12 +129,11 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "language")]
         public string Language { get; set; }
 
-        [JsonProperty(PropertyName = "last_time_seen")]
-        private long LastTimeSeenRawValue { get; set; }
-
         /// <summary>
         /// Gets the last time the trace was reported.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "last_time_seen")]
         public DateTime? LastTimeSeen { get; set; }
 
         /// <summary>
@@ -181,12 +179,11 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "reported_to_bug_tracker")]
         public bool ReportedToBugTracker { get; set; }
 
-        [JsonProperty(PropertyName = "reported_to_bug_tracker_time")]
-        public long? ReportedToBugTrackerTimeRawValue { get; set; }
-
         /// <summary>
         /// Time reported to bug tracker
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "reported_to_bug_tracker_time")]
         public DateTime? ReportedToBugTrackerTime { get; set; }
 
         /// <summary>
@@ -242,25 +239,16 @@ namespace contrast_rest_dotnet.Model
 
         [JsonProperty(PropertyName = "visible")]
         public bool Visible { get; set; }
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            LastTimeSeen = DateTimeConverter.ConvertToDateTime(LastTimeSeenRawValue);
-            FirstTimeSeen = DateTimeConverter.ConvertToDateTime(FirstTimeSeenRawValue);
-            ReportedToBugTrackerTime = DateTimeConverter.ConvertToDateTime(ReportedToBugTrackerTimeRawValue);
-        }
     }
 
     [JsonObject]
     public class TraceNote
     {
-        [JsonProperty(PropertyName = "creation")]
-        private long? CreationRawValue { get; set; }
-
         /// <summary>
         /// Creation time.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "creation")]
         public DateTime? Creation { get; set; }
 
         /// <summary>
@@ -287,12 +275,11 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
-        [JsonProperty(PropertyName = "last_modification")]
-        public long? LastModificationRawValue { get; set; }
-
         /// <summary>
         /// Last modification time.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "last_modification")]
         public DateTime? LastModification { get; set; }
 
         /// <summary>
@@ -312,13 +299,6 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [JsonProperty(PropertyName = "note")]
         public string Note { get; set; }
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Creation = DateTimeConverter.ConvertToDateTime(CreationRawValue);
-            LastModification = DateTimeConverter.ConvertToDateTime(LastModificationRawValue);
-        }
     }
 
     [JsonObject]

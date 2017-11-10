@@ -87,6 +87,7 @@
     <Compile Include="Model\Trace.cs" />
     <Compile Include="Model\Parameter.cs" />
     <Compile Include="Serialization\DateTimeConverter.cs" />
+    <Compile Include="Serialization\EpochDateTimeConverter.cs" />
     <Compile Include="TeamServerClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

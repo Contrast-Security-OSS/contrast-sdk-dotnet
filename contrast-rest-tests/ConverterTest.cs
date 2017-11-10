@@ -42,14 +42,14 @@ namespace sdk_tests
         [TestMethod]
         public void TestUnixTimeToDateTime()
         {
-            DateTime output = (DateTime) DateTimeConverter.ConvertToDateTime(TEST_TIME);
+            DateTime output = DateTimeConverter.ConvertFromEpochTime(TEST_TIME);
             Assert.AreEqual(TEST_DATE, output);
         }
 
         [TestMethod]
         public void TestDateTimeToUnixTime()
         {
-            long output = (long) DateTimeConverter.ConvertToUnixTime(TEST_DATE);
+            long output = DateTimeConverter.ConvertToEpochTime(TEST_DATE);
             Assert.AreEqual(TEST_TIME, output);
         }
     }

@@ -30,6 +30,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace contrast_rest_dotnet.Model
 {
@@ -49,6 +50,7 @@ namespace contrast_rest_dotnet.Model
     [JsonObject]
     public class Chapter
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty(PropertyName = "type")]
         public ChapterType Type { get; set; }
 

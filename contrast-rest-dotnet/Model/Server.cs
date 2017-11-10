@@ -65,12 +65,11 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "assessPending")]
         public bool AssessPending { get; set; }
 
-        [JsonProperty(PropertyName = "assess_last_update")]
-        private long? AssessLastUpdateRawValue { get; set; }
-
         /// <summary>
         /// Last assess change time.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "assess_last_update")]
         public DateTime? AssessLastUpdate { get; set; }
 
         /// <summary>
@@ -103,12 +102,11 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "defend_sensors")]
         public bool DefendSensors { get; set; }
 
-        [JsonProperty(PropertyName = "defense_last_update")]
-        private long? DefenseLastUpdateRawValue { get; set; }
-
         /// <summary>
         /// Last defense change time.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "defense_last_update")]
         public DateTime? DefenseLastUpdate { get; set; }
 
         /// <summary>
@@ -123,20 +121,18 @@ namespace contrast_rest_dotnet.Model
         [JsonProperty(PropertyName = "hostname")]
         public string Hostname { get; set; }
 
-        [JsonProperty(PropertyName = "lastActivity")]
-        private long LastActivityRawValue { get; set; }
-
         /// <summary>
         /// Gets the last time any activity was received from this server.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "lastActivity")]
         public DateTime? LastActivity { get; set; }
-
-        [JsonProperty(PropertyName = "last_startup")]
-        private long LastStartupRawValue { get; set; }
 
         /// <summary>
         /// Gets the last time this server was started or restarted.
         /// </summary>
+        [JsonConverter(typeof(EpochDateTimeConverter))]
+        [JsonProperty(PropertyName = "last_startup")]
         public DateTime? LastStartup{ get; set; }
 
         /// <summary>
@@ -222,15 +218,6 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            AssessLastUpdate = DateTimeConverter.ConvertToDateTime(AssessLastUpdateRawValue);
-            DefenseLastUpdate = DateTimeConverter.ConvertToDateTime(DefenseLastUpdateRawValue);
-            LastStartup = DateTimeConverter.ConvertToDateTime(LastStartupRawValue);
-            LastActivity = DateTimeConverter.ConvertToDateTime(LastActivityRawValue);
-        }
     }
 
     [JsonObject]

@@ -418,7 +418,7 @@ namespace sdk_tests
                                       ]
                                     }";
 
-            DateTime expectedDate = new DateTime(1970, 1, 1).AddMilliseconds(1461239904769);
+            DateTime expectedDate = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(1461239904769);
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/orgtraces/filter")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
