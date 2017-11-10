@@ -65,7 +65,7 @@ namespace sdk_tests
         {
             TraceFilter filter = new TraceFilter();
             filter.Offset = 0;
-            filter.StartDate = new DateTime();
+            filter.StartDate = DateTime.Now;
             filter.Urls = new List<string>();
             filter.Urls.Add("http://dummytest");
             filter.Sort = "any";

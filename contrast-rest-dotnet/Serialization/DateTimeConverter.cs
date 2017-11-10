@@ -31,11 +31,16 @@ using System;
 
 namespace contrast_rest_dotnet.Serialization
 {
-    internal static class MicrosecondDateTimeConverter 
+    public static class DateTimeConverter 
     {
         private static DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        internal static DateTime? ConvertFromEpochTime(long? epochTime)
+        /// <summary>
+        /// Converts a Unix time (or epoch) representation to a DateTime object with UTC timezone.
+        /// </summary>
+        /// <param name="epochTime">Unix time in milliseconds.</param>
+        /// <returns>A DateTime object for the given time.</returns>
+        public static DateTime? ConvertToDateTime(long? epochTime)
         {
             if (epochTime != null)
                 return _epoch.AddMilliseconds((long)epochTime);
@@ -43,11 +48,18 @@ namespace contrast_rest_dotnet.Serialization
                 return null;
         }
 
-        internal static long? ConvertFromDateTime(DateTime? dateTime)
+        /// <summary>
+        /// Converts a DateTime object to Unix time representation in milliseconds.
+        /// </summary>
+        /// <param name="dateTime">DateTime object to be converted.</param>
+        /// <returns>A milliseconds representation of Unix time.</returns>
+        public static long? ConvertToUnixTime(DateTime? dateTime)
         {
-            dateTime = dateTime?.ToUniversalTime();
-            return dateTime?.Millisecond - _epoch.Millisecond;
-        }
+            if (dateTime == null)
+                return null;
 
+            TimeSpan difference = dateTime.Value.ToUniversalTime() - _epoch;
+            return Convert.ToInt64(Math.Floor(difference.TotalMilliseconds));
+        }
     }
 }

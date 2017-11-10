@@ -267,9 +267,9 @@ namespace contrast_rest_dotnet.Model
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            Created = MicrosecondDateTimeConverter.ConvertFromEpochTime(CreatedRawValue);
-            LastReset = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastResetRawValue);
-            LastSeen = MicrosecondDateTimeConverter.ConvertFromEpochTime(LastSeenRawValue);
+            Created = DateTimeConverter.ConvertToDateTime(CreatedRawValue);
+            LastReset = DateTimeConverter.ConvertToDateTime(LastResetRawValue);
+            LastSeen = DateTimeConverter.ConvertToDateTime(LastSeenRawValue);
         }
     }
 
