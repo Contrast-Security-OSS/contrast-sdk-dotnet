@@ -110,10 +110,10 @@ namespace contrast_rest_dotnet.Model
         public bool Important { get; set; }
 
         /// <summary>
-        /// Probable start location/
+        /// Probable start location
         /// </summary>
-        [JsonProperty(PropertyName = "probableStartLocation")]
-        public CodeView ProbableStartLocation { get; set; }
+        [JsonProperty(PropertyName = "probableStartLocationView")]
+        public CodeView ProbableStartLocationView { get; set; }
 
         /// <summary>
         /// Event type.

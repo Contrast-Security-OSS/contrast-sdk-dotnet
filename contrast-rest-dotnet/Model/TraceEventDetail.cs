@@ -93,9 +93,15 @@ namespace contrast_rest_dotnet.Model
     [JsonObject]
     public class EventParameter
     {
+        /// <summary>
+        /// Parameter value.
+        /// </summary>
         [JsonProperty(PropertyName = "parameter")]
         public string Parameter { get; set; }
 
+        /// <summary>
+        /// Whether the parameter is being tracked.
+        /// </summary>
         [JsonProperty(PropertyName = "tracked")]
         public bool Tracked { get; set; }
     }
@@ -103,11 +109,23 @@ namespace contrast_rest_dotnet.Model
     [JsonObject]
     public class Stacktrace
     {
+        /// <summary>
+        /// StackTrace content.
+        /// </summary>
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Stack trace type (e.g. custom, common)
+        /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
+
+        /// <summary>
+        /// Line index
+        /// </summary>
+        [JsonProperty(PropertyName = "stackFrameIndex")]
+        public long StackFrameIndex { get; set; }
     }
 
     [JsonObject]

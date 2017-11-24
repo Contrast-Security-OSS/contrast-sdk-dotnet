@@ -50,5 +50,8 @@ namespace contrast_rest_dotnet
         internal static string TRACE_EVENT_DETAIL = "api/ng/{0}/traces/{1}/events/{2}/details";
         internal static string TRACE_HTTP_REQUEST = "api/ng/{0}/traces/{1}/httprequest";
         internal static string TRACE_STORY = "api/ng/{0}/traces/{1}/story";
+        internal static string TRACE_FILTERS = "api/ng/{0}/orgtraces/filter/{1}/listing";
+        internal static string APPLICATION_TRACE_FILTERS = "api/ng/{0}/traces/{1}/filter/{2}/listing";
+        internal static string SERVER_TRACE_FILTERS = "api/ng/{0}/servertraces/{1}/filter/{2}/listing";
     }
 }
