@@ -1115,5 +1115,49 @@ namespace sdk_tests
             Assert.AreEqual("dotnet-webgoat [.NET]", filter.Label);
             Assert.AreEqual(9, filter.Count);
         }
+
+        [TestMethod]
+        public void GetTraceRecommendation_PropertiesMatch()
+        {
+            string recommendationJson = @"{
+                                    ""success"": true,
+                                    ""messages"": [
+                                        ""Trace Recommendation loaded successfully""
+                                      ],
+                                      ""recommendation"": {
+                                        ""text"": ""If the input or output of the parameter can be removed, it should. Otherwise, encode the parameter using the appropriate output encoding technique, as defined in the OWASP Cross Site Scripting Prevention Cheat Sheet (referenced below). For most scenarios, simple HTML encoding with one of these solutions should defuse any attacks:Using JSP EL: \n&lt;c:out value=\""${userControlledValue}\""/&gt; \n\n ... or ... \n\n ${fn:escapeXml(userControlledValue)}Using Spring tags: \nWe detected this application is using Spring MVC. Here's how you can output text safely with the Spring tag library: \n&lt;div&gt; \n\t&lt;spring:escapeBody htmlEscape=\""true\""&gt;${userControlledValue}&lt;/spring:escapeBody&gt; // for data in HTML context&lt;/div&gt; \n&lt;script&gt; \n&lt;!-- \nvar str = \""&lt;spring:escapeBody javaScriptEscape=\""true\""&gt;${userControlledValue}&lt;/spring:escapeBody&gt;\""; // for data in JavaScript context \n--&gt; \n&lt;/script&gt;Using https://www.owasp.org/index.php/ESAPI$$LINK_DELIM$$ESAPI: \nvar str = \""&lt;esapi:encodeForJavaScript&gt;${userControlledValue}&lt;/esapi:encodeForJavaScript&gt;\""; An overwhelming majority of the time, one of the above solutions will work for your situation. However, if you'd like to safely put untrusted user input into other contexts besides HTML or JavaScript, consider the https://www.owasp.org/index.php/ESAPI$$LINK_DELIM$$ESAPI. It has encoding  functions and complementary JSP tags for all the different contexts as described by the https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet$$LINK_DELIM$$OWASP XSS Prevention CheatSheet referenced below. \n Input validation helps, but many times the characters used in XSS attacks are necessary for the application's purpose. So, while we always recommend whitelist input validation, we recognize that it's not always possible to use this as a defense against XSS. "",
+                                        ""formattedText"": ""{{#paragraph}}If the input or output of the parameter can be removed, it should. Otherwise, encode the parameter using the appropriate output encoding technique, as defined in the OWASP Cross Site Scripting Prevention Cheat Sheet (referenced below). For most scenarios, simple HTML encoding with one of these solutions should defuse any attacks:{{/paragraph}}{{#header}}Using JSP EL:{{/header}} \n{{#javaBlock}}&lt;c:out value=\""${userControlledValue}\""/&gt; \n\n ... or ... \n\n ${fn:escapeXml(userControlledValue)}{{/javaBlock}}{{#header}}Using Spring tags:{{/header}} \n{{#paragraph}}We detected this application is using Spring MVC. Here's how you can output text safely with the Spring tag library:{{/paragraph}} \n{{#javaBlock}}&lt;div&gt; \n\t&lt;spring:escapeBody htmlEscape=\""true\""&gt;${userControlledValue}&lt;/spring:escapeBody&gt; // for data in HTML context&lt;/div&gt; \n&lt;script&gt; \n&lt;!-- \nvar str = \""&lt;spring:escapeBody javaScriptEscape=\""true\""&gt;${userControlledValue}&lt;/spring:escapeBody&gt;\""; // for data in JavaScript context \n--&gt; \n&lt;/script&gt;{{/javaBlock}}{{#header}}Using {{#link}}https://www.owasp.org/index.php/ESAPI$$LINK_DELIM$$ESAPI{{/link}}:{{/header}} \n{{#javaBlock}}var str = \""&lt;esapi:encodeForJavaScript&gt;${userControlledValue}&lt;/esapi:encodeForJavaScript&gt;\"";{{/javaBlock}} {{#paragraph}}An overwhelming majority of the time, one of the above solutions will work for your situation. However, if you'd like to safely put untrusted user input into other contexts besides HTML or JavaScript, consider the {{#link}}https://www.owasp.org/index.php/ESAPI$$LINK_DELIM$$ESAPI{{/link}}. It has encoding  functions and complementary JSP tags for all the different contexts as described by the {{#link}}https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet$$LINK_DELIM$$OWASP XSS Prevention CheatSheet{{/link}} referenced below.{{/paragraph}} \n {{#paragraph}}Input validation helps, but many times the characters used in XSS attacks are necessary for the application's purpose. So, while we always recommend whitelist input validation, we recognize that it's not always possible to use this as a defense against XSS.{{/paragraph}} "",
+                                        ""formattedTextVariables"": {}
+                                      },
+                                      ""owasp"": ""https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet"",
+                                      ""cwe"": ""http://cwe.mitre.org/data/definitions/79.html"",
+                                      ""custom_recommendation"": {
+                                        ""text"": ""SDF-1 is much better than Voltron."",
+                                        ""formattedText"": ""SDF-1 is much better than Voltron."",
+                                        ""formattedTextVariables"": {}
+                                      },
+                                      ""rule_references"": {
+                                        ""text"": ""https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_(XSS){{{nl}}}"",
+                                        ""formattedText"": ""https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_(XSS){{{nl}}}"",
+                                        ""formattedTextVariables"": {}
+                                      },
+                                      ""custom_rule_references"": {
+                                        ""text"": ""test reference{{{nl}}}"",
+                                        ""formattedText"": ""test reference{{{nl}}}"",
+                                        ""formattedTextVariables"": {}
+                                      }
+                                    }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/recommendation")).Returns(
+                new MemoryStream(Encoding.UTF8.GetBytes(recommendationJson))
+                );
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var response = teamServerClient.GetTraceRecommendation("orgId", "traceId");
+
+            Assert.AreEqual(response.Owasp, "https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet");
+            Assert.AreEqual(response.CustomRuleReferences.Text, "test reference{{{nl}}}");
+            Assert.AreEqual(response.CustomRecommendation.FormattedText, "SDF-1 is much better than Voltron.");
+        }
     }
 }

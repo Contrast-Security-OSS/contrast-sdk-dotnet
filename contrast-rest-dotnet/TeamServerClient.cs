@@ -389,6 +389,18 @@ namespace contrast_rest_dotnet
             string endpoint = String.Format(NgEndpoints.TRACE_EVENTS_SUMMARY, organizationId, traceUuid);
             return GetResponseAndDeserialize<TraceEventSummaryResponse>(endpoint);
         }
+
+        /// <summary>
+        /// Get trace recommendation from a trace
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <param name="traceUuid">Trace UUID</param>
+        /// <returns>A response which contains a recommendation details for the trace.</returns>
+        public TraceRecommendationResponse GetTraceRecommendation(string organizationId, string traceUuid)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACE_RECOMMENDATION, organizationId, traceUuid);
+            return GetResponseAndDeserialize<TraceRecommendationResponse>(endpoint);
+        }
         
         /// <summary>
         /// Gets the details for the indicated trace event.
