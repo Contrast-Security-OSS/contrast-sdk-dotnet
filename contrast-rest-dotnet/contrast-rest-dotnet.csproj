@@ -73,6 +73,7 @@
     <Compile Include="Model\StoryChapter.cs" />
     <Compile Include="Model\TraceBreakdown.cs" />
     <Compile Include="Model\TraceEventDetail.cs" />
+    <Compile Include="Model\TraceFiltering.cs" />
     <Compile Include="Model\TraceRecommendation.cs" />
     <Compile Include="Model\TraceStory.cs" />
     <Compile Include="NgEndpoints.cs" />

@@ -903,6 +903,220 @@ namespace sdk_tests
         }
 
         [TestMethod]
+        public void GetTraceFilterSubfilters_PropertiesMatched()
+        {
+            string storyJson = @"{
+                                  ""success"": true,
+                                  ""messages"": [
+                                    ""Trace Filter severity loaded successfully""
+                                  ],
+                                  ""filters"": [
+                                    {
+                                      ""keycode"": ""CRITICAL"",
+                                      ""label"": ""Critical"",
+                                      ""count"": 4,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""self"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3dd46b24-48bf-4345-9dac-6933324bafb4/traces/86b59798-f317-4f1c-8aa5-4d4187c2e999/filter"",
+                                          ""method"": ""GET""
+                                        }
+                                      ],
+                                      ""new_group"": false
+                                    },
+                                    {
+                                      ""keycode"": ""HIGH"",
+                                      ""label"": ""High"",
+                                      ""count"": 5,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""self"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3dd46b24-48bf-4345-9dac-6933324bafb4/traces/86b59798-f317-4f1c-8aa5-4d4187c2e999/filter"",
+                                          ""method"": ""GET""
+                                        }
+                                      ],
+                                      ""new_group"": false
+                                    },
+                                    {
+                                      ""keycode"": ""MEDIUM"",
+                                      ""label"": ""Medium"",
+                                      ""count"": 33,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""self"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3dd46b24-48bf-4345-9dac-6933324bafb4/traces/86b59798-f317-4f1c-8aa5-4d4187c2e999/filter"",
+                                          ""method"": ""GET""
+                                        }
+                                      ],
+                                      ""new_group"": false
+                                    },
+                                    {
+                                      ""keycode"": ""LOW"",
+                                      ""label"": ""Low"",
+                                      ""count"": 3,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""self"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3dd46b24-48bf-4345-9dac-6933324bafb4/traces/86b59798-f317-4f1c-8aa5-4d4187c2e999/filter"",
+                                          ""method"": ""GET""
+                                        }
+                                      ],
+                                      ""new_group"": false
+                                    },
+                                    {
+                                      ""keycode"": ""NOTE"",
+                                      ""label"": ""Note"",
+                                      ""count"": 12,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""self"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3dd46b24-48bf-4345-9dac-6933324bafb4/traces/86b59798-f317-4f1c-8aa5-4d4187c2e999/filter"",
+                                          ""method"": ""GET""
+                                        }
+                                      ],
+                                      ""new_group"": false
+                                    }
+                                  ]
+                                }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/orgtraces/filter/severity/listing")).Returns(
+                new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
+                );
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var filterResponse = teamServerClient.GetTraceFilterSubfilters("orgId", TraceFilterType.severity, null);
+
+            Assert.AreEqual(5, filterResponse.Filters.Count);
+            var filter = filterResponse.Filters[1];
+
+            Assert.AreEqual("HIGH", filter.Keycode);
+            Assert.AreEqual("High", filter.Label);
+            Assert.AreEqual(5, filter.Count);
+
+            filter = filterResponse.Filters[3];
+            Assert.AreEqual(3, filter.Count);
+            Assert.AreEqual("Low", filter.Label);
+        }
+
+        [TestMethod]
+        public void GetApplicationTraceFilterSubfilters_PropertiesMatched()
+        {
+            string storyJson = @"{
+                                  ""success"": true,
+                                  ""messages"": [
+                                    ""Trace Filter servers loaded successfully""
+                                  ],
+                                  ""filters"": [
+                                    {
+                                      ""keycode"": ""855"",
+                                      ""label"": ""MyServer (C:\\Windows\\system32\\inetsrv\\w3wp.exe)"",
+                                      ""details"": {
+                                        ""server_id"": 855,
+                                        ""name"": ""MyServer"",
+                                        ""hostname"": ""MyServer"",
+                                        ""path"": ""C:\\Windows\\system32\\inetsrv\\w3wp.exe"",
+                                        ""environment"": ""QA""
+                                      },
+                                      ""count"": 55,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""self"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3dd46b24-48bf-4345-9dac-6933324bafb4/traces/86b59798-f317-4f1c-8aa5-4d4187c2e999/filter"",
+                                          ""method"": ""GET""
+                                        }
+                                      ],
+                                      ""new_group"": false
+                                    },
+                                    {
+                                      ""keycode"": ""1561"",
+                                      ""label"": ""WIN-Plus (\\system32\\inetsrv\\w3wp.exe)"",
+                                      ""details"": {
+                                        ""server_id"": 1561,
+                                        ""name"": ""WIN-Plus"",
+                                        ""hostname"": ""WIN-Plus"",
+                                        ""path"": ""\\system32\\inetsrv\\w3wp.exe"",
+                                        ""environment"": ""QA""
+                                      },
+                                      ""count"": 9,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""self"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3dd46b24-48bf-4345-9dac-6933324bafb4/traces/86b59798-f317-4f1c-8aa5-4d4187c2e999/filter"",
+                                          ""method"": ""GET""
+                                        }
+                                      ],
+                                      ""new_group"": false
+                                    }
+                                  ]
+                                }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/appId/filter/servers/listing")).Returns(
+                new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
+                );
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var filterResponse = teamServerClient.GetApplicationTraceFilterSubfilters("orgId", "appId", TraceFilterType.servers, null);
+
+            Assert.AreEqual(2, filterResponse.Filters.Count);
+            var filter = filterResponse.Filters[1];
+
+            Assert.AreEqual("1561", filter.Keycode);
+            Assert.AreEqual("WIN-Plus (\\system32\\inetsrv\\w3wp.exe)", filter.Label);
+            Assert.AreEqual(9, filter.Count);
+        }
+
+        [TestMethod]
+        public void GetServerTraceFilterSubfilters_PropertiesMatched()
+        {
+            string storyJson = @"{
+                                  ""success"": true,
+                                  ""messages"": [
+                                    ""Vulnerability Filter modules loaded successfully""
+                                  ],
+                                  ""filters"": [
+                                    {
+                                      ""keycode"": ""86b59798-f317-4f1c-8aa5-4d4187c2e999"",
+                                      ""label"": ""dotnet-webgoat [.NET]"",
+                                      ""details"": {
+                                        ""master"": false,
+                                        ""child"": false,
+                                        ""app_id"": ""86b59798-f317-4f1c-8aa5-4d4187c2e999"",
+                                        ""name"": ""dotnet-webgoat"",
+                                        ""parent_app_id"": null,
+                                        ""total_modules"": 1,
+                                        ""language"": "".NET"",
+                                        ""context_path"": null,
+                                        ""last_seen"": 0
+                                      },
+                                      ""count"": 9,
+                                      ""links"": [
+                                        {
+                                          ""rel"": ""self"",
+                                          ""href"": ""https://localhost/Contrast/api/ng/3dd46b24-48bf-4345-9dac-6933324bafb4/servertraces/1458/filter"",
+                                          ""method"": ""GET""
+                                        }
+                                      ],
+                                      ""new_group"": false
+                                    }
+                                  ]
+                                }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/servertraces/1111/filter/modules/listing")).Returns(
+                new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
+                );
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var filterResponse = teamServerClient.GetServerTraceFilterSubfilters("orgId", 1111, TraceFilterType.modules, null);
+
+            Assert.AreEqual(1, filterResponse.Filters.Count);
+            var filter = filterResponse.Filters[0];
+
+            Assert.AreEqual("86b59798-f317-4f1c-8aa5-4d4187c2e999", filter.Keycode);
+            Assert.AreEqual("dotnet-webgoat [.NET]", filter.Label);
+            Assert.AreEqual(9, filter.Count);
+        }
+
+        [TestMethod]
         public void GetTraceRecommendation_PropertiesMatch()
         {
             string recommendationJson = @"{
