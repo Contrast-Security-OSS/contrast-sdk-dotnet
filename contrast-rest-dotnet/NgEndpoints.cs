@@ -54,5 +54,9 @@ namespace contrast_rest_dotnet
         internal static string TRACE_FILTERS = "api/ng/{0}/orgtraces/filter/{1}/listing";
         internal static string APPLICATION_TRACE_FILTERS = "api/ng/{0}/traces/{1}/filter/{2}/listing";
         internal static string SERVER_TRACE_FILTERS = "api/ng/{0}/servertraces/{1}/filter/{2}/listing";
+        internal static string TRACE_TAGS = "api/ng/{0}/tags/traces/trace/{1}";
+        internal static string DELETE_TRACE_TAG = "api/ng/{0}/tags/trace/{1}";
+        internal static string TRACES_TAGS = "api/ng/{0}/tags/traces";
+        internal static string TRACES_TAG_BULK = "api/ng/{0}/tags/traces/bulk";
     }
 }

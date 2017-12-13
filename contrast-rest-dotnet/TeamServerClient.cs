@@ -33,6 +33,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace contrast_rest_dotnet
 {
@@ -79,6 +80,31 @@ namespace contrast_rest_dotnet
             finally
             {
                 if(responseStream != null)
+                    responseStream.Dispose();
+            }
+        }
+
+        private T GetResponseAndDeserialize<T>(string endpoint, string postMessage)
+        {
+            Stream responseStream = null;
+            try
+            {
+                HttpResponseMessage response = _contrastRestClient.PostMessage(endpoint, postMessage, null);
+                if (!response.IsSuccessStatusCode)
+                    return default(T);
+
+                responseStream = response.Content.ReadAsStreamAsync().Result;
+
+                using (JsonTextReader textReader = new JsonTextReader(new StreamReader(responseStream)))
+                {
+                    responseStream = null;
+                    JsonSerializer deserializer = new JsonSerializer();
+                    return (T)deserializer.Deserialize(textReader, typeof(T));
+                }
+            }
+            finally
+            {
+                if (responseStream != null)
                     responseStream.Dispose();
             }
         }
@@ -493,6 +519,81 @@ namespace contrast_rest_dotnet
             if (filter != null)
                 endpoint += filter.ToString();
             return GetResponseAndDeserialize<TraceFilterCatalogDetailsResponse>(endpoint);
+        }
+
+        /// <summary>
+        /// Remove tag from trace.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID.</param>
+        /// <param name="traceUuid">Trace UUID.</param>
+        /// <param name="tag">The tag to be deleted.</param>
+        /// <returns>A TagsResponse object which indicates wheter the operation was successful or not.</returns>
+        public TagsResponse DeleteTraceTag(string organizationId, string traceUuid, string tag)
+        {
+            string endpoint = String.Format(NgEndpoints.DELETE_TRACE_TAG, organizationId, traceUuid);
+            TagRequest request = new TagRequest();
+            request.Tag = tag;
+
+            return GetResponseAndDeserialize<TagsResponse>(endpoint, JsonConvert.SerializeObject(request));
+        }
+
+        /// <summary>
+        /// Get all unique trace tags by organization.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <returns>A response with all unique tags found.</returns>
+        public TagsResponse GetTracesUniqueTags(string organizationId)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACES_TAGS, organizationId);
+            return GetResponseAndDeserialize<TagsResponse>(endpoint);
+        }
+
+        /// <summary>
+        /// Tag traces.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID.</param>
+        /// <param name="requestBody">A TagsServerResource object with a list of tags and the traces to be tagged.</param>
+        /// <returns>A base response to indicate success of the operation.</returns>
+        public BaseApiResponse TagTraces(string organizationId, TagsServersResource requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACES_TAGS, organizationId);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint);
+        }
+
+        /// <summary>
+        /// Get all tags by traces.
+        /// </summary>
+        /// <param name="organizationUuid">Organization UUID.</param>
+        /// <param name="requestBody">A TagsTraceRequest object with a list of traces UUIDs.</param>
+        /// <returns>A response with all the tags found.</returns>
+        public TagsResponse GetTagsByTraces(string organizationUuid, TagsTraceRequest requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACES_TAG_BULK, organizationUuid);
+            return GetResponseAndDeserialize<TagsResponse>(endpoint, JsonConvert.SerializeObject(requestBody));
+        }
+
+        /// <summary>
+        /// Tag traces bulk
+        /// </summary>
+        /// <param name="organizationId">Organization UUID.</param>
+        /// <param name="requestBody">A TagsTracesUpdateRequest object with a list of tags and the list of traces to be tagged.</param>
+        /// <returns>A base response to indicate success of the operation.</returns>
+        public BaseApiResponse TagsTracesBulk(string organizationId, TagsTracesUpdateRequest requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACES_TAG_BULK, organizationId);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody));
+        }
+
+        /// <summary>
+        /// Get all tags by trace
+        /// </summary>
+        /// <param name="organizationId">Organization UUID.</param>
+        /// <param name="traceUuid">Trace UUID.</param>
+        /// <returns></returns>
+        public TagsResponse GetTagsByTrace(string organizationId, string traceUuid)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACE_TAGS, organizationId, traceUuid);
+            return GetResponseAndDeserialize<TagsResponse>(endpoint);
         }
 
         private bool _disposed;

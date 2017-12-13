@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>ContrastRestClient</id>
+        <version>2.1.0</version>
+        <title>Contrast REST Client</title>
+        <authors>Contrast Security</authors>
+        <owners>Contrast Security</owners>
+        <projectUrl>https://github.com/Contrast-Security-OSS/contrast-sdk-dotnet</projectUrl>
+        <iconUrl>https://avatars2.githubusercontent.com/u/5577345</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A REST client for retrieving data from Contrast Team Server's REST API as plain C# objects.  
+
+See http://www.contrastsecurity.com for more information on Contrast.</description>
+        <summary>A REST client for retrieving data from Contrast Team Server's REST API as plain C# objects.</summary>
+        <releaseNotes>Added endpoints to retrieve recommendations and subfilters counters.</releaseNotes>
+        <copyright>Contrast Security, Inc.</copyright>
+        <dependencies>
+          <dependency id="Newtonsoft.Json" version="10.0.3" />
+        </dependencies>
+    </metadata>
+</package>
