@@ -35,6 +35,9 @@ using Moq;
 using System;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
+
+using Debug = System.Diagnostics.Debug;
 
 namespace sdk_tests
 {
@@ -48,7 +51,7 @@ namespace sdk_tests
                 "http://localhost/Contrast");
         }
 
-        [TestMethod,ExpectedException(typeof(ArgumentException))]
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
         public void Constructor_InvalidUrl_ArgumentExceptionThrown()
         {
             var tsClient = new TeamServerClient("arbitraryUser", "arbitraryServiceKey", "arbitraryApiKey",
@@ -119,7 +122,7 @@ namespace sdk_tests
                         }";
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/applications/")).Returns(
-                new MemoryStream( Encoding.UTF8.GetBytes(json) )
+                new MemoryStream(Encoding.UTF8.GetBytes(json))
                 );
 
             var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
@@ -489,7 +492,7 @@ namespace sdk_tests
                                     }";
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
-            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/traces/" + appId +"/filter")).Returns(
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/traces/" + appId + "/filter")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
                 );
 
@@ -557,7 +560,7 @@ namespace sdk_tests
                                     }";
 
             var mockSdkHttpClient = new Mock<IContrastRestClient>();
-            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/servertraces/" + serverId +"/filter")).Returns(
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/" + orgId + "/servertraces/" + serverId + "/filter")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
                 );
 

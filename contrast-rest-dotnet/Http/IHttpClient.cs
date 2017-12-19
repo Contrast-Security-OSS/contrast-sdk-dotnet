@@ -36,8 +36,10 @@ namespace contrast_rest_dotnet.Http
     public interface IHttpClient : IDisposable
     {
         Task<HttpResponseMessage> GetAsync(string endpoint);
-        Task<HttpResponseMessage> PostAsync(string endpoint, string postBody, List<Tuple<string, string>> additionalHeaders);
+        Task<HttpResponseMessage> PostAsync(string endpoint, string requestBody, List<Tuple<string, string>> additionalHeaders);
+        Task<HttpResponseMessage> PutAsync(string endpoint, string requestBody, List<Tuple<string, string>> additionalHeaders);
 
         Task<HttpResponseMessage> DeleteAsync(string endpoint);
+        Task<HttpResponseMessage> DeleteAsync(string endpoint, string requestBody);
     }
 }

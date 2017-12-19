@@ -37,6 +37,12 @@ using System.Net.Http;
 
 namespace contrast_rest_dotnet
 {
+    public enum RequestMethod
+    {
+        Post,
+        Put,
+        Delete
+    }
 
     /// <summary>
     /// Entry point for using the Contrast REST API.  Make an instance of this class and call methods.
@@ -46,6 +52,9 @@ namespace contrast_rest_dotnet
         private IContrastRestClient _contrastRestClient;
 
         private const string DEFAULT_AGENT_PROFILE = "default";
+        private const int POST_METHOD = 1;
+        private const int PUT_METHOD = 2;
+        private const int DELETE_METHOD = 3;
 
         /// <summary>
         /// Creates the client that will interact with TeamServer. 
@@ -84,14 +93,32 @@ namespace contrast_rest_dotnet
             }
         }
 
-        private T GetResponseAndDeserialize<T>(string endpoint, string postMessage)
+        private T GetResponseAndDeserialize<T>(string endpoint, string requestBody, RequestMethod method)
         {
             Stream responseStream = null;
             try
             {
-                HttpResponseMessage response = _contrastRestClient.PostMessage(endpoint, postMessage, null);
-                if (!response.IsSuccessStatusCode)
-                    return default(T);
+                HttpResponseMessage response;
+
+                switch (method)
+                {
+                    case RequestMethod.Put:
+                        response = _contrastRestClient.PutMessage(endpoint, requestBody, null);
+                        break;
+                    case RequestMethod.Delete:
+                        if(String.IsNullOrWhiteSpace(requestBody))
+                            response = _contrastRestClient.DeleteMessage(endpoint);
+                        else
+                            response = _contrastRestClient.DeleteMessage(endpoint, requestBody);
+                        break;
+                    case RequestMethod.Post:
+                    default:
+                        response = _contrastRestClient.PostMessage(endpoint, requestBody, null);
+                        break;
+                }
+
+                if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    throw new ResourceNotFoundException("Resource: '" + endpoint + "' not found.");
 
                 responseStream = response.Content.ReadAsStreamAsync().Result;
 
@@ -107,6 +134,11 @@ namespace contrast_rest_dotnet
                 if (responseStream != null)
                     responseStream.Dispose();
             }
+        }
+
+        private T GetDeleteResponseAndDeserialize<T>(string endpoint)
+        {
+            return GetResponseAndDeserialize<T>(endpoint, null, RequestMethod.Delete);
         }
 
         // TODO  Remove this method if not exists on new API
@@ -534,7 +566,7 @@ namespace contrast_rest_dotnet
             TagRequest request = new TagRequest();
             request.Tag = tag;
 
-            return GetResponseAndDeserialize<TagsResponse>(endpoint, JsonConvert.SerializeObject(request));
+            return GetResponseAndDeserialize<TagsResponse>(endpoint, JsonConvert.SerializeObject(request), RequestMethod.Delete);
         }
 
         /// <summary>
@@ -557,7 +589,7 @@ namespace contrast_rest_dotnet
         public BaseApiResponse TagTraces(string organizationId, TagsServersResource requestBody)
         {
             string endpoint = String.Format(NgEndpoints.TRACES_TAGS, organizationId);
-            return GetResponseAndDeserialize<BaseApiResponse>(endpoint);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Put);
         }
 
         /// <summary>
@@ -569,7 +601,7 @@ namespace contrast_rest_dotnet
         public TagsResponse GetTagsByTraces(string organizationUuid, TagsTraceRequest requestBody)
         {
             string endpoint = String.Format(NgEndpoints.TRACES_TAG_BULK, organizationUuid);
-            return GetResponseAndDeserialize<TagsResponse>(endpoint, JsonConvert.SerializeObject(requestBody));
+            return GetResponseAndDeserialize<TagsResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Post);
         }
 
         /// <summary>
@@ -581,7 +613,7 @@ namespace contrast_rest_dotnet
         public BaseApiResponse TagsTracesBulk(string organizationId, TagsTracesUpdateRequest requestBody)
         {
             string endpoint = String.Format(NgEndpoints.TRACES_TAG_BULK, organizationId);
-            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody));
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Put);
         }
 
         /// <summary>
