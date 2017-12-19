@@ -117,7 +117,13 @@ namespace contrast_rest_dotnet
                         break;
                 }
 
-                if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                {
+                    throw new ForbiddenException(
+                        String.Format("Current use doesn't have enough authority to perform action for resource: '{0}'",
+                            endpoint));
+                }
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                     throw new ResourceNotFoundException("Resource: '" + endpoint + "' not found.");
 
                 responseStream = response.Content.ReadAsStreamAsync().Result;
@@ -626,6 +632,44 @@ namespace contrast_rest_dotnet
         {
             string endpoint = String.Format(NgEndpoints.TRACE_TAGS, organizationId, traceUuid);
             return GetResponseAndDeserialize<TagsResponse>(endpoint);
+        }
+
+        /// <summary>
+        /// Updates status for a list of traces.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID.</param>
+        /// <param name="requestBody">Request object that contains status, notes and list of traces id.</param>
+        /// <returns>A base response to indicate success of the operation.</returns>
+        public BaseApiResponse MarkTraceStatus(string organizationId, TraceMarkStatusRequest requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.TRACE_MARK_STATUS, organizationId);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Put);
+        }
+
+        /// <summary>
+        /// Updates status for a list of traces on a server.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID.</param>
+        /// <param name="serverId">Server Id.</param>
+        /// <param name="requestBody">Request object that contains status, notes and list of traces id.</param>
+        /// <returns>A base response to indicate success of the operation.</returns>
+        public BaseApiResponse MarkTraceStatus(string organizationId, long serverId, TraceMarkStatusRequest requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.SERVER_TRACE_MARK_STATUS, organizationId, serverId);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Put);
+        }
+
+        /// <summary>
+        /// Updates status for a list of traces on an application.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID.</param>
+        /// <param name="appId">Application UUID.</param>
+        /// <param name="requestBody">Request object that contains status, notes and list of traces id.</param>
+        /// <returns>A base response to indicate success of the operation.</returns>
+        public BaseApiResponse MarkTraceStatus(string organizationId, string appId, TraceMarkStatusRequest requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.APPLICATION_TRACE_MARK_STATUS, organizationId, appId);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Put);
         }
 
         private bool _disposed;

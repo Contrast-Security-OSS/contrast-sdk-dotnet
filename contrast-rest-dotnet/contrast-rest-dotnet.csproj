@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ContrastApiException.cs" />
     <Compile Include="Endpoints.cs" />
+    <Compile Include="ForbiddenException.cs" />
     <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\IContrastRestClient.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Model\TraceEventDetail.cs" />
     <Compile Include="Model\TraceFiltering.cs" />
     <Compile Include="Model\TraceRecommendation.cs" />
+    <Compile Include="Model\TraceStatus.cs" />
     <Compile Include="Model\TraceStory.cs" />
     <Compile Include="Model\TraceTag.cs" />
     <Compile Include="NgEndpoints.cs" />
