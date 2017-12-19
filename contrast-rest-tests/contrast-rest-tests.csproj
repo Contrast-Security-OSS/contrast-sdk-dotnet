@@ -58,7 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ContrastRestClientTagsTest.cs" />
+    <Compile Include="TeamServerClientTagsTest.cs" />
     <Compile Include="ConverterTest.cs" />
     <Compile Include="FilterTest.cs" />
     <Compile Include="PostUtil.cs" />

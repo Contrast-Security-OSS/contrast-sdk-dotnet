@@ -627,7 +627,7 @@ namespace contrast_rest_dotnet
         /// </summary>
         /// <param name="organizationId">Organization UUID.</param>
         /// <param name="traceUuid">Trace UUID.</param>
-        /// <returns></returns>
+        /// <returns>A TagsResponse object with the list of tags found.</returns>
         public TagsResponse GetTagsByTrace(string organizationId, string traceUuid)
         {
             string endpoint = String.Format(NgEndpoints.TRACE_TAGS, organizationId, traceUuid);

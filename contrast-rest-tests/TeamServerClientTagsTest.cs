@@ -45,7 +45,7 @@ using contrast_rest_dotnet.Http;
 namespace sdk_tests
 {
     [TestClass]
-    public class ContrastRestClientTagsTest
+    public class TeamServerClientTagsTest
     {
         [TestMethod]
         public void DeleteTags_VerifyBaseResponse()
