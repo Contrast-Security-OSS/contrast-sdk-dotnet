@@ -99,6 +99,60 @@ namespace sdk_tests
         }
 
         [TestMethod]
+        public void GetTraceUniqueTagsByServer_VerifyTags()
+        {
+            string json = @"{
+                              ""success"": true,
+                              ""messages"": [
+                                ""Unique tags for organization loaded successfully""
+                              ],
+                              ""tags"": [
+                                ""Infinite Scroll Test"",
+                                ""Another test too""
+                              ],
+                              ""totalLibraryHashes"": 0
+                            }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/tags/traces/server/1")).Returns(
+                new MemoryStream(Encoding.UTF8.GetBytes(json))
+                );
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var response = teamServerClient.GetTracesUniqueTags("orgId", 1);
+
+            Assert.AreEqual(2, response.Tags.Count);
+            Assert.AreEqual("Infinite Scroll Test", response.Tags[0]);
+            Assert.AreEqual("Another test too", response.Tags[1]);
+        }
+
+        [TestMethod]
+        public void GetTraceUniqueTagsByApplication_VerifyTags()
+        {
+            string json = @"{
+                              ""success"": true,
+                              ""messages"": [
+                                ""Unique tags for organization loaded successfully""
+                              ],
+                              ""tags"": [
+                                ""Infinite Scroll Test"",
+                                ""Another test too""
+                              ],
+                              ""totalLibraryHashes"": 0
+                            }";
+
+            var mockSdkHttpClient = new Mock<IContrastRestClient>();
+            mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/tags/traces/application/appId")).Returns(
+                new MemoryStream(Encoding.UTF8.GetBytes(json))
+                );
+            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var response = teamServerClient.GetTracesUniqueTags("orgId", "appId");
+
+            Assert.AreEqual(2, response.Tags.Count);
+            Assert.AreEqual("Infinite Scroll Test", response.Tags[0]);
+            Assert.AreEqual("Another test too", response.Tags[1]);
+        }
+
+        [TestMethod]
         public void TagTraces_VerifySuccess()
         {
             string json = @"{

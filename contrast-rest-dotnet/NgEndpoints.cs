@@ -36,6 +36,7 @@ namespace contrast_rest_dotnet
         internal static string APPLICATIONS = "api/ng/{0}/applications/{1}";
         internal static string APPLICATION_LIBRARIES = "api/ng/{0}/applications/{1}/libraries";
         internal static string APPLICATION_TRACES = "api/ng/{0}/traces/{1}/filter";
+        internal static string APPLICATION_TRACE_TAGS = "api/ng/{0}/tags/traces/application/{1}";
         internal static string APPLICATION_TRACE_MARK_STATUS = "api/ng/{0}/traces/{1}/mark";
         internal static string DEFAULT_ORGANIZATION = "api/ng/profile/organizations/default";
         internal static string ENGINE_DOTNET = "api/api/{0}/engine/{1}/dotnet";
@@ -46,6 +47,7 @@ namespace contrast_rest_dotnet
         internal static string ORGANIZATION_TRACES = "api/ng/{0}/orgtraces/filter";
         internal static string SERVERS = "api/ng/{0}/servers/{1}";
         internal static string SERVER_TRACES = "api/ng/{0}/servertraces/{1}/filter";
+        internal static string SERVER_TRACE_TAGS = "api/ng/{0}/tags/traces/server/{1}";
         internal static string SERVER_TRACE_MARK_STATUS = "api/ng/{0}/servertraces/{1}/mark";
         internal static string TRACE = "api/ng/{0}/traces/{1}";
         internal static string TRACE_EVENTS_SUMMARY = "api/ng/{0}/traces/{1}/events/summary";

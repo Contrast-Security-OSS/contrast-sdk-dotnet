@@ -587,6 +587,30 @@ namespace contrast_rest_dotnet
         }
 
         /// <summary>
+        /// Get all unique trace tags by server.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <param name="serverId">Server Id.</param>
+        /// <returns>A response with all unique tags found.</returns>
+        public TagsResponse GetTracesUniqueTags(string organizationId, long serverId)
+        {
+            string endpoint = String.Format(NgEndpoints.SERVER_TRACE_TAGS, organizationId, serverId);
+            return GetResponseAndDeserialize<TagsResponse>(endpoint);
+        }
+
+        /// <summary>
+        /// Get all unique trace tags by application.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <param name="appId">Application UUID.</param>
+        /// <returns>A response with all unique tags found.</returns>
+        public TagsResponse GetTracesUniqueTags(string organizationId, string appId)
+        {
+            string endpoint = String.Format(NgEndpoints.APPLICATION_TRACE_TAGS, organizationId, appId);
+            return GetResponseAndDeserialize<TagsResponse>(endpoint);
+        }
+
+        /// <summary>
         /// Tag traces.
         /// </summary>
         /// <param name="organizationId">Organization UUID.</param>
