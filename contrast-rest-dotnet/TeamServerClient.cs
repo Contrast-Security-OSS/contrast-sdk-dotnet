@@ -652,8 +652,6 @@ namespace contrast_rest_dotnet
             return GetResponseAndDeserialize<TagsResponse>(endpoint);
         }
 
-        //TODO Add endpoints for retrieving tags by app and server
-
         private bool _disposed;
         protected virtual void Dispose(bool disposing)
         {
