@@ -80,9 +80,8 @@ namespace contrast_rest_dotnet.Http
             return PostMessage(endpoint, postBody, headers);
         }
 
-        public System.Net.Http.HttpResponseMessage PostMessage(string endpoint, string postBody, List<Tuple<string,string>> headers )
+        private System.Net.Http.HttpResponseMessage ProcessRequestTask(System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> responseTask, string endpoint)
         {
-            var responseTask = _httpClient.PostAsync(endpoint, postBody, headers);
             responseTask.Wait();
 
             var statusCode = responseTask.Result.StatusCode;
@@ -99,9 +98,27 @@ namespace contrast_rest_dotnet.Http
             return responseTask.Result;
         }
 
+        public System.Net.Http.HttpResponseMessage PostMessage(string endpoint, string postBody, List<Tuple<string,string>> headers )
+        {
+            var responseTask = _httpClient.PostAsync(endpoint, postBody, headers);
+            return ProcessRequestTask(responseTask, endpoint);
+        }
+
+        public System.Net.Http.HttpResponseMessage PutMessage(string endpoint, string requestBody, List<Tuple<string, string>> headers)
+        {
+            var responseTask = _httpClient.PutAsync(endpoint, requestBody, headers);
+            return ProcessRequestTask(responseTask, endpoint);
+        }
+
         public System.Net.Http.HttpResponseMessage DeleteMessage(string endpoint)
         {
             return _httpClient.DeleteAsync(endpoint).Result;
+        }
+
+        public System.Net.Http.HttpResponseMessage DeleteMessage(string endpoint, string requestBody)
+        {
+            var responseTask = _httpClient.DeleteAsync(endpoint, requestBody);
+            return ProcessRequestTask(responseTask, endpoint);
         }
 
         private bool _disposed;

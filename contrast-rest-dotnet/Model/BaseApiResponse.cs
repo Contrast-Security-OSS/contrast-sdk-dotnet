@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2015, Contrast Security, Inc.
+ * Copyright (c) 2017, Contrast Security, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -29,17 +29,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 
-namespace contrast_rest_dotnet.Http
+using Newtonsoft.Json;
+
+namespace contrast_rest_dotnet.Model
 {
-    public interface IContrastRestClient : IDisposable
+    [JsonObject]
+    public class BaseApiResponse
     {
-        System.IO.Stream GetResponseStream(string apiEndpoint);
-        HttpResponseMessage PostApplicatonSpecificMessage(string endpoint, string postBody, string application);
-        HttpResponseMessage PostMessage(string endpoint, string postBody, List<Tuple<string,string>> additionalHeaders );
-        HttpResponseMessage PutMessage(string endpoint, string requestBody, List<Tuple<string, string>> additionalHeaders);
-        HttpResponseMessage DeleteMessage(string endpoint);
-        HttpResponseMessage DeleteMessage(string endpoint, string requestBody);
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "messages")]
+        public List<string> Messages { get; set; }
     }
 }

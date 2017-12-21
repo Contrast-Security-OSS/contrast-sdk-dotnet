@@ -63,6 +63,7 @@
     <Compile Include="Http\ServerFilter.cs" />
     <Compile Include="Http\TraceFilter.cs" />
     <Compile Include="Model\AgentType.cs" />
+    <Compile Include="Model\BaseApiResponse.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\CodeView.cs" />
     <Compile Include="Model\NgApplication.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Model\TraceFiltering.cs" />
     <Compile Include="Model\TraceRecommendation.cs" />
     <Compile Include="Model\TraceStory.cs" />
+    <Compile Include="Model\TraceTag.cs" />
     <Compile Include="NgEndpoints.cs" />
     <Compile Include="ResourceNotFoundException.cs" />
     <Compile Include="Model\ContrastApplication.cs" />

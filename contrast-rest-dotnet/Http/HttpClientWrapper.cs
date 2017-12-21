@@ -90,21 +90,32 @@ namespace contrast_rest_dotnet.Http
             return _httpClient.GetAsync(endpoint);
         }
 
-        public Task<HttpResponseMessage> PostAsync(string endpoint, string postBody, List<Tuple<string, string>> additionalHeaders)
+        private Task<HttpResponseMessage> RequestAsync(string endpoint, string postBody, List<Tuple<string, string>> additionalHeaders, HttpMethod method)
         {
             var request = new HttpRequestMessage()
             {
-                RequestUri = new Uri( _teamServerUrl + endpoint ),
-                Method = HttpMethod.Post,
-                Content = new StringContent(postBody, Encoding.UTF8 )
+                RequestUri = new Uri(_teamServerUrl + endpoint),
+                Method = method,
+                Content = new StringContent(postBody, Encoding.UTF8, "application/json")
             };
-            
-            foreach( var header in additionalHeaders )
+
+            if(additionalHeaders != null)
             {
-                request.Headers.Add(header.Item1, header.Item2);
+                foreach (var header in additionalHeaders)
+                    request.Headers.Add(header.Item1, header.Item2);
             }
 
             return _httpClient.SendAsync(request);
+        }
+
+        public Task<HttpResponseMessage> PostAsync(string endpoint, string postBody, List<Tuple<string, string>> additionalHeaders)
+        {
+            return RequestAsync(endpoint, postBody, additionalHeaders, HttpMethod.Post);
+        }
+
+        public Task<HttpResponseMessage> PutAsync(string endpoint, string postBody, List<Tuple<string, string>> additionalHeaders)
+        {
+            return RequestAsync(endpoint, postBody, additionalHeaders, HttpMethod.Put);
         }
 
         public Task<HttpResponseMessage> DeleteAsync(string endpoint)
@@ -116,6 +127,11 @@ namespace contrast_rest_dotnet.Http
             };
 
             return _httpClient.SendAsync(request);
+        }
+
+        public Task<HttpResponseMessage> DeleteAsync(string endpoint, string postBody)
+        {
+            return RequestAsync(endpoint, postBody, null, HttpMethod.Delete);
         }
 
         private bool _disposed;

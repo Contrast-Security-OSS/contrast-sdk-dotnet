@@ -39,6 +39,9 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
@@ -55,8 +58,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TeamServerClientTagsTest.cs" />
     <Compile Include="ConverterTest.cs" />
     <Compile Include="FilterTest.cs" />
+    <Compile Include="PostUtil.cs" />
     <Compile Include="TeamServerClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ContrastRestClientTest.cs" />
