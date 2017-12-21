@@ -29,9 +29,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
@@ -118,6 +115,12 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [JsonProperty(PropertyName = "traces_uuid")]
         public List<string> TracesId { get; set; }
+
+        /// <summary>
+        /// Lists of tags to remove.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags_remove")]
+        public List<string> TagsRemove { get; set; }
     }
 
     [JsonObject]
