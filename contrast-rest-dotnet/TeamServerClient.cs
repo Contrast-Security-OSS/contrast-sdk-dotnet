@@ -147,15 +147,13 @@ namespace contrast_rest_dotnet
             return GetResponseAndDeserialize<T>(endpoint, null, RequestMethod.Delete);
         }
 
-        // TODO  Remove this method if not exists on new API
         /// <summary>
-        /// Returns whether a trace exists for an application based on ID and trace conditions.
+        /// Returns whether a trace exists for an application based on ID and trace conditions. (v1.0)
         /// </summary>
         /// <param name="appId">the ID of the application</param>
         /// <param name="conditions">a name=value pair querystring of trace conditions</param>
         /// <returns>the HTTP response code of the given query</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        [Obsolete("This method is no longer supported and should not be used.")]
         public System.Net.HttpStatusCode CheckForTrace(string appId, string conditions)
         {
             var responseMessage = _contrastRestClient.PostApplicatonSpecificMessage(Endpoints.TRACE_EXISTS, conditions, appId);
@@ -236,17 +234,15 @@ namespace contrast_rest_dotnet
         }
 
         /// <summary>
-        /// Resets an application's library, coverage, statistics and trace information.
+        /// Resets an application's library, coverage, statistics and trace information. (v2.0)
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="appId">the ID of the application</param>
-        /// <returns>a ContrastApplication object for the appId supplied</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        [Obsolete("Currently unsupported. A new method will be generated to perform this action.")]
         public void ResetApplication(string organizationId, string appId)
         {
-            string endpoint = string.Format(Endpoints.APPLICATIONS, organizationId, appId);
-            _contrastRestClient.DeleteMessage(endpoint);
+            string endpoint = string.Format(NgEndpoints.RESET_APPLICATION, organizationId, appId);
+            _contrastRestClient.PutMessage(endpoint, "{}", null);
         }
 
         /// <summary>
@@ -267,26 +263,24 @@ namespace contrast_rest_dotnet
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="profileName">the agent profile name</param>
-        /// <returns>a Profile object for the named supplied</returns>
+        /// <returns>A Profile response object that contains the requested agent profile.</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        [Obsolete("Not supported at the moment. Might be removed in the future.")]
-        public Profile GetProfile(string organizationId, string profileName)
+        public ProfileResponse GetProfile(string organizationId, string profileName)
         {
-            string endpoint = String.Format(Endpoints.PROFILES, organizationId, profileName);
-            return GetResponseAndDeserialize<Profile>(endpoint);
+            string endpoint = String.Format(NgEndpoints.PROFILE, organizationId, profileName);
+            return GetResponseAndDeserialize<ProfileResponse>(endpoint);
         }
 
         /// <summary>
         /// Return the profiles setup in TeamServer for Contrast Agents.
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
-        /// <returns>a List of Profile objects</returns>
+        /// <returns>A Profiles response object that contains the list of agent profiles found.</returns>
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        [Obsolete("Not supported at the moment. Might be removed in the future.")]
-        public List<Profile> GetProfiles(string organizationId)
+        public ProfilesResponse GetProfiles(string organizationId)
         {
-            string endpoint = String.Format(Endpoints.PROFILES, organizationId, string.Empty);
-            return new List<Profile>(GetResponseAndDeserialize<Profile[]>(endpoint));
+            string endpoint = String.Format(NgEndpoints.PROFILES, organizationId);
+            return (GetResponseAndDeserialize<ProfilesResponse>(endpoint));
         }
 
         /// <summary>

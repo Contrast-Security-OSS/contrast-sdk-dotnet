@@ -31,7 +31,6 @@ using contrast_rest_dotnet.Serialization;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
 {

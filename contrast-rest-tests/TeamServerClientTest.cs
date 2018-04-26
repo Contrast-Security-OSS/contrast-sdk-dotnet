@@ -37,8 +37,6 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 
-using Debug = System.Diagnostics.Debug;
-
 namespace sdk_tests
 {
     [TestClass]
