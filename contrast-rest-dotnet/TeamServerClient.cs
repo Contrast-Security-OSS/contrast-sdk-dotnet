@@ -234,7 +234,7 @@ namespace contrast_rest_dotnet
         }
 
         /// <summary>
-        /// Resets an application's library, coverage, statistics and trace information. (v2.0)
+        /// Resets an application's library, coverage, statistics and trace information.
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>
         /// <param name="appId">the ID of the application</param>
