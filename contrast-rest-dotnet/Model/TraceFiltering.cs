@@ -29,23 +29,23 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace contrast_rest_dotnet.Model
 {
     public enum TraceFilterType
     {
+        tags,
+        severity,
+        status,
+        vulntype,
+        appversiontags,
+        servers,
+        serversEnvironment,
+        url,
         modules,
         workflow,
-        servers,
         time,
-        url,
-        vulntype,
-        status,
-        severity,
         securityStandard
     }
 

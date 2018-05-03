@@ -503,19 +503,29 @@ namespace contrast_rest_dotnet
             return GetResponseAndDeserialize<TraceRequestResponse>(endpoint);
         }
 
+        private string getTraceFilterTypeValue(TraceFilterType type)
+        {
+            switch(type)
+            {
+                case TraceFilterType.serversEnvironment:
+                    return "servers-environment";
+                case TraceFilterType.securityStandard:
+                    return "security-standard";
+                default:
+                    return type.ToString();
+            }
+        }
+
         /// <summary>
         /// Gets subfilters for a filter.
         /// </summary>
         /// <param name="organizationId">Organization UUID</param>
-        /// <param name="traceFilterType">Filter type. Allowed values: modules,workflow,servers,time,url,vulntype,status,severity,security-standard.</param>
+        /// <param name="type">Filter type. Allowed values: modules,workflow,servers,time,url,vulntype,status,severity,security-standard.</param>
         /// <param name="filter">Query params that can be added to request.</param>
         /// <returns>A TraceFilterCatalogDetailsResponse that contains all the available subfilters.</returns>
-        public TraceFilterCatalogDetailsResponse GetTraceFilterSubfilters(string organizationId, TraceFilterType traceFilterType, TraceFilter filter)
+        public TraceFilterCatalogDetailsResponse GetTraceFilterSubfilters(string organizationId, TraceFilterType type, TraceFilter filter)
         {
-            string type;
-            type = traceFilterType == TraceFilterType.securityStandard ? "security-standard" : traceFilterType.ToString();
-
-            string endpoint = String.Format(NgEndpoints.TRACE_FILTERS, organizationId, type);
+            string endpoint = String.Format(NgEndpoints.TRACE_FILTERS, organizationId, getTraceFilterTypeValue(type));
             if (filter != null)
                 endpoint += filter.ToString();
             return GetResponseAndDeserialize<TraceFilterCatalogDetailsResponse>(endpoint);
@@ -526,15 +536,12 @@ namespace contrast_rest_dotnet
         /// </summary>
         /// <param name="organizationId">Organization UUID</param>
         /// <param name="appId">Application UUID</param>
-        /// <param name="traceFilterType">Filter type. Allowed values: modules,workflow,servers,time,url,vulntype,servers,security-standard.</param>
+        /// <param name="type">Filter type. Allowed values: appversiontags,workflow,servers,time,url,vulntype,servers,security-standard.</param>
         /// <param name="filter">Query params that can be added to request.</param>
         /// <returns>A TraceFilterCatalogDetailsResponse that contains all the available subfilters.</returns>
-        public TraceFilterCatalogDetailsResponse GetApplicationTraceFilterSubfilters(string organizationId, string appId, TraceFilterType traceFilterType, TraceFilter filter)
+        public TraceFilterCatalogDetailsResponse GetApplicationTraceFilterSubfilters(string organizationId, string appId, TraceFilterType type, TraceFilter filter)
         {
-            string type;
-            type = traceFilterType == TraceFilterType.securityStandard ? "security-standard" : traceFilterType.ToString();
-
-            string endpoint = String.Format(NgEndpoints.APPLICATION_TRACE_FILTERS, organizationId, appId, type);
+            string endpoint = String.Format(NgEndpoints.APPLICATION_TRACE_FILTERS, organizationId, appId, getTraceFilterTypeValue(type));
             if (filter != null)
                 endpoint += filter.ToString();
             return GetResponseAndDeserialize<TraceFilterCatalogDetailsResponse>(endpoint);
@@ -545,15 +552,12 @@ namespace contrast_rest_dotnet
         /// </summary>
         /// <param name="organizationId">Organization UUID</param>
         /// <param name="serverId">Server ID</param>
-        /// <param name="traceFilterType">Filter type. Allowed values: modules,workflow,servers,time,url,vulntype,security-standard.</param>
+        /// <param name="type">Filter type. Allowed values: modules,workflow,servers,time,url,vulntype,security-standard.</param>
         /// <param name="filter">Query params that can be added to request.</param>
         /// <returns>A TraceFilterCatalogDetailsResponse that contains all the available subfilters.</returns>
-        public TraceFilterCatalogDetailsResponse GetServerTraceFilterSubfilters(string organizationId, long serverId, TraceFilterType traceFilterType, TraceFilter filter)
+        public TraceFilterCatalogDetailsResponse GetServerTraceFilterSubfilters(string organizationId, long serverId, TraceFilterType type, TraceFilter filter)
         {
-            string type;
-            type = traceFilterType == TraceFilterType.securityStandard ? "security-standard" : traceFilterType.ToString();
-
-            string endpoint = String.Format(NgEndpoints.SERVER_TRACE_FILTERS, organizationId, serverId, type);
+            string endpoint = String.Format(NgEndpoints.SERVER_TRACE_FILTERS, organizationId, serverId, getTraceFilterTypeValue(type));
             if (filter != null)
                 endpoint += filter.ToString();
             return GetResponseAndDeserialize<TraceFilterCatalogDetailsResponse>(endpoint);
