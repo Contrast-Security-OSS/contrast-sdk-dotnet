@@ -48,43 +48,81 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Gets the sampling baseline.
         /// </summary>
-        [JsonProperty(PropertyName = "samplingBaseline")]
+        [JsonProperty(PropertyName = "sampling_baseline")]
         public int SamplingBaseline { get; set; }
 
         /// <summary>
         /// Gets the sampling window.
         /// </summary>
-        [JsonProperty(PropertyName = "samplingWindow")]
+        [JsonProperty(PropertyName = "sampling_window")]
         public int SamplingWindow { get; set; }
 
         /// <summary>
         /// Gets the sampling frequency.
         /// </summary>
-        [JsonProperty(PropertyName = "samplingFrequency")]
+        [JsonProperty(PropertyName = "sampling_frequency")]
         public int SamplingFrequency { get; set; }
 
         /// <summary>
         /// Gets the stack trace capture mode.
         /// </summary>
-        [JsonProperty(PropertyName = "stacktraceCaptureMode")]
+        [JsonProperty(PropertyName = "stacktrace_capture_mode")]
         public string StackTraceCaptureMode { get; set; }
 
         /// <summary>
         /// Gets whether this agent will use a proxy.
         /// </summary>
-        [JsonProperty(PropertyName = "useProxy")]
+        [JsonProperty(PropertyName = "use_proxy")]
         public bool UseProxy { get; set; }
-
-        /// <summary>
-        /// Gets the TeamServerUrl.
-        /// </summary>
-        [JsonProperty(PropertyName = "overrideTeamServerUrl")]
-        public bool OverrideTeamServerUrl { get; set; }
 
         /// <summary>
         /// Gets a list of Contrast REST endpoint URLs for this profile.
         /// </summary>
         [JsonProperty(PropertyName = "links")]
         public List<Link> Links { get; set; }
+    }
+
+    [JsonObject]
+    public class ProfileResponse
+    {
+        /// <summary>
+        /// List of messages
+        /// </summary>
+        [JsonProperty(PropertyName = "messages")]
+        public List<string> Messages { get; set; }
+
+        /// <summary>
+        /// Agent profile resource
+        /// </summary>
+        [JsonProperty(PropertyName = "property")]
+        public Profile Profile { get; set; }
+
+        /// <summary>
+        /// Indicates whether API response was successful or not
+        /// </summary>
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+    }
+
+    [JsonObject]
+    public class ProfilesResponse
+    {
+        /// <summary>
+        /// List of messages
+        /// </summary>
+        [JsonProperty(PropertyName = "messages")]
+        public List<string> Messages { get; set; }
+
+        /// <summary>
+        /// List of agent profile resources
+        /// </summary>
+        [JsonProperty(PropertyName = "profiles")]
+        public List<Profile> Profiles { get; set; }
+
+        /// <summary>
+        /// Indicates whether API response was successful or not
+        /// </summary>
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
     }
 }

@@ -28,10 +28,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace contrast_rest_dotnet
 {
@@ -45,6 +41,7 @@ namespace contrast_rest_dotnet
         internal static string PROFILES = "api/{0}/engine/profiles/{1}";
         internal static string SERVERS = "api/{0}/servers/";
         internal static string TRACES = "api/{0}/traces/{1}";
+        // This is the only endpoint which support was confirmed.
         internal static string TRACE_EXISTS = "s/traces/exists";
     }
 }
