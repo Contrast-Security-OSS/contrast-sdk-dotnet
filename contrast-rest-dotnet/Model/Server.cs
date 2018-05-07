@@ -51,7 +51,7 @@ namespace contrast_rest_dotnet.Model
         /// Return the list of applications in this server.
         /// </summary>
         [JsonProperty(PropertyName = "applications")]
-        public List<ServerApplication> Applications { get; set; }
+        public List<ContrastApplication> Applications { get; set; }
 
         /// <summary>
         /// If this server has assess enabled.
