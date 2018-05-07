@@ -31,7 +31,6 @@ using contrast_rest_dotnet.Serialization;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace contrast_rest_dotnet.Model
 {
@@ -120,6 +119,12 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [JsonProperty(PropertyName = "importance")]
         public int? Importance { get; set; }
+
+        /// <summary>
+        /// Application importance label
+        /// </summary>
+        [JsonProperty(PropertyName = "importance_description")]
+        public ApplicationImportance? ImportanceLabel { get; set; }
 
         /// <summary>
         /// Gets the language of the application, e.g., Java.
@@ -261,6 +266,92 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [JsonProperty(PropertyName = "trace_breakdown")]
         public TraceBreakdown TraceBreakdown { get; set; }
+    }
+
+    [JsonObject]
+    public class ServerApplication
+    {
+        /// <summary>
+        /// Application id
+        /// </summary>
+        [JsonProperty(PropertyName = "app_id")]
+        public string AppId { get; set; }
+
+        /// <summary>
+        /// Application name
+        /// </summary>
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Application path
+        /// </summary>
+        [JsonProperty(PropertyName = "path")]
+        public string Path { get; set; }
+
+        /// <summary>
+        /// Application language
+        /// </summary>
+        [JsonProperty(PropertyName = "language")]
+        public string Language { get; set; }
+
+        /// <summary>
+        /// Is application archived
+        /// </summary>
+        [JsonProperty(PropertyName = "archived")]
+        public bool Archived { get; set; }
+
+        /// <summary>
+        /// Is application master
+        /// </summary>
+        [JsonProperty(PropertyName = "master")]
+        public bool Master { get; set; }
+
+        /// <summary>
+        /// Number of app modules
+        /// </summary>
+        [JsonProperty(PropertyName = "total_modules")]
+        public long TotalAppModules { get; set; }
+
+        /// <summary>
+        /// Parent application ID
+        /// </summary>
+        [JsonProperty(PropertyName = "parentApplicationId")]
+        public string ParentApplicationId { get; set; }
+
+        /// <summary>
+        /// The application license level
+        /// </summary>
+        [JsonProperty(PropertyName = "license_level")]
+        public ServiceLevel LicenseLevel { get; set; }
+
+        /// <summary>
+        /// Application importance
+        /// </summary>
+        [JsonProperty(PropertyName = "importance")]
+        public int? Importance { get; set; }
+
+        /// <summary>
+        /// Application importance label
+        /// </summary>
+        [JsonProperty(PropertyName = "importance_description")]
+        public ApplicationImportance? ImportanceLabel { get; set; }
+    }
+
+    public enum ServiceLevel
+    {
+        ReadOnly,
+        Unlicensed,
+        Licensed
+    }
+
+    public enum ApplicationImportance
+    {
+        None,
+        Low,
+        Medium,
+        High,
+        Critical
     }
 
     [JsonObject]
