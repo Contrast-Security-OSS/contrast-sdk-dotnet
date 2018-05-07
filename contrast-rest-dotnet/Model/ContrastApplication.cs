@@ -31,7 +31,7 @@ using contrast_rest_dotnet.Serialization;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace contrast_rest_dotnet.Model
 {
@@ -120,6 +120,13 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [JsonProperty(PropertyName = "importance")]
         public int? Importance { get; set; }
+
+        /// <summary>
+        /// Application importance label
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty(PropertyName = "importance_description")]
+        public ApplicationImportance? ImportanceLabel { get; set; }
 
         /// <summary>
         /// Gets the language of the application, e.g., Java.
@@ -261,6 +268,15 @@ namespace contrast_rest_dotnet.Model
         /// </summary>
         [JsonProperty(PropertyName = "trace_breakdown")]
         public TraceBreakdown TraceBreakdown { get; set; }
+    }
+
+    public enum ApplicationImportance
+    {
+        None,
+        Low,
+        Medium,
+        High,
+        Critical
     }
 
     [JsonObject]
