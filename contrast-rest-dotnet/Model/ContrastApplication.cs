@@ -31,6 +31,7 @@ using contrast_rest_dotnet.Serialization;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace contrast_rest_dotnet.Model
 {
@@ -123,6 +124,7 @@ namespace contrast_rest_dotnet.Model
         /// <summary>
         /// Application importance label
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty(PropertyName = "importance_description")]
         public ApplicationImportance? ImportanceLabel { get; set; }
 
