@@ -437,6 +437,36 @@ namespace contrast_rest_dotnet
         }
 
         /// <summary>
+        /// Get a organization information based on its UUID.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <returns>A object that contains basic organization data</returns>
+        public OrganizationManagedResponse GetOrganizationInfo(string organizationId)
+        {
+            return GetOrganizationInfo(organizationId, null);
+        }
+
+        /// <summary>
+        /// Get a organization information based on its UUID.
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <param name="expand">Load additional data</param>
+        /// <returns>A object that contains basic organization data</returns>
+        public OrganizationManagedResponse GetOrganizationInfo(string organizationId, List<OrganizationExpandValues> expand)
+        {
+            string endpoint = String.Format(NgEndpoints.ORGANIZATION_INFORMATION, organizationId);
+            if (expand?.Count > 0)
+            {
+                endpoint += "?expand=";
+                for (int i = 0; i < expand.Count; i++)
+                {
+                    endpoint += i > 0 ? "," + expand[i].ToString() : expand[i].ToString();
+                }
+            }
+            return GetResponseAndDeserialize<OrganizationManagedResponse>(endpoint);
+        }
+
+        /// <summary>
         /// Gets a trace list of events with their summary
         /// </summary>
         /// <param name="organizationId">User's organization UUID</param>

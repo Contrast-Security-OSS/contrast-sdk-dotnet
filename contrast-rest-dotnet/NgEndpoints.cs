@@ -46,6 +46,7 @@ namespace contrast_rest_dotnet
         internal static string ENGINE_NODE = "api/ng/{0}/agents/{1}/node";
         internal static string ORGANIZATIONS = "api/ng/profile/organizations/";
         internal static string ORGANIZATION_TRACES = "api/ng/{0}/orgtraces/filter";
+        internal static string ORGANIZATION_INFORMATION = "api/ng/{0}/organizations";
         internal static string PROFILE = "api/ng/{0}/agents/profiles/{1}";
         internal static string PROFILES = "api/ng/{0}/agents/profiles";
         internal static string SERVERS = "api/ng/{0}/servers/{1}";
