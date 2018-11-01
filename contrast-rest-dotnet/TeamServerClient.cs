@@ -457,11 +457,7 @@ namespace contrast_rest_dotnet
             string endpoint = String.Format(NgEndpoints.ORGANIZATION_INFORMATION, organizationId);
             if (expand?.Count > 0)
             {
-                endpoint += "?expand=";
-                for (int i = 0; i < expand.Count; i++)
-                {
-                    endpoint += i > 0 ? "," + expand[i].ToString() : expand[i].ToString();
-                }
+                endpoint = "?expand=" + String.Join(",", expand);
             }
             return GetResponseAndDeserialize<OrganizationManagedResponse>(endpoint);
         }
