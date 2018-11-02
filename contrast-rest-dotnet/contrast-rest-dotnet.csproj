@@ -61,6 +61,7 @@
     <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\IContrastRestClient.cs" />
+    <Compile Include="Http\OrganizationFilter.cs" />
     <Compile Include="Http\ServerFilter.cs" />
     <Compile Include="Http\TraceFilter.cs" />
     <Compile Include="Model\AgentType.cs" />
