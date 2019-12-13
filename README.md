@@ -12,17 +12,15 @@ Please see http://www.contrastsecurity.com for more information about how Contra
 * Newtonsoft.Json
 
 
-## Contrast TeamServer API Credentials
-To access the TeamServer API, you'll first need access to TeamServer - either SAAS (https://app.contrastsecurity.com/Contrast/login.html) or an on-premises installation of TeamServer.
+## Contrast API Credentials
+To access the API, you'll first need access Contrast (https://app.contrastsecurity.com/Contrast/login.html) or an on-premises installation of Contrast.
 
-To begin using the Contrast API you will need to retrieve your API-Key from the server. To do this, you will need to log in to your TeamServer account and have the application e-mail you a generated API-Key.
+Your API credentials can be found by following these steps:
 
-1. Log in to TeamServer
+1. Log in to Contrast
 2. Click the down arrow next to your login name in the page header
-3. Click on API Key
-4. Click either Email me the current "API Key" or "Rotate the key and email me a new key"
-
-The TeamServer client requires the TeamServer URL, account username, service key, API key and TeamServer URL.
+3. Click on "Your Account"
+4. Your API credentials will be listed under "YOUR KEYS"
 
 More API documentation can be found here: https://support.contrastsecurity.com/entries/24184140-Accessing-the-API
 
