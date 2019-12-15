@@ -38,9 +38,9 @@ using Moq;
 using Newtonsoft.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using contrast_rest_dotnet;
-using contrast_rest_dotnet.Model;
-using contrast_rest_dotnet.Http;
+using Contrast;
+using Contrast.Model;
+using Contrast.Http;
 
 namespace sdk_tests
 {

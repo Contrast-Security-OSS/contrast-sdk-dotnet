@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContrastApiException.cs" />
-    <Compile Include="Endpoints.cs" />
     <Compile Include="ForbiddenException.cs" />
     <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Http\IHttpClient.cs" />
@@ -95,7 +94,7 @@
     <Compile Include="Model\Parameter.cs" />
     <Compile Include="Serialization\DateTimeConverter.cs" />
     <Compile Include="Serialization\EpochDateTimeConverter.cs" />
-    <Compile Include="TeamServerClient.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

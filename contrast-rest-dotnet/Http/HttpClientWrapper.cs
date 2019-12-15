@@ -33,7 +33,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace contrast_rest_dotnet.Http
+namespace Contrast.Http
 {
     public class HttpClientWrapper : IHttpClient
     {

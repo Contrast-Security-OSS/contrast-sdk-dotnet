@@ -32,7 +32,7 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     /// <summary>
     /// Class that contains allowed trace status.

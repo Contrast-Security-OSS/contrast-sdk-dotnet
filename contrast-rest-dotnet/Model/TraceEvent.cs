@@ -30,7 +30,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     /// <summary>
     /// A collection of TraceEvents make up a vulnerability, or, "trace". They

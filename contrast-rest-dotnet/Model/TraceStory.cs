@@ -31,7 +31,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     [JsonObject]
     public class TraceStory

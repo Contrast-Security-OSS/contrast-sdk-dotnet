@@ -33,8 +33,8 @@ using System.Collections.Generic;
 using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using contrast_rest_dotnet;
-using contrast_rest_dotnet.Http;
+using Contrast;
+using Contrast.Http;
 using System.Text;
 using System.IO;
 

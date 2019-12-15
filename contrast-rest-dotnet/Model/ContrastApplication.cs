@@ -27,13 +27,13 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using contrast_rest_dotnet.Serialization;
+using Contrast.Serialization;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     /// <summary>
     /// An application that is being monitored by Contrast.

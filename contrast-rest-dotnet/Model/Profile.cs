@@ -31,7 +31,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     /// <summary>
     /// A profile for agent downloads containing specifics for TeamServer URL, proxy settings, etc.

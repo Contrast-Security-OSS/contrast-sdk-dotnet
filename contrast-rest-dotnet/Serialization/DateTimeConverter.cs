@@ -29,7 +29,7 @@
 
 using System;
 
-namespace contrast_rest_dotnet.Serialization
+namespace Contrast.Serialization
 {
     public static class DateTimeConverter 
     {

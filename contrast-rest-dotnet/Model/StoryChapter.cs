@@ -32,7 +32,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     public enum ChapterType
     {

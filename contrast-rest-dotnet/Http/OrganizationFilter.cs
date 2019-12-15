@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace contrast_rest_dotnet.Http
+namespace Contrast.Http
 {
    public enum OrganizationExpandValues
     {

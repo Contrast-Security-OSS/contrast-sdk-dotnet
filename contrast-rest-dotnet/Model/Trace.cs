@@ -27,12 +27,12 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using contrast_rest_dotnet.Serialization;
+using Contrast.Serialization;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     /// <summary>
     /// A vulnerability identified by Contrast.

@@ -29,9 +29,9 @@
 
 using System;
 using System.Collections.Generic;
-using contrast_rest_dotnet.Serialization;
+using Contrast.Serialization;
 
-namespace contrast_rest_dotnet.Http
+namespace Contrast.Http
 {
     public class TraceFilter
     {

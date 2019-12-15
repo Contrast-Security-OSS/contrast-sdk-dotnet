@@ -31,7 +31,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace contrast_rest_dotnet.Http
+namespace Contrast.Http
 {
     public class ContrastRestClient : IContrastRestClient
     {

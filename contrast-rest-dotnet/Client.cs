@@ -27,15 +27,15 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using contrast_rest_dotnet.Http;
-using contrast_rest_dotnet.Model;
+using Contrast.Http;
+using Contrast.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net.Http;
 
-namespace contrast_rest_dotnet
+namespace Contrast
 {
     public enum RequestMethod
     {
@@ -47,7 +47,7 @@ namespace contrast_rest_dotnet
     /// <summary>
     /// Entry point for using the Contrast REST API.  Make an instance of this class and call methods.
     /// </summary>
-    public class TeamServerClient : IDisposable
+    public class Client : IDisposable
     {
         private IContrastRestClient _contrastRestClient;
 
@@ -64,11 +64,11 @@ namespace contrast_rest_dotnet
         /// <param name="apiKey">API Key</param>
         /// <param name="teamServerUrl">he base Contrast API URL (e.g., https://app.contrastsecurity.com/Contrast/api/)</param>
         /// <exception cref="System.ArgumentException">Thrown when an invalid Uri is passed in teamServerUrl or a null/empty value is provided for other parameters</exception>
-        public TeamServerClient(string user, string serviceKey, string apiKey, string teamServerUrl)
+        public Client(string user, string serviceKey, string apiKey, string teamServerUrl)
             : this(new ContrastRestClient(new HttpClientWrapper(user, serviceKey, apiKey, teamServerUrl)))
         { }
 
-        public TeamServerClient(IContrastRestClient contrastRestClient)
+        public Client(IContrastRestClient contrastRestClient)
         {
             _contrastRestClient = contrastRestClient;
         }
@@ -145,20 +145,6 @@ namespace contrast_rest_dotnet
         private T GetDeleteResponseAndDeserialize<T>(string endpoint)
         {
             return GetResponseAndDeserialize<T>(endpoint, null, RequestMethod.Delete);
-        }
-
-        /// <summary>
-        /// Returns whether a trace exists for an application based on ID and trace conditions. (v1.0)
-        /// </summary>
-        /// <param name="appId">the ID of the application</param>
-        /// <param name="conditions">a name=value pair querystring of trace conditions</param>
-        /// <returns>the HTTP response code of the given query</returns>
-        /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
-        public System.Net.HttpStatusCode CheckForTrace(string appId, string conditions)
-        {
-            var responseMessage = _contrastRestClient.PostApplicatonSpecificMessage(Endpoints.TRACE_EXISTS, conditions, appId);
-
-            return responseMessage.StatusCode;
         }
 
         /// <summary>

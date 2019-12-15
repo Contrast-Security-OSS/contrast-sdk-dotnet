@@ -30,7 +30,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace contrast_rest_dotnet.Serialization
+namespace Contrast.Serialization
 {
     public class EpochDateTimeConverter : JsonConverter
     {

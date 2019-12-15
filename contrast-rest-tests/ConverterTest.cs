@@ -29,7 +29,7 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using contrast_rest_dotnet.Serialization;
+using Contrast.Serialization;
 
 namespace sdk_tests
 {

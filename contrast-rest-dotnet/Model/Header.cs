@@ -29,7 +29,7 @@
 
 using Newtonsoft.Json;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     /// <summary>
     /// Name=value pair for HTTP headers.

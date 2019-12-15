@@ -27,8 +27,8 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using contrast_rest_dotnet;
-using contrast_rest_dotnet.Model;
+using Contrast;
+using Contrast.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -49,7 +49,7 @@ namespace SampleContrastClient
             string apiKey = ConfigurationManager.AppSettings["TeamServerApiKey"];
             string url = ConfigurationManager.AppSettings["TeamServerUrl"];
 
-            using (TeamServerClient client = new TeamServerClient(user, serviceKey, apiKey, url))
+            using (Client client = new Client(user, serviceKey, apiKey, url))
             {
                 Console.WriteLine("Connecting to Contrast Team Server: '{0}' as user: '{1}'", url, user);
 
@@ -57,7 +57,7 @@ namespace SampleContrastClient
                 Console.WriteLine("User is associated with {0} orgs. {1}", orgs.Count,
                     (orgs.Count > 0 ? "First Organization: " + orgs[0].name : string.Empty));
 
-                if( orgs.Count > 0 )
+                if (orgs.Count > 0)
                 {
                     _organizationId = orgs[0].organization_uuid;
                 }
@@ -66,13 +66,13 @@ namespace SampleContrastClient
                 Console.WriteLine("User's default org is:{0}({1})", defaultOrg.name, defaultOrg.organization_uuid);
 
                 var serverResponse = client.GetServers(_organizationId);
-                if(serverResponse != null)
+                if (serverResponse != null)
                     Console.WriteLine("Found {0} servers.", serverResponse.Servers.Count);
                 else
                     Console.WriteLine("No servers found.");
 
                 var appsResponse = client.GetApplications(_organizationId);
-                if(appsResponse != null)
+                if (appsResponse != null)
                     Console.WriteLine("Found {0} applications.", appsResponse.Applications.Count);
                 else
                     Console.WriteLine("No applications found.");
@@ -86,7 +86,7 @@ namespace SampleContrastClient
 
                     var traceResponse = client.GetTraces(_organizationId);
 
-                    if(traceResponse != null)
+                    if (traceResponse != null)
                         Console.WriteLine("Found {0} traces for application.", traceResponse.Traces.Count);
                     else
                         Console.WriteLine("No traces found for application.");
@@ -137,7 +137,7 @@ namespace SampleContrastClient
         }
 
         // Example usage of GetAgent method
-        private static void DownloadAgentToDesktop(TeamServerClient client)
+        private static void DownloadAgentToDesktop(Client client)
         {
             string filename = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\dotnetagent.zip";
             using (var agentStream = client.GetAgent(AgentType.DotNet, _organizationId))
@@ -150,7 +150,7 @@ namespace SampleContrastClient
         }
 
         // Example usage of DoesTraceExist method
-        private static bool DoesTraceExist( TeamServerClient client, string traceUuid, string organizationId )
+        private static bool DoesTraceExist( Client client, string traceUuid, string organizationId )
         {
             var traces = client.GetTracesByUuid(organizationId, traceUuid)?.Traces;
 

@@ -33,7 +33,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     /// <summary>
     /// Enumerate the agent downloads.

@@ -29,7 +29,7 @@
 
 using System;
 
-namespace contrast_rest_dotnet
+namespace Contrast
 {
     /// <summary>
     /// Exception thrown when TeamServer sends an unrecognized response.

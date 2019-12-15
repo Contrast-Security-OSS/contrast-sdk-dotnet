@@ -8,6 +8,15 @@ This library is also provided as a nuget package: https://www.nuget.org/packages
 
 Please see http://www.contrastsecurity.com for more information about how Contrast can help secure your applications.
 
+## 3.0 Changelog
+
+The 3.X line of packages has a few changes from the 2.X line that you might need to address in your code
+
+* namespace changed from `contrast_rest_dotnet` to `Contrast`
+* Removed the method `TeamServerClient.CheckForTrace`
+* Renamed `TeamServerClient` to `Client`
+* Removed deprecated `Endpoints` class
+
 ## Dependencies
 * Newtonsoft.Json
 

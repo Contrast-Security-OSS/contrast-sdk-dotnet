@@ -30,7 +30,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using contrast_rest_dotnet.Http;
+using Contrast.Http;
 
 namespace sdk_tests
 {

@@ -27,8 +27,8 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using contrast_rest_dotnet;
-using contrast_rest_dotnet.Http;
+using Contrast;
+using Contrast.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;

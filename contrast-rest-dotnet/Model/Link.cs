@@ -29,7 +29,7 @@
 
 using Newtonsoft.Json;
 
-namespace contrast_rest_dotnet.Model
+namespace Contrast.Model
 {
     /// <summary>
     /// A link containing a URL to a Contrast REST endpoint.

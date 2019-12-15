@@ -31,7 +31,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-namespace contrast_rest_dotnet.Http
+namespace Contrast.Http
 {
     public interface IHttpClient : IDisposable
     {
