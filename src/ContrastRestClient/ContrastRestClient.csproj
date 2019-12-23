@@ -8,6 +8,7 @@
     <Copyright>Copyright © 2019</Copyright>
     <Version>3.0.0.0</Version>
     <IsPackable>true</IsPackable>
+    <RootNamespace>Contrast</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
