@@ -4,12 +4,9 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\contrast-rest-dotnet\contrast-rest-dotnet.csproj" />
+    <ProjectReference Include="..\..\src\ContrastRestClient\ContrastRestClient.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
   </ItemGroup>
-  <!-- <ItemGroup>
-    <Reference Include="System.Net.Http" />
-  </ItemGroup> -->
 </Project>

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "contrast-rest-dotnet", "contrast-rest-dotnet\contrast-rest-dotnet.csproj", "{A03F8136-A1AB-4621-9D38-A47416C83EBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContrastRestClient", "src\ContrastRestClient\ContrastRestClient.csproj", "{A03F8136-A1AB-4621-9D38-A47416C83EBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleContrastClient", "SampleContrastClient\SampleContrastClient.csproj", "{1FDD7518-8C6F-4F53-86D4-E256D06A40B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleContrastClient", "examples\SampleContrastClient\SampleContrastClient.csproj", "{1FDD7518-8C6F-4F53-86D4-E256D06A40B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "contrast-rest-tests", "contrast-rest-tests\contrast-rest-tests.csproj", "{448EF756-4077-4072-8274-A2075B1C56A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContrastRestClient.Tests", "tests\ContrastRestClient.Tests\ContrastRestClient.Tests.csproj", "{448EF756-4077-4072-8274-A2075B1C56A6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5700ED5C-D9E1-4049-8DA7-267FB3C113C1}"
 	ProjectSection(SolutionItems) = preProject
