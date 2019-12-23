@@ -1,111 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A03F8136-A1AB-4621-9D38-A47416C83EBE}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>contrast_rest_dotnet</RootNamespace>
-    <AssemblyName>contrast-rest-dotnet</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\contrast-rest-dotnet.XML</DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
+    <TargetFramework>net452</TargetFramework>
+    <AssemblyTitle>Contrast REST API</AssemblyTitle>
+    <Description>Contrast TeamServer REST API</Description>
+    <Company>Contrast Security, Inc.</Company>
+    <Product>Contrast REST API</Product>
+    <Copyright>Copyright © 2019</Copyright>
+    <Version>3.0.0.0</Version>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ContrastApiException.cs" />
-    <Compile Include="ForbiddenException.cs" />
-    <Compile Include="Http\HttpClientWrapper.cs" />
-    <Compile Include="Http\IHttpClient.cs" />
-    <Compile Include="Http\IContrastRestClient.cs" />
-    <Compile Include="Http\OrganizationFilter.cs" />
-    <Compile Include="Http\ServerFilter.cs" />
-    <Compile Include="Http\TraceFilter.cs" />
-    <Compile Include="Model\AgentType.cs" />
-    <Compile Include="Model\BaseApiResponse.cs" />
-    <Compile Include="Model\Card.cs" />
-    <Compile Include="Model\CodeView.cs" />
-    <Compile Include="Model\NgApplication.cs" />
-    <Compile Include="Model\Organization.cs" />
-    <Compile Include="Model\Profile.cs" />
-    <Compile Include="Model\Score.cs" />
-    <Compile Include="Model\Snippet.cs" />
-    <Compile Include="Model\StoryChapter.cs" />
-    <Compile Include="Model\TraceBreakdown.cs" />
-    <Compile Include="Model\TraceEventDetail.cs" />
-    <Compile Include="Model\TraceFiltering.cs" />
-    <Compile Include="Model\TraceRecommendation.cs" />
-    <Compile Include="Model\TraceStatus.cs" />
-    <Compile Include="Model\TraceStory.cs" />
-    <Compile Include="Model\TraceTag.cs" />
-    <Compile Include="NgEndpoints.cs" />
-    <Compile Include="ResourceNotFoundException.cs" />
-    <Compile Include="Model\ContrastApplication.cs" />
-    <Compile Include="Model\Server.cs" />
-    <Compile Include="Model\TraceEvent.cs" />
-    <Compile Include="Model\Header.cs" />
-    <Compile Include="Model\Library.cs" />
-    <Compile Include="Model\Link.cs" />
-    <Compile Include="Http\ContrastRestClient.cs" />
-    <Compile Include="Model\Request.cs" />
-    <Compile Include="Model\Trace.cs" />
-    <Compile Include="Model\Parameter.cs" />
-    <Compile Include="Serialization\DateTimeConverter.cs" />
-    <Compile Include="Serialization\EpochDateTimeConverter.cs" />
-    <Compile Include="Client.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
