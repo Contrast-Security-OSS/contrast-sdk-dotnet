@@ -45,14 +45,14 @@ namespace sdk_tests
         [TestMethod]
         public void Constructor_ValidUrl_NoException()
         {
-            var tsClient = new TeamServerClient("arbitraryUser", "arbitraryServiceKey", "arbitraryApiKey",
+            var tsClient = new Client("arbitraryUser", "arbitraryServiceKey", "arbitraryApiKey",
                 "http://localhost/Contrast");
         }
 
         [TestMethod, ExpectedException(typeof(ArgumentException))]
         public void Constructor_InvalidUrl_ArgumentExceptionThrown()
         {
-            var tsClient = new TeamServerClient("arbitraryUser", "arbitraryServiceKey", "arbitraryApiKey",
+            var tsClient = new Client("arbitraryUser", "arbitraryServiceKey", "arbitraryApiKey",
                 "invalidUrlValue");
         }
 
@@ -123,7 +123,7 @@ namespace sdk_tests
                 new MemoryStream(Encoding.UTF8.GetBytes(json))
                 );
 
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
 
             var response = teamServerClient.GetApplications("orgId");
             var apps = response.Applications;
@@ -185,7 +185,7 @@ namespace sdk_tests
                 new MemoryStream(Encoding.UTF8.GetBytes(libraryJson))
                 );
 
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
 
             var libsResponse = teamServerClient.GetLibraries("orgId", appId);
             var libs = libsResponse.Libraries;
@@ -335,7 +335,7 @@ namespace sdk_tests
                 new MemoryStream(Encoding.UTF8.GetBytes(dataFlowTraceJson))
                 );
 
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
 
             var traceResponse = teamServerClient.GetTraces("orgId");
             var traces = traceResponse.Traces;
@@ -425,7 +425,7 @@ namespace sdk_tests
                 new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
                 );
 
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
 
             var traceResponse = teamServerClient.GetTraces(orgId);
             var traces = traceResponse.Traces;
@@ -494,7 +494,7 @@ namespace sdk_tests
                 new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
                 );
 
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
 
             var traceResponse = teamServerClient.GetApplicationTraces(orgId, appId);
             var traces = traceResponse.Traces;
@@ -562,7 +562,7 @@ namespace sdk_tests
                 new MemoryStream(Encoding.UTF8.GetBytes(configTraceJson))
                 );
 
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
 
             var traceResponse = teamServerClient.GetServerTraces(orgId, serverId);
             var traces = traceResponse.Traces;
@@ -711,7 +711,7 @@ namespace sdk_tests
                 new MemoryStream(Encoding.UTF8.GetBytes(eventSummaryJson))
                 );
 
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var summaryResponse = teamServerClient.GetEventsSummary("orgId", "traceId");
 
             Assert.AreEqual(2, summaryResponse.Events.Count);
@@ -791,7 +791,7 @@ namespace sdk_tests
                 new MemoryStream(Encoding.UTF8.GetBytes(detailsJson))
                 );
 
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var detailsResponse = teamServerClient.GetTraceEventDetail("orgId", "traceId", 12);
 
             Assert.AreEqual("org.apache.catalina.connector.RequestFacade", detailsResponse.Event.ClassName);
@@ -818,7 +818,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/httprequest")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(httpJson))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var httpRequestResponse = teamServerClient.GetTraceHttpRequest("orgId", "traceId");
 
             Assert.IsTrue(httpRequestResponse.HttpRequest.Text.Contains("POST /ticketbook/xss.jsp HTTP/1.0\nContent-Length: 15\nReferer:"));
@@ -887,7 +887,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/story")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var storyResponse = teamServerClient.GetTraceStory("orgId", "traceId");
 
             Assert.AreEqual(3, storyResponse.Story.Chapters.Count);
@@ -984,7 +984,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/orgtraces/filter/severity/listing")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var filterResponse = teamServerClient.GetTraceFilterSubfilters("orgId", TraceFilterType.severity, null);
 
             Assert.AreEqual(5, filterResponse.Filters.Count);
@@ -1055,7 +1055,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/appId/filter/servers/listing")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var filterResponse = teamServerClient.GetApplicationTraceFilterSubfilters("orgId", "appId", TraceFilterType.servers, null);
 
             Assert.AreEqual(2, filterResponse.Filters.Count);
@@ -1106,7 +1106,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/servertraces/1111/filter/modules/listing")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var filterResponse = teamServerClient.GetServerTraceFilterSubfilters("orgId", 1111, TraceFilterType.modules, null);
 
             Assert.AreEqual(1, filterResponse.Filters.Count);
@@ -1153,7 +1153,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/traces/traceId/recommendation")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(recommendationJson))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.GetTraceRecommendation("orgId", "traceId");
 
             Assert.AreEqual(response.Owasp, "https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet");

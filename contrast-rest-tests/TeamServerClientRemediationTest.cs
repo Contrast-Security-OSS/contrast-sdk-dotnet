@@ -61,7 +61,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.PutMessage("api/ng/orgId/orgtraces/mark", JsonConvert.SerializeObject(request), null)).Returns(
                 PostUtil.GetPostResponse(System.Net.HttpStatusCode.OK, json)
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.MarkTraceStatus("orgId", request);
 
             Assert.IsTrue(response.Success);
@@ -85,7 +85,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.PutMessage("api/ng/orgId/servertraces/1/mark", JsonConvert.SerializeObject(request), null)).Returns(
                 PostUtil.GetPostResponse(System.Net.HttpStatusCode.OK, json)
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.MarkTraceStatus("orgId", 1, request);
 
             Assert.IsTrue(response.Success);
@@ -109,7 +109,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.PutMessage("api/ng/orgId/traces/appId/mark", JsonConvert.SerializeObject(request), null)).Returns(
                 PostUtil.GetPostResponse(System.Net.HttpStatusCode.OK, json)
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.MarkTraceStatus("orgId", "appId", request);
 
             Assert.IsTrue(response.Success);
@@ -133,7 +133,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.PutMessage("api/ng/orgId/orgtraces/mark", JsonConvert.SerializeObject(request), null)).Returns(
                 PostUtil.GetPostResponse(System.Net.HttpStatusCode.Forbidden, json)
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
 
             try
             {

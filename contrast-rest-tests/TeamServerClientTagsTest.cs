@@ -64,7 +64,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.DeleteMessage("api/ng/orgId/tags/trace/traceId", JsonConvert.SerializeObject(request))).Returns(
                 PostUtil.GetPostResponse(System.Net.HttpStatusCode.OK, json)
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.DeleteTraceTag("orgId", "traceId", "none");
 
             Assert.IsTrue(response.Success);
@@ -90,7 +90,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/tags/traces")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(json))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.GetTracesUniqueTags("orgId");
 
             Assert.AreEqual(2, response.Tags.Count);
@@ -117,7 +117,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/tags/traces/server/1")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(json))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.GetTracesUniqueTags("orgId", 1);
 
             Assert.AreEqual(2, response.Tags.Count);
@@ -144,7 +144,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/tags/traces/application/appId")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(json))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.GetTracesUniqueTags("orgId", "appId");
 
             Assert.AreEqual(2, response.Tags.Count);
@@ -169,7 +169,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.PutMessage("api/ng/orgId/tags/traces", JsonConvert.SerializeObject(request), null)).Returns(
                 PostUtil.GetPostResponse(System.Net.HttpStatusCode.OK, json)
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.TagTraces("orgId", request);
 
             Assert.IsTrue(response.Success);
@@ -196,7 +196,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.PostMessage("api/ng/orgId/tags/traces/bulk", JsonConvert.SerializeObject(request), null)).Returns(
                 PostUtil.GetPostResponse(System.Net.HttpStatusCode.OK, json)
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.GetTagsByTraces("orgId", request);
 
             Assert.AreEqual(2, response.Tags.Count);
@@ -220,7 +220,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.PutMessage("api/ng/orgId/tags/traces/bulk", JsonConvert.SerializeObject(request), null)).Returns(
                 PostUtil.GetPostResponse(System.Net.HttpStatusCode.OK, json)
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.TagsTracesBulk("orgId", request);
 
             Assert.IsTrue(response.Success);
@@ -244,7 +244,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/tags/traces/trace/traceId")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(json))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.GetTagsByTrace("orgId", "traceId");
 
             Assert.AreEqual(1, response.Tags.Count);

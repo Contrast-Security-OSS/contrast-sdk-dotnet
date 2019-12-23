@@ -72,7 +72,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/organizations")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(json))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.GetOrganizationInfo("orgId");
 
             Assert.IsTrue(response.Success);
@@ -109,7 +109,7 @@ namespace sdk_tests
             mockSdkHttpClient.Setup(client => client.GetResponseStream("api/ng/orgId/organizations?expand=freemium")).Returns(
                 new MemoryStream(Encoding.UTF8.GetBytes(json))
                 );
-            var teamServerClient = new TeamServerClient(mockSdkHttpClient.Object);
+            var teamServerClient = new Client(mockSdkHttpClient.Object);
             var response = teamServerClient.GetOrganizationInfo("orgId", new List<OrganizationExpandValues>{ OrganizationExpandValues.freemium });
 
             Assert.IsTrue(response.Success);
