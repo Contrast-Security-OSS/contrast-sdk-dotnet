@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 
-namespace sdk_tests
+namespace ContrastRestClient.Tests
 {
     public static class PostUtil
     {

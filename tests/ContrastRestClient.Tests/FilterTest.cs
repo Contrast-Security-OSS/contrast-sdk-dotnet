@@ -29,10 +29,10 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Contrast.Http;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace sdk_tests
+namespace ContrastRestClient.Tests
 {
     [TestClass]
     public class FilterTest

@@ -27,17 +27,16 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+using System;
+using System.IO;
+using System.Text;
 using Contrast;
 using Contrast.Http;
 using Contrast.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.IO;
-using System.Text;
-using Newtonsoft.Json;
 
-namespace sdk_tests
+namespace ContrastRestClient.Tests
 {
     [TestClass]
     public class TeamServerClientTest

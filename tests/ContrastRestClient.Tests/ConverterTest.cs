@@ -28,10 +28,10 @@
  */
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Contrast.Serialization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace sdk_tests
+namespace ContrastRestClient.Tests
 {
     [TestClass]
     public class ConverterTest

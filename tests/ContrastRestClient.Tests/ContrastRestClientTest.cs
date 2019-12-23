@@ -27,21 +27,21 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using Contrast;
-using Contrast.Http;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Contrast;
+using Contrast.Http;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
-namespace sdk_tests
+namespace ContrastRestClient.Tests
 {
     [TestClass]
     public class ContrastRestClientTest
     {
-        private ContrastRestClient CreateClientThatReturnStatusCode(System.Net.HttpStatusCode statusCode)
+        private Contrast.Http.ContrastRestClient CreateClientThatReturnStatusCode(System.Net.HttpStatusCode statusCode)
         {
             var mockClient = new Mock<IHttpClient>();
             mockClient.Setup(c => c.GetAsync(It.IsAny<String>())).Returns(
@@ -51,7 +51,7 @@ namespace sdk_tests
                 })
                 );
 
-            var client = new ContrastRestClient(mockClient.Object);
+            var client = new Contrast.Http.ContrastRestClient(mockClient.Object);
             return client;
         }
 

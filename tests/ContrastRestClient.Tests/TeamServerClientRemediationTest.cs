@@ -29,16 +29,14 @@
 
 using System;
 using System.Collections.Generic;
-
+using Contrast;
+using Contrast.Http;
+using Contrast.Model;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Contrast;
-using Contrast.Model;
-using Contrast.Http;
-
-namespace sdk_tests
+namespace ContrastRestClient.Tests
 {
     [TestClass]
     public class TeamServerClientRemediationTest
