@@ -178,16 +178,16 @@ namespace Contrast
             switch (agentType)
             {
                 case AgentType.DotNet:
-                    agentEndpoint = string.Format(NgEndpoints.ENGINE_DOTNET, organizationId, profileName);
+                    agentEndpoint = String.Format(NgEndpoints.ENGINE_DOTNET, organizationId, profileName);
                     break;
                 case AgentType.Java:
-                    agentEndpoint = string.Format(NgEndpoints.ENGINE_JAVA, organizationId, profileName);
+                    agentEndpoint = String.Format(NgEndpoints.ENGINE_JAVA, organizationId, profileName);
                     break;
                 case AgentType.Java1_5:
-                    agentEndpoint = string.Format(NgEndpoints.ENGINE_JAVA1_5, organizationId, profileName);
+                    agentEndpoint = String.Format(NgEndpoints.ENGINE_JAVA1_5, organizationId, profileName);
                     break;
                 case AgentType.Node:
-                    agentEndpoint = string.Format(NgEndpoints.ENGINE_NODE, organizationId, profileName);
+                    agentEndpoint = String.Format(NgEndpoints.ENGINE_NODE, organizationId, profileName);
                     break;
             }
 
@@ -215,7 +215,7 @@ namespace Contrast
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
         public ApplicationsResponse GetApplications(string organizationId)
         {
-            string endpoint = String.Format(NgEndpoints.APPLICATIONS, organizationId, string.Empty);
+            string endpoint = String.Format(NgEndpoints.APPLICATIONS, organizationId, String.Empty);
             return (GetResponseAndDeserialize<ApplicationsResponse>(endpoint));
         }
 
@@ -227,7 +227,7 @@ namespace Contrast
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
         public void ResetApplication(string organizationId, string appId)
         {
-            string endpoint = string.Format(NgEndpoints.RESET_APPLICATION, organizationId, appId);
+            string endpoint = String.Format(NgEndpoints.RESET_APPLICATION, organizationId, appId);
             _contrastRestClient.PutMessage(endpoint, "{}", null);
         }
 
@@ -302,7 +302,7 @@ namespace Contrast
         /// <exception cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
         public ServersResponse GetServers(string organizationId, ServerFilter filter)
         {
-            string endpoint = String.Format(NgEndpoints.SERVERS, organizationId, string.Empty);
+            string endpoint = String.Format(NgEndpoints.SERVERS, organizationId, String.Empty);
             if (filter != null)
                 endpoint += filter.ToString();
 
