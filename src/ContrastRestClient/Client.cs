@@ -88,8 +88,7 @@ namespace Contrast
             }
             finally
             {
-                if(responseStream != null)
-                    responseStream.Dispose();
+                responseStream?.Dispose();
             }
         }
 
@@ -119,9 +118,7 @@ namespace Contrast
 
                 if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 {
-                    throw new ForbiddenException(
-                        String.Format("Current use doesn't have enough authority to perform action for resource: '{0}'",
-                            endpoint));
+                    throw new ForbiddenException($"Current use doesn't have enough authority to perform action for resource: '{endpoint}'");
                 }
                 if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                     throw new ResourceNotFoundException("Resource: '" + endpoint + "' not found.");
@@ -137,8 +134,7 @@ namespace Contrast
             }
             finally
             {
-                if (responseStream != null)
-                    responseStream.Dispose();
+                responseStream?.Dispose();
             }
         }
 

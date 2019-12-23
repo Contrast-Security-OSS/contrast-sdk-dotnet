@@ -70,8 +70,7 @@ namespace Contrast.Http
 
         private Uri ValidateAndCreateUri(string teamServerUrl)
         {
-            Uri uriCreateResult;
-            bool isValidUri = Uri.TryCreate(teamServerUrl, UriKind.Absolute, out uriCreateResult);
+            bool isValidUri = Uri.TryCreate(teamServerUrl, UriKind.Absolute, out var uriCreateResult);
             if (!isValidUri)
             {
                 throw new ArgumentException("Rest API URL provided is not a valid URI: '" + teamServerUrl + "'", nameof(teamServerUrl));

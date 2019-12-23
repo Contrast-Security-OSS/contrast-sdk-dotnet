@@ -68,9 +68,9 @@ namespace Contrast.Serialization
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (value is DateTime)
+            if (value is DateTime time)
             {
-                long epochTime = DateTimeConverter.ConvertToEpochTime((DateTime)value);
+                long epochTime = DateTimeConverter.ConvertToEpochTime(time);
                 writer.WriteValue(epochTime);
             }
             else

@@ -65,9 +65,7 @@ namespace Contrast.Http
                 }
                 else
                 {
-                    throw new ContrastApiException(
-                        String.Format("Team Server returned unexpected response code '{0}' for resource: '{1}'",
-                            statusCode, apiEndpoint));
+                    throw new ContrastApiException($"Team Server returned unexpected response code '{statusCode}' for resource: '{apiEndpoint}'");
                 }
             }
         }
@@ -89,9 +87,7 @@ namespace Contrast.Http
             {
                 if (statusCode != System.Net.HttpStatusCode.NotFound)
                 {
-                    throw new ContrastApiException(
-                        String.Format("Team Server returned unexpected response code '{0}' for resource: '{1}'",
-                            statusCode, endpoint));
+                    throw new ContrastApiException($"Team Server returned unexpected response code '{statusCode}' for resource: '{endpoint}'");
                 }
             }
 
