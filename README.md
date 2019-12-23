@@ -12,14 +12,11 @@ Please see http://www.contrastsecurity.com for more information about how Contra
 
 The 3.X line of packages has a few changes from the 2.X line that you might need to address in your code
 
-* namespace changed from `contrast_rest_dotnet` to `Contrast`
-* Removed the method `TeamServerClient.CheckForTrace`
-* Renamed `TeamServerClient` to `Client`
-* Removed deprecated `Endpoints` class
-
-## Dependencies
-* Newtonsoft.Json
-
+* Muti-Targeted `netstandard2.0` and `net45`.
+* Namespace changed from `contrast_rest_dotnet` to `Contrast`.
+* Removed the method `TeamServerClient.CheckForTrace`.
+* Renamed `TeamServerClient` to `Client`.
+* Removed deprecated `Endpoints` class.
 
 ## Contrast API Credentials
 To access the API, you'll first need access Contrast (https://app.contrastsecurity.com/Contrast/login.html) or an on-premises installation of Contrast.
@@ -32,7 +29,6 @@ Your API credentials can be found by following these steps:
 4. Your API credentials will be listed under "YOUR KEYS"
 
 More API documentation can be found here: https://support.contrastsecurity.com/entries/24184140-Accessing-the-API
-
 
 ## Sample Client Application
 The SampleContrastClient uses the App.config to store API credentials. To use the sample application, copy the API values from above into the appropriate appSettings entries:
