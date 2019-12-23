@@ -59,17 +59,12 @@ namespace Contrast.Http
         {
             if (String.IsNullOrEmpty(user))
             {
-                throw new ArgumentException("Username null/empty.", "user");
+                throw new ArgumentException("Username null/empty.", nameof(user));
             }
 
             if (String.IsNullOrEmpty(serviceKey))
             {
-                throw new ArgumentException("serviceKey null/empty.", "serviceKey");
-            }
-
-            if (String.IsNullOrEmpty(user))
-            {
-                throw new ArgumentException("apiKey null/empty.", "apiKey");
+                throw new ArgumentException("serviceKey null/empty.", nameof(serviceKey));
             }
         }
 
@@ -79,7 +74,7 @@ namespace Contrast.Http
             bool isValidUri = Uri.TryCreate(teamServerUrl, UriKind.Absolute, out uriCreateResult);
             if (!isValidUri)
             {
-                throw new ArgumentException("Rest API URL provided is not a valid URI: '" + teamServerUrl + "'", "restApiUrl");
+                throw new ArgumentException("Rest API URL provided is not a valid URI: '" + teamServerUrl + "'", nameof(teamServerUrl));
             }
             _teamServerUrl = teamServerUrl;
             return uriCreateResult;
