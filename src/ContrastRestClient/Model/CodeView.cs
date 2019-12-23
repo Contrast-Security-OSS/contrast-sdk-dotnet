@@ -77,6 +77,6 @@ namespace Contrast.Model
         /// Fragment content.
         /// </summary>
         [JsonProperty(PropertyName = "value")]
-        public string value { get; set; }
+        public string Value { get; set; }
     }
 }

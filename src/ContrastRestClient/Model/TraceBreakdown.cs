@@ -38,49 +38,49 @@ namespace Contrast.Model
         /// Number of vulnerabilities with status Confirmed
         /// </summary>
         [JsonProperty(PropertyName = "confirmed")]
-        public long? Confirmed { get; set; }
+        public long? ConfirmedVulnerabilities { get; set; }
 
         /// <summary>
         /// Number of critical vulnerabilities
         /// </summary>
         [JsonProperty(PropertyName = "criticals")]
-        public long? Criticals { get; set; }
+        public long? CriticalVulnerabilities { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Fixed
         /// </summary>
         [JsonProperty(PropertyName = "fixed")]
-        public long? Fixed { get; set; }
+        public long? FixedVulnerabilities { get; set; }
 
         /// <summary>
         /// Number of high vulnerabilities
         /// </summary>
         [JsonProperty(PropertyName = "highs")]
-        public long? HighVulns { get; set; }
+        public long? HighVulnerabilities { get; set; }
 
         /// <summary>
         /// Number of low vulnerabilities
         /// </summary>
         [JsonProperty(PropertyName = "lows")]
-        public long? LowVulns { get; set; }
+        public long? LowVulnerabilities { get; set; }
 
         /// <summary>
         /// Number of medium vulnerabilities
         /// </summary>
         [JsonProperty(PropertyName = "meds")]
-        public long? Mediums { get; set; }
+        public long? MediumVulnerabilities { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Not a problem
         /// </summary>
         [JsonProperty(PropertyName = "notProblem")]
-        public long? NoProblemVulns { get; set; }
+        public long? NoProblemVulnerabilities { get; set; }
 
         /// <summary>
         /// Number of notes
         /// </summary>
         [JsonProperty(PropertyName = "notes")]
-        public long? notes { get; set; }
+        public long? Notes { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Remediated
@@ -93,11 +93,12 @@ namespace Contrast.Model
         /// </summary>
         [JsonProperty(PropertyName = "reported")]
         public long? Reported { get; set; }
+
         /// <summary>
         /// Number of vulnerabilities marked safe
         /// </summary>
         [JsonProperty(PropertyName = "safes")]
-        public long? SafeVulns { get; set; }
+        public long? SafeVulnerabilities { get; set; }
 
         /// <summary>
         /// Number of vulnerabilities with status Suspicious

@@ -55,15 +55,15 @@ namespace SampleContrastClient
 
                 var orgs = client.GetOrganizations();
                 Console.WriteLine("User is associated with {0} orgs. {1}", orgs.Count,
-                    (orgs.Count > 0 ? "First Organization: " + orgs[0].name : string.Empty));
+                    (orgs.Count > 0 ? "First Organization: " + orgs[0].Name : string.Empty));
 
                 if (orgs.Count > 0)
                 {
-                    _organizationId = orgs[0].organization_uuid;
+                    _organizationId = orgs[0].OrganizationId;
                 }
 
                 var defaultOrg = client.GetDefaultOrganization();
-                Console.WriteLine("User's default org is:{0}({1})", defaultOrg.name, defaultOrg.organization_uuid);
+                Console.WriteLine("User's default org is:{0}({1})", defaultOrg.Name, defaultOrg.OrganizationId);
 
                 var serverResponse = client.GetServers(_organizationId);
                 if (serverResponse != null)
@@ -80,7 +80,7 @@ namespace SampleContrastClient
                 if (appsResponse != null && appsResponse.Applications.Count > 0)
                 {
                     var apps = appsResponse.Applications;
-                    string appId = apps[0].AppID;
+                    string appId = apps[0].AppId;
                     string appName = apps[0].Name;
                     Console.WriteLine("Retrieving traces for the first application: {0} ({1}", appName, appId);
 

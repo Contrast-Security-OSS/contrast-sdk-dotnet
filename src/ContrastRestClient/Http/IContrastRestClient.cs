@@ -36,7 +36,7 @@ namespace Contrast.Http
     public interface IContrastRestClient : IDisposable
     {
         System.IO.Stream GetResponseStream(string apiEndpoint);
-        HttpResponseMessage PostApplicatonSpecificMessage(string endpoint, string postBody, string application);
+        HttpResponseMessage PostApplicationSpecificMessage(string endpoint, string postBody, string application);
         HttpResponseMessage PostMessage(string endpoint, string postBody, List<Tuple<string,string>> additionalHeaders );
         HttpResponseMessage PutMessage(string endpoint, string requestBody, List<Tuple<string, string>> additionalHeaders);
         HttpResponseMessage DeleteMessage(string endpoint);

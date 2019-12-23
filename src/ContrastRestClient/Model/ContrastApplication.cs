@@ -45,7 +45,7 @@ namespace Contrast.Model
         /// Gets the ID of this application, which is a long, alphanumeric token.
         /// </summary>
         [JsonProperty(PropertyName="app_id")]
-        public string AppID { get; set; }
+        public string AppId { get; set; }
 
         /// <summary>
         /// If the application is archived
@@ -243,7 +243,7 @@ namespace Contrast.Model
         /// Application status
         /// </summary>
         [JsonProperty(PropertyName = "status")]
-        public string Stauts { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         /// List of tags

@@ -70,7 +70,7 @@ namespace Contrast.Http
             }
         }
 
-        public System.Net.Http.HttpResponseMessage PostApplicatonSpecificMessage(string endpoint, string postBody, string application )
+        public System.Net.Http.HttpResponseMessage PostApplicationSpecificMessage(string endpoint, string postBody, string application )
         {
             var headers = new List<Tuple<string, string>>();
             headers.Add( new Tuple<string,string>( "Application", application ) );

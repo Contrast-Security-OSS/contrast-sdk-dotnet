@@ -201,7 +201,7 @@ namespace Contrast.Model
         public bool SyslogEnabled { get; set; }
 
         /// <summary>
-        /// Syslog IP adress.
+        /// Syslog IP address.
         /// </summary>
         [JsonProperty(PropertyName = "syslog_ip_address")]
         public string SyslogIpAddress { get; set; }

@@ -32,4 +32,8 @@ THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</s:
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=85DDFD8642DA8E469F4E239D0A32A1AE/AbsolutePath/@EntryValue">D:\Development\tmp\contrast-sdk-dotnet\Contrast.ApiClient.sln.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=85DDFD8642DA8E469F4E239D0A32A1AE/RelativePath/@EntryValue"></s:String>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File85DDFD8642DA8E469F4E239D0A32A1AE/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File85DDFD8642DA8E469F4E239D0A32A1AE/RelativePriority/@EntryValue">1</s:Double></wpf:ResourceDictionary>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File85DDFD8642DA8E469F4E239D0A32A1AE/RelativePriority/@EntryValue">1</s:Double>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=freemium/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Remediated/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Triaged/@EntryIndexedValue">True</s:Boolean>
+	</wpf:ResourceDictionary>
