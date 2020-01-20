@@ -5,7 +5,7 @@
     <Description>Contrast TeamServer REST API</Description>
     <Company>Contrast Security, Inc.</Company>
     <Product>Contrast REST API</Product>
-    <Copyright>Copyright © 2019</Copyright>
+    <Copyright>Copyright © 2020</Copyright>
     <Version>3.0.0.0</Version>
     <IsPackable>true</IsPackable>
     <RootNamespace>Contrast</RootNamespace>
