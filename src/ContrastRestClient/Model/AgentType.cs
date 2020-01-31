@@ -41,7 +41,7 @@ namespace Contrast.Model
         /// <summary>
         /// Java 1.5 engine type
         /// </summary>
-        Java1_5,
+        Java15,
         /// <summary>
         /// .NET engine type
         /// </summary>

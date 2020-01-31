@@ -138,7 +138,7 @@ namespace Contrast.Model
         public TraceEventDetail Event { get; set; }
 
         /// <summary>
-        /// List of messges
+        /// List of messages
         /// </summary>
         [JsonProperty(PropertyName = "messages")]
         public List<string> Messages { get; set; }

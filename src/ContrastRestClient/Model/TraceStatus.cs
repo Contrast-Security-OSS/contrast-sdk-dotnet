@@ -38,12 +38,12 @@ namespace Contrast.Model
     /// </summary>
     public static class TraceStatus
     {
-        public const string CONFIRMED_STATUS = "Confirmed";
-        public const string SUSPICIOUS_STATUS = "Suspicious";
-        public const string NOT_A_PROBLEM_STATUS = "Not a Problem";
-        public const string REMEDIATED_STATUS = "Remediated";
-        public const string REPORTED_STATUS = "Reported";
-        public const string FIXED_STATUS = "Fixed";
+        public const string Confirmed = "Confirmed";
+        public const string Suspicious = "Suspicious";
+        public const string NotAProblem = "Not a Problem";
+        public const string Remediated = "Remediated";
+        public const string Reported = "Reported";
+        public const string Fixed = "Fixed";
     }
 
     [JsonObject]
@@ -64,7 +64,7 @@ namespace Contrast.Model
         /// Subs status
         /// </summary>
         [JsonProperty(PropertyName = "substatus")]
-        public string Substatus { get; set; }
+        public string SubStatus { get; set; }
 
         /// <summary>
         /// Note

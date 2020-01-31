@@ -33,7 +33,7 @@ namespace Contrast.Serialization
 {
     public static class DateTimeConverter 
     {
-        private static readonly long epochMilliseconds = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks / TimeSpan.TicksPerMillisecond;
+        private static readonly long EpochMilliseconds = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks / TimeSpan.TicksPerMillisecond;
 
         /// <summary>
         /// Converts a Unix time (or epoch) representation to a DateTime object with UTC timezone.
@@ -42,7 +42,7 @@ namespace Contrast.Serialization
         /// <returns>A DateTime object for the given time.</returns>
         public static DateTime ConvertFromEpochTime(long epochTime)
         {
-            long totalTicks = (epochMilliseconds + epochTime) * TimeSpan.TicksPerMillisecond;
+            long totalTicks = (EpochMilliseconds + epochTime) * TimeSpan.TicksPerMillisecond;
 
             return new DateTime(totalTicks, DateTimeKind.Utc);
         }
@@ -54,7 +54,7 @@ namespace Contrast.Serialization
         /// <returns>A milliseconds representation of Unix time.</returns>
         public static long ConvertToEpochTime(DateTime dateTime)
         {
-            double mSecs = (dateTime.ToUniversalTime().Ticks / TimeSpan.TicksPerMillisecond) - epochMilliseconds;
+            double mSecs = (dateTime.ToUniversalTime().Ticks / TimeSpan.TicksPerMillisecond) - EpochMilliseconds;
             long result;
 
             try

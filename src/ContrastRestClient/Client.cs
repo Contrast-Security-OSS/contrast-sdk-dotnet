@@ -179,7 +179,7 @@ namespace Contrast
                 case AgentType.Java:
                     agentEndpoint = String.Format(NgEndpoints.ENGINE_JAVA, organizationId, profileName);
                     break;
-                case AgentType.Java1_5:
+                case AgentType.Java15:
                     agentEndpoint = String.Format(NgEndpoints.ENGINE_JAVA1_5, organizationId, profileName);
                     break;
                 case AgentType.Node:
@@ -313,8 +313,8 @@ namespace Contrast
         /// <returns>A TraceSearchResponse object which contains a list of all the traces with the given UUID.</returns>
         public TracesSearchResponse GetTracesByUuid(string organizationId, string traceUuid)
         {
-            string endpoit = String.Format(NgEndpoints.TRACE, organizationId, traceUuid);
-            return GetResponseAndDeserialize<TracesSearchResponse>(endpoit);
+            string endpoint = String.Format(NgEndpoints.TRACE, organizationId, traceUuid);
+            return GetResponseAndDeserialize<TracesSearchResponse>(endpoint);
         }
 
         /// <summary>
@@ -404,7 +404,7 @@ namespace Contrast
         public List<Organization> GetOrganizations()
         {
             var organizationResponse = GetResponseAndDeserialize<OrganizationResponse>(NgEndpoints.ORGANIZATIONS);
-            return organizationResponse.organizations;
+            return organizationResponse.Organizations;
         }
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace Contrast
         {
             string endpoint = NgEndpoints.DEFAULT_ORGANIZATION;
             var response = GetResponseAndDeserialize<DefaultOrganizationResponse>(endpoint);
-            return response.organization;
+            return response.Organization;
         }
 
         /// <summary>
@@ -541,7 +541,7 @@ namespace Contrast
         /// <param name="type">Filter type. Allowed values: appversiontags,workflow,servers,time,url,vulntype,servers,security-standard.</param>
         /// <param name="filter">Query params that can be added to request.</param>
         /// <returns>A TraceFilterCatalogDetailsResponse that contains all the available subfilters.</returns>
-        public TraceFilterCatalogDetailsResponse GetApplicationTraceFilterSubfilters(string organizationId, string appId, TraceFilterType type, TraceFilter filter)
+        public TraceFilterCatalogDetailsResponse GetApplicationTraceFilterSubFilters(string organizationId, string appId, TraceFilterType type, TraceFilter filter)
         {
             string endpoint = String.Format(NgEndpoints.APPLICATION_TRACE_FILTERS, organizationId, appId, getTraceFilterTypeValue(type));
             if (filter != null)
@@ -557,7 +557,7 @@ namespace Contrast
         /// <param name="type">Filter type. Allowed values: modules,workflow,servers,time,url,vulntype,security-standard.</param>
         /// <param name="filter">Query params that can be added to request.</param>
         /// <returns>A TraceFilterCatalogDetailsResponse that contains all the available subfilters.</returns>
-        public TraceFilterCatalogDetailsResponse GetServerTraceFilterSubfilters(string organizationId, long serverId, TraceFilterType type, TraceFilter filter)
+        public TraceFilterCatalogDetailsResponse GetServerTraceFilterSubFilters(string organizationId, long serverId, TraceFilterType type, TraceFilter filter)
         {
             string endpoint = String.Format(NgEndpoints.SERVER_TRACE_FILTERS, organizationId, serverId, getTraceFilterTypeValue(type));
             if (filter != null)
@@ -571,7 +571,7 @@ namespace Contrast
         /// <param name="organizationId">Organization UUID.</param>
         /// <param name="traceUuid">Trace UUID.</param>
         /// <param name="tag">The tag to be deleted.</param>
-        /// <returns>A TagsResponse object which indicates wheter the operation was successful or not.</returns>
+        /// <returns>A TagsResponse object which indicates whether the operation was successful or not.</returns>
         public TagsResponse DeleteTraceTag(string organizationId, string traceUuid, string tag)
         {
             string endpoint = String.Format(NgEndpoints.DELETE_TRACE_TAG, organizationId, traceUuid);

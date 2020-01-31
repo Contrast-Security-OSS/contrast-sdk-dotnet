@@ -17,6 +17,63 @@ The 3.X line of packages has a few changes from the 2.X line that you might need
 * Removed the method `TeamServerClient.CheckForTrace`.
 * Renamed `TeamServerClient` to `Client`.
 * Removed deprecated `Endpoints` class.
+* Renamed the following symbols:
+
+```
+AgentType.Java1_5 -> AgentType.Java15
+
+Client.GetApplicationTraceFilterSubfilters -> Client.GetApplicationTraceFilterSubFilters
+Client.GetServerTraceFilterSubfilters -> Client.GetServerTraceFilterSubFilters
+
+ContrastRestClient.PostApplicatonSpecificMessage -> ContrastRestClient.PostApplicationSpecificMessage
+IContrastRestClient.PostApplicatonSpecificMessage -> IContrastRestClient.PostApplicationSpecificMessage
+
+LineFragment.value -> LineFragment.Value
+
+ContrastApplication.AppID -> ContrastApplication.AppId
+ContrastApplication.Stauts -> ContrastApplication.Status
+
+Organization.name -> Organization.Name
+Organization.shortname -> Organization.ShortName
+Organization.timezone -> Organization.Timezone
+Organization.organization_uuid -> Organization.OrganizationId
+Organization.AppsOnboarded -> Organization.AppsOnBoarded
+Organization.IsSuperadmin -> Organization.IsSuperAdmin
+Organization.Superadmin -> Organization.SuperAdmin
+
+OrganizationResponse.success -> OrganizationResponse.Organizations
+OrganizationResponse.count -> OrganizationResponse.Count
+OrganizationResponse.org_disabled -> OrganizationResponse.OrganizationDisabled
+
+DefaultOrganizationResponse.org_disabled -> DefaultOrganizationResponse.Success
+DefaultOrganizationResponse.messages -> DefaultOrganizationResponse.Messages
+DefaultOrganizationResponse.organization -> DefaultOrganizationResponse.Organization
+DefaultOrganizationResponse.roles -> DefaultOrganizationResponse.Roles
+DefaultOrganizationResponse.enterprise -> DefaultOrganizationResponse.Enterprise
+
+Trace.Uuid -> Trace.Id
+TraceNote.CreatorUUID -> TraceNote.CreatorId
+TraceNote.LastUpdaterUUID -> TraceNote.LastUpdaterId
+
+TraceBreakdown.Confirmed -> TraceBreakdown.ConfirmedVulnerabilities
+TraceBreakdown.Criticals -> TraceBreakdown.CriticalVulnerabilities
+TraceBreakdown.Fixed -> TraceBreakdown.FixedVulnerabilities
+TraceBreakdown.HighVulns -> TraceBreakdown.HighVulnerabilities
+TraceBreakdown.LowVulns -> TraceBreakdown.LowVulnerabilities
+TraceBreakdown.Mediums -> TraceBreakdown.MediumVulnerabilities
+TraceBreakdown.NoProblemVulns -> TraceBreakdown.NoProblemVulnerabilities
+TraceBreakdown.notes -> TraceBreakdown.Notes
+TraceBreakdown.SafeVulns -> TraceBreakdown.SafeVulnerabilities
+
+TraceStatus.CONFIRMED_STATUS -> TraceStatus.Confirmed
+TraceStatus.SUSPICIOUS_STATUS -> TraceStatus.Suspicious
+TraceStatus.NOT_A_PROBLEM_STATUS -> TraceStatus.NotAProblem
+TraceStatus.REMEDIATED_STATUS -> TraceStatus.Remediated
+TraceStatus.REPORTED_STATUS -> TraceStatus.Reported
+TraceStatus.FIXED_STATUS -> TraceStatus.Fixed
+
+TraceMarkStatusRequest.Substatus -> TraceMarkStatusRequest.SubStatus
+```
 
 ## Contrast API Credentials
 To access the API, you'll first need access Contrast (https://app.contrastsecurity.com/Contrast/login.html) or an on-premises installation of Contrast.

@@ -73,7 +73,7 @@ namespace ContrastRestClient.Tests
             var response = teamServerClient.GetOrganizationInfo("orgId");
 
             Assert.IsTrue(response.Success);
-            Assert.AreEqual(response.Organization.name, "Test organization");
+            Assert.AreEqual(response.Organization.Name, "Test organization");
         }
 
         [TestMethod]
@@ -110,7 +110,7 @@ namespace ContrastRestClient.Tests
             var response = teamServerClient.GetOrganizationInfo("orgId", new List<OrganizationExpandValues>{ OrganizationExpandValues.freemium });
 
             Assert.IsTrue(response.Success);
-            Assert.AreEqual(response.Organization.name, "Test organization");
+            Assert.AreEqual(response.Organization.Name, "Test organization");
         }
     }
 }

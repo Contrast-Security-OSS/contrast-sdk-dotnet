@@ -46,21 +46,26 @@ namespace Contrast.Model
         /// <summary>
         /// Organization name
         /// </summary>
-        public string name { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
-        public string shortname { get; set; }
+        [JsonProperty(PropertyName = "shortname")]
+        public string ShortName { get; set; }
 
         /// <summary>
         /// Organization time zone
         /// </summary>
-        public string timezone { get; set; }
+        [JsonProperty(PropertyName = "timezone")]
+        public string Timezone { get; set; }
 
-        public List<Link> links { get; set; }
+        [JsonProperty(PropertyName = "links")]
+        public List<Link> Links { get; set; }
 
         /// <summary>
         /// Organization ID
         /// </summary>
-        public string organization_uuid { get; set; }
+        [JsonProperty(PropertyName = "organization_uuid")]
+        public string OrganizationId { get; set; }
 
         /// <summary>
         /// Account ID
@@ -69,10 +74,10 @@ namespace Contrast.Model
         public String AccountId { get; set; }
 
         /// <summary>
-        /// Number of applications onboarded
+        /// Number of applications on-boarded
         /// </summary>
         [JsonProperty(PropertyName = "apps_onboarded")]
-        public long? AppsOnboarded { get; set; }
+        public long? AppsOnBoarded { get; set; }
 
         /// <summary>
         /// Auto license assessment
@@ -81,7 +86,7 @@ namespace Contrast.Model
         public bool AutoLicenseAssessment { get; set; }
 
         /// <summary>
-        /// Auto license protetion
+        /// Auto license protection
         /// </summary>
         [JsonProperty(PropertyName = "auto_license_protection")]
         public bool AutoLicenseProtection { get; set; }
@@ -106,10 +111,10 @@ namespace Contrast.Model
         public bool? IsGuest { get; set; }
 
         /// <summary>
-        /// Is a Superadmin Organization
+        /// Is a SuperAdmin Organization
         /// </summary>
         [JsonProperty(PropertyName = "is_superadmin")]
-        public bool? IsSuperadmin { get; set; }
+        public bool? IsSuperAdmin { get; set; }
 
         /// <summary>
         /// Has user protect enabled in this organization?
@@ -142,7 +147,7 @@ namespace Contrast.Model
         public List<ServerEnvironment> ServerEnvironments { get; set; }
 
         [JsonProperty(PropertyName = "superadmin")]
-        public bool? Superadmin { get; set; }
+        public bool? SuperAdmin { get; set; }
 
         /// <summary>
         /// Organization date format
@@ -159,18 +164,32 @@ namespace Contrast.Model
 
     public class OrganizationResponse
     {
-        public List<Organization> organizations { get; set; }
-        public int count { get; set; }
-        public List<object> org_disabled { get; set; }
+        [JsonProperty(PropertyName = "organizations")]
+        public List<Organization> Organizations { get; set; }
+
+        [JsonProperty(PropertyName = "count")]
+        public int Count { get; set; }
+
+        [JsonProperty(PropertyName = "org_disabled")]
+        public List<object> OrganizationDisabled { get; set; }
     }
 
     public class DefaultOrganizationResponse
     {
-        public bool success { get; set; }
-        public List<string> messages { get; set; }
-        public Organization organization { get; set; }
-        public List<string> roles { get; set; }
-        public bool enterprise { get; set; }
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "messages")]
+        public List<string> Messages { get; set; }
+
+        [JsonProperty(PropertyName = "organization")]
+        public Organization Organization { get; set; }
+
+        [JsonProperty(PropertyName = "roles")]
+        public List<string> Roles { get; set; }
+
+        [JsonProperty(PropertyName = "enterprise")]
+        public bool Enterprise { get; set; }
     }
 
     /// <summary>
@@ -196,5 +215,4 @@ namespace Contrast.Model
         [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
     }
-
 }

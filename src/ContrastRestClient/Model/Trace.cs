@@ -44,7 +44,7 @@ namespace Contrast.Model
         /// Gets the unique ID for the trace.
         /// </summary>
         [JsonProperty(PropertyName = "uuid")]
-        public string Uuid { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// List of application version tags
@@ -173,13 +173,13 @@ namespace Contrast.Model
         public ContrastApplication ParentApplication { get; set; }
 
         /// <summary>
-        /// Is reported to bug tacker
+        /// Is reported to (b)ug tacker
         /// </summary>
         [JsonProperty(PropertyName = "reported_to_bug_tracker")]
         public bool ReportedToBugTracker { get; set; }
 
         /// <summary>
-        /// Time reported to bug tracker
+        /// Time reported to (b)ug tracker
         /// </summary>
         [JsonConverter(typeof(EpochDateTimeConverter))]
         [JsonProperty(PropertyName = "reported_to_bug_tracker_time")]
@@ -260,7 +260,7 @@ namespace Contrast.Model
         /// Creator UUID.
         /// </summary>
         [JsonProperty(PropertyName = "creator_uuid")]
-        public string CreatorUUID { get; set; }
+        public string CreatorId { get; set; }
 
         /// <summary>
         /// If this note is deletable.
@@ -291,7 +291,7 @@ namespace Contrast.Model
         /// Last updater UUID.
         /// </summary>
         [JsonProperty(PropertyName = "last_updater_uuid")]
-        public string LastUpdaterUUID { get; set; }
+        public string LastUpdaterId { get; set; }
 
         /// <summary>
         /// Note contents.

@@ -129,7 +129,7 @@ namespace ContrastRestClient.Tests
 
             Assert.AreEqual(1, apps.Count);
             ContrastApplication app = apps[0];
-            Assert.AreEqual("2b75b619-8a37-463e-b605-bd8f340d03aa", app.AppID);
+            Assert.AreEqual("2b75b619-8a37-463e-b605-bd8f340d03aa", app.AppId);
             Assert.AreEqual("MyTestApp", app.Name);
         }
 
@@ -341,7 +341,7 @@ namespace ContrastRestClient.Tests
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
-            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Uuid);
+            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Id);
             Assert.AreEqual(14, trace.Request.Headers.Count);
             Assert.AreEqual(4, trace.Request.Parameters.Count);
         }
@@ -431,7 +431,7 @@ namespace ContrastRestClient.Tests
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
-            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Uuid);
+            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Id);
             Assert.AreEqual("SQL Injection from \"account_name\" Parameter on \"attack\" page", trace.Title);
             Assert.IsNull(trace.Request);
             Assert.AreEqual(expectedDate, trace.FirstTimeSeen);
@@ -500,7 +500,7 @@ namespace ContrastRestClient.Tests
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
-            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Uuid);
+            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Id);
             Assert.AreEqual("Critical", trace.Severity);
             Assert.AreEqual("sql-injection", trace.RuleName);
         }
@@ -568,7 +568,7 @@ namespace ContrastRestClient.Tests
 
             Assert.AreEqual(1, traces.Count);
             Trace trace = traces[0];
-            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Uuid);
+            Assert.AreEqual("4AD2-6HT1-X845-IVXE", trace.Id);
             Assert.AreEqual("CRITICAL", trace.DefaultSeverity);
             Assert.IsFalse(trace.HasParentApp);
         }
@@ -1055,7 +1055,7 @@ namespace ContrastRestClient.Tests
                 new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
                 );
             var teamServerClient = new Client(mockSdkHttpClient.Object);
-            var filterResponse = teamServerClient.GetApplicationTraceFilterSubfilters("orgId", "appId", TraceFilterType.servers, null);
+            var filterResponse = teamServerClient.GetApplicationTraceFilterSubFilters("orgId", "appId", TraceFilterType.servers, null);
 
             Assert.AreEqual(2, filterResponse.Filters.Count);
             var filter = filterResponse.Filters[1];
@@ -1106,7 +1106,7 @@ namespace ContrastRestClient.Tests
                 new MemoryStream(Encoding.UTF8.GetBytes(storyJson))
                 );
             var teamServerClient = new Client(mockSdkHttpClient.Object);
-            var filterResponse = teamServerClient.GetServerTraceFilterSubfilters("orgId", 1111, TraceFilterType.modules, null);
+            var filterResponse = teamServerClient.GetServerTraceFilterSubFilters("orgId", 1111, TraceFilterType.modules, null);
 
             Assert.AreEqual(1, filterResponse.Filters.Count);
             var filter = filterResponse.Filters[0];

@@ -36,7 +36,7 @@ namespace Contrast.Http
     public class TraceFilter
     {
         /// <summary>
-        /// Filte text.
+        /// Filter text.
         /// </summary>
         public string FilterText { get; set; }
         public DateTime? StartDate { get; set; }
