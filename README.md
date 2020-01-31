@@ -10,7 +10,7 @@ Please see http://www.contrastsecurity.com for more information about how Contra
 
 ## 3.0 Changelog
 
-The 3.X line of packages has a few changes from the 2.X line that you might need to address in your code
+The 3.X line of packages has a few changes from the 2.X line that you might need to address in your code.  You may need to reload your .sln file if you've worked with the package in the 2.X line.
 
 * Muti-Targeted `netstandard2.0` and `net45`.
 * Namespace changed from `contrast_rest_dotnet` to `Contrast`.
