@@ -15,4 +15,8 @@ jobs:
     - uses: actions/checkout@v1
     - run: dotnet build
     - run: dotnet test
-    - run: dotnet pack
+    - run: dotnet pack --output ${{ github.workspace }}\nuget
+    - uses: actions/upload-artifact@v1
+      with:
+        name: nuget-packages
+        path: ${{ github.workspace }}\nuget
