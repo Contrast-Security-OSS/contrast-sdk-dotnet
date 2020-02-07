@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  test:
+  build:
     runs-on: windows-latest
     steps:
     - uses: actions/setup-dotnet@v1
