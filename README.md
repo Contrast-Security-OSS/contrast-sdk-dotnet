@@ -1,6 +1,6 @@
 # Contrast REST Client
 
-[![Build status](https://ci.appveyor.com/api/projects/status/7tcoujkmbwl2hg85?svg=true)](https://ci.appveyor.com/project/rduran0/contrast-sdk-dotnet)
+![Build](https://github.com/Contrast-Security-OSS/contrast-sdk-dotnet/workflows/Build/badge.svg)
 
 This library provides a simple REST client for retrieving data from Contrast Team Server's REST API as plain old C# objects.  
 
