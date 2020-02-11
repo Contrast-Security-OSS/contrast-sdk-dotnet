@@ -2,13 +2,18 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <AssemblyTitle>Contrast REST API</AssemblyTitle>
-    <Description>Contrast TeamServer REST API</Description>
+    <Description>A .Net client for retrieving data from Contrast's REST API as C# objects.
+
+ See http://www.contrastsecurity.com for more information on Contrast Security.</Description>
     <Company>Contrast Security, Inc.</Company>
     <Product>Contrast REST API</Product>
     <Copyright>Copyright © 2020</Copyright>
-    <Version>3.0.0.0</Version>
+    <Version>3.0.1</Version>
     <IsPackable>true</IsPackable>
     <RootNamespace>Contrast</RootNamespace>
+    <Authors>Contrast Security</Authors>
+    <Owners>Contrast Security</Owners>
+    <PackageProjectUrl>https://github.com/Contrast-Security-OSS/contrast-sdk-dotnet</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
