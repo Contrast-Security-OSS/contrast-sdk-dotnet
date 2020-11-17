@@ -30,6 +30,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Contrast.Http
 {
@@ -47,7 +48,7 @@ namespace Contrast.Http
             var responseTask = _httpClient.GetAsync(apiEndpoint);
             responseTask.Wait();
 
-            CheckResponseStatusCode(apiEndpoint, responseTask.Result.StatusCode);
+            CheckResponse(apiEndpoint, responseTask.Result);
             
             var responseStreamTask = responseTask.Result.Content.ReadAsStreamAsync();
             responseStreamTask.Wait();
@@ -55,17 +56,25 @@ namespace Contrast.Http
             return responseStreamTask.Result;
         }
 
-        private static void CheckResponseStatusCode(string apiEndpoint, System.Net.HttpStatusCode statusCode)
+        private static void CheckResponse(string apiEndpoint, System.Net.Http.HttpResponseMessage result)
         {
-            if ((int)statusCode >= 300)
+            if ((int)result.StatusCode >= 300)
             {
-                if (statusCode == System.Net.HttpStatusCode.NotFound)
+                if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    throw new ResourceNotFoundException("Resource: '" + apiEndpoint + "' not found.");
+                    throw new ResourceNotFoundException($"Resource: '{apiEndpoint}' not found.");
                 }
-                else
+                else if (result.StatusCode == System.Net.HttpStatusCode.Found 
+                    && result.Headers.Contains("Location")
+                    && result.Headers.GetValues("Location").First().EndsWith("/Contrast/unauthorized.html") )
                 {
-                    throw new ContrastApiException($"Team Server returned unexpected response code '{statusCode}' for resource: '{apiEndpoint}'");
+                    // ok, Contrast technically told us Found: /Contrast/unauthorized.html, not an actual
+                    // Forbidden response, but unauthorized really means Forbidden.
+                    throw new ForbiddenException($"Resource: '{apiEndpoint}' is unauthorized with current credentials.");
+                } 
+                else 
+                {
+                    throw new ContrastApiException($"Team Server returned unexpected response code '{result.StatusCode}' for resource: '{apiEndpoint}'");
                 }
             }
         }
