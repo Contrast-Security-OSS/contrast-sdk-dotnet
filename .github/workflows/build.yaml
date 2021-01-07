@@ -11,11 +11,11 @@ jobs:
     steps:
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.100'
-    - uses: actions/checkout@v1
-    - run: dotnet build
-    - run: dotnet test
-    - run: dotnet pack --output ${{ github.workspace }}\nuget
+        dotnet-version: '5.0.101'
+    - uses: actions/checkout@v2
+    - run: dotnet build -c Release
+    - run: dotnet test -c Release
+    - run: dotnet pack -c Release --output ${{ github.workspace }}\nuget
     - uses: actions/upload-artifact@v1
       with:
         name: nuget-packages
