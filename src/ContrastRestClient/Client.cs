@@ -216,6 +216,49 @@ namespace Contrast
         }
 
         /// <summary>
+        /// Get information about a merged application, including its merged modules. The master is not included as
+        /// a merged module.
+        /// </summary>
+        /// <param name="organizationId">the uuid of the user's organization</param>
+        /// <param name="appId">the ID of the merged application</param>
+        /// <returns>A ApplicationsResponse object which should contain a single ApplicationResource object. The
+        /// applications property contains a list of ApplicationModuleResource objects representing the modules that
+        /// have the specified appId as the master. The master app is not included in this list.</returns>
+        /// <exception cref=" cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
+        public ApplicationsResponse GetChildModules(string organizationId, string appId)
+        {
+            string endpoint = string.Format(NgEndpoints.MODULES, organizationId, appId);
+            return GetResponseAndDeserialize<ApplicationsResponse>(endpoint);
+        }
+
+        /// <summary>
+        /// Get the list of modules in each of the merged applications monitored by Contrast.
+        /// </summary>
+        /// <param name="organizationId">the uuid of the user's organization</param>
+        /// <returns>A response object which contains a list of ModuleResources, each with a ContrastApplication object
+        /// designated as the Master, and a List of ContrastApplication objects designated as the Modules. The Master is 
+        /// not included in the Modules list. </returns>
+        /// <exception cref=" cref="System.AggregateException">Thrown when there is an error communicating with TeamServer</exception>
+        public ModulesResponse GetModules(string organizationId)
+        {
+            string endpoint = string.Format(NgEndpoints.MODULES, organizationId, string.Empty);
+            return GetResponseAndDeserialize<ModulesResponse>(endpoint);
+        }
+
+        /// <summary>
+        /// Get the list of servers associated with an application.
+        /// </summary>
+        /// <param name="organizationId">the uuid of the user's organization</param>
+        /// <param name="appId">the ID of the application of interest</param>
+        /// <returns>A ServersResponse object that contains a list of Server objects indicating
+        /// which servers are monitoring this application.</returns>
+        public ServersResponse GetApplicationServers(string organizationId, string appId)
+        {
+            string endpoint = String.Format(NgEndpoints.APPLICATION_SERVERS, organizationId, appId);
+            return (GetResponseAndDeserialize<ServersResponse>(endpoint));
+        }
+
+        /// <summary>
         /// Resets an application's library, coverage, statistics and trace information.
         /// </summary>
         /// <param name="organizationId">The uuid of the user's organization</param>

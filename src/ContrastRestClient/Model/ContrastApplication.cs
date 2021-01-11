@@ -35,6 +35,38 @@ using Newtonsoft.Json.Converters;
 
 namespace Contrast.Model
 {
+
+    /// <summary>
+    /// A master Application and its associated merged modules.
+    /// </summary>
+    [JsonObject]
+    public class ModuleResource
+    {
+        /// <summary>
+        /// The module designated as the master application.
+        /// </summary>
+        [JsonProperty(PropertyName="master")]
+        public ContrastApplication Master { get; set; }
+
+        /// <summary>
+        /// Other application modules that are merged under the master application.
+        /// </summary>
+        [JsonProperty(PropertyName ="modules")]
+        public List<ContrastApplication> Modules { get; set; }
+    }
+
+    [JsonObject]
+    public class ModulesResponse
+    {
+        [JsonProperty(PropertyName ="applications")]
+        public List<ModuleResource> Applications { get; set; }
+        [JsonProperty(PropertyName = "messages")]
+        public List<string> Messages { get; set; }
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+    }
+
+
     /// <summary>
     /// An application that is being monitored by Contrast.
     /// </summary>

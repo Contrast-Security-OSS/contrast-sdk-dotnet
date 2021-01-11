@@ -33,6 +33,7 @@ namespace Contrast
     {
         internal static string APPLICATIONS = "api/ng/{0}/applications/{1}";
         internal static string APPLICATION_LIBRARIES = "api/ng/{0}/applications/{1}/libraries";
+        internal static string APPLICATION_SERVERS = "api/ng/{0}/applications/{1}/servers";
         internal static string APPLICATION_TRACES = "api/ng/{0}/traces/{1}/filter";
         internal static string APPLICATION_TRACE_TAGS = "api/ng/{0}/tags/traces/application/{1}";
         internal static string APPLICATION_TRACE_MARK_STATUS = "api/ng/{0}/traces/{1}/mark";
@@ -65,5 +66,6 @@ namespace Contrast
         internal static string TRACES_TAGS = "api/ng/{0}/tags/traces";
         internal static string TRACES_TAG_BULK = "api/ng/{0}/tags/traces/bulk";
         internal static string TRACE_MARK_STATUS = "api/ng/{0}/orgtraces/mark";
+        internal static string MODULES = "api/ng/{0}/modules/{1}";
     }
 }
