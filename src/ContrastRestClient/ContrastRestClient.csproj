@@ -14,7 +14,7 @@
     <Authors>Contrast Security</Authors>
     <Owners>Contrast Security</Owners>
     <PackageProjectUrl>https://github.com/Contrast-Security-OSS/contrast-sdk-dotnet</PackageProjectUrl>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="../../$(PackageLicenseFile)" Pack="true" PackagePath="$(PackageLicenseFile)"/>
