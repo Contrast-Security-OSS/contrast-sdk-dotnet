@@ -14,10 +14,10 @@
     <Authors>Contrast Security</Authors>
     <Owners>Contrast Security</Owners>
     <PackageProjectUrl>https://github.com/Contrast-Security-OSS/contrast-sdk-dotnet</PackageProjectUrl>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="licenses\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+    <None Include="licenses\LICENSE" Pack="true" PackagePath="LICENSE"/>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
