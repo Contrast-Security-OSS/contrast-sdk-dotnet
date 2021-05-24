@@ -65,7 +65,11 @@ namespace Contrast
         /// <param name="teamServerUrl">he base Contrast API URL (e.g., https://app.contrastsecurity.com/Contrast/api/)</param>
         /// <exception cref="System.ArgumentException">Thrown when an invalid Uri is passed in teamServerUrl or a null/empty value is provided for other parameters</exception>
         public Client(string user, string serviceKey, string apiKey, string teamServerUrl)
-            : this(new ContrastRestClient(new HttpClientWrapper(user, serviceKey, apiKey, teamServerUrl)))
+            : this(new ContrastRestClient(new HttpClientWrapper(user, serviceKey, apiKey, teamServerUrl, null, null)))
+        { }
+
+        public Client(string user, string serviceKey, string apiKey, string teamServerUrl, string version, string integrationName)
+            : this(new ContrastRestClient(new HttpClientWrapper(user, serviceKey, apiKey, teamServerUrl, integrationName, version)))
         { }
 
         public Client(IContrastRestClient contrastRestClient)
@@ -105,7 +109,7 @@ namespace Contrast
                         response = _contrastRestClient.PutMessage(endpoint, requestBody, null);
                         break;
                     case RequestMethod.Delete:
-                        if(String.IsNullOrWhiteSpace(requestBody))
+                        if (String.IsNullOrWhiteSpace(requestBody))
                             response = _contrastRestClient.DeleteMessage(endpoint);
                         else
                             response = _contrastRestClient.DeleteMessage(endpoint, requestBody);
@@ -510,7 +514,7 @@ namespace Contrast
             string endpoint = String.Format(NgEndpoints.TRACE_RECOMMENDATION, organizationId, traceUuid);
             return GetResponseAndDeserialize<TraceRecommendationResponse>(endpoint);
         }
-        
+
         /// <summary>
         /// Gets the details for the indicated trace event.
         /// </summary>
@@ -523,7 +527,7 @@ namespace Contrast
             string endpoint = String.Format(NgEndpoints.TRACE_EVENT_DETAIL, organizationId, traceUuid, eventId);
             return GetResponseAndDeserialize<TraceEventDetailResponse>(endpoint);
         }
-        
+
         /// <summary>
         /// Retrieves a trace story.
         /// </summary>
@@ -550,7 +554,7 @@ namespace Contrast
 
         private string getTraceFilterTypeValue(TraceFilterType type)
         {
-            switch(type)
+            switch (type)
             {
                 case TraceFilterType.serversEnvironment:
                     return "servers-environment";

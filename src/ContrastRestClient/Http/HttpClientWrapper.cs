@@ -40,19 +40,30 @@ namespace Contrast.Http
         private string _teamServerUrl;
         private HttpClient _httpClient;
 
-        public HttpClientWrapper(string user, string serviceKey, string apiKey, string teamServerUrl)
+        public HttpClientWrapper(string user, string serviceKey, string apiKey, string teamServerUrl, string integrationName, string version)
         {
             ValidateParameters(user, serviceKey);
             Uri uriCreateResult = ValidateAndCreateUri(teamServerUrl);
 
             byte[] tokenBytes = Encoding.ASCII.GetBytes(user + ":" + serviceKey);
             string authorizationToken = Convert.ToBase64String(tokenBytes);
-            
+
             _httpClient = new HttpClient(new HttpClientHandler() { UseCookies = false, AllowAutoRedirect = false });
             _httpClient.BaseAddress = uriCreateResult;
             _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", authorizationToken);
             _httpClient.DefaultRequestHeaders.Add("API-Key", apiKey);
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            //Optional Telemetry Headers
+            if (integrationName != null)
+            {
+                _httpClient.DefaultRequestHeaders.Add("X_TELEMETRY_INTEGRATION_NAME", integrationName);
+            }
+            if (version != null)
+            {
+                _httpClient.DefaultRequestHeaders.Add("X_TELEMETRY_INTEGRATION_VERSION", version);
+            }
+
         }
 
         private static void ValidateParameters(string user, string serviceKey)
@@ -93,7 +104,7 @@ namespace Contrast.Http
                 Content = new StringContent(postBody, Encoding.UTF8, "application/json")
             };
 
-            if(additionalHeaders != null)
+            if (additionalHeaders != null)
             {
                 foreach (var header in additionalHeaders)
                     request.Headers.Add(header.Item1, header.Item2);

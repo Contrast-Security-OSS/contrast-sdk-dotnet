@@ -48,8 +48,11 @@ namespace SampleContrastClient
             string serviceKey = ConfigurationManager.AppSettings["TeamServerServiceKey"];
             string apiKey = ConfigurationManager.AppSettings["TeamServerApiKey"];
             string url = ConfigurationManager.AppSettings["TeamServerUrl"];
+            string version = ConfigurationManager.AppSettings["IntegrationVersion"];
+            string integrationName = ConfigurationManager.AppSettings["IntegrationName"];
 
-            using (Client client = new Client(user, serviceKey, apiKey, url))
+
+            using (Client client = new Client(user, serviceKey, apiKey, url, version, integrationName))
             {
                 Console.WriteLine("Connecting to Contrast Team Server: '{0}' as user: '{1}'", url, user);
 
@@ -128,7 +131,7 @@ namespace SampleContrastClient
         {
             string title = trace.Title;
 
-            if( String.IsNullOrEmpty( title ) )
+            if (String.IsNullOrEmpty(title))
             {
                 title = trace.RuleName;
             }
@@ -150,7 +153,7 @@ namespace SampleContrastClient
         }
 
         // Example usage of DoesTraceExist method
-        private static bool DoesTraceExist( Client client, string traceUuid, string organizationId )
+        private static bool DoesTraceExist(Client client, string traceUuid, string organizationId)
         {
             var traces = client.GetTracesByUuid(organizationId, traceUuid)?.Traces;
 
