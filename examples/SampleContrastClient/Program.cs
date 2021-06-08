@@ -28,6 +28,7 @@
 #endregion
 
 using Contrast;
+using Contrast.Http;
 using Contrast.Model;
 using System;
 using System.Collections.Generic;
@@ -50,9 +51,9 @@ namespace SampleContrastClient
             string url = ConfigurationManager.AppSettings["TeamServerUrl"];
             string version = ConfigurationManager.AppSettings["IntegrationVersion"];
             string integrationName = ConfigurationManager.AppSettings["IntegrationName"];
+            
 
-
-            using (Client client = new Client(user, serviceKey, apiKey, url, version, integrationName))
+            using (Client client = new Client(user, serviceKey, apiKey, url, version, (IntegrationName) Enum.Parse(typeof(IntegrationName), integrationName)))
             {
                 Console.WriteLine("Connecting to Contrast Team Server: '{0}' as user: '{1}'", url, user);
 

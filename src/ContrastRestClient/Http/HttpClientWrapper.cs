@@ -40,7 +40,7 @@ namespace Contrast.Http
         private string _teamServerUrl;
         private HttpClient _httpClient;
 
-        public HttpClientWrapper(string user, string serviceKey, string apiKey, string teamServerUrl, string integrationName, string version)
+        public HttpClientWrapper(string user, string serviceKey, string apiKey, string teamServerUrl, IntegrationName integrationName, string version)
         {
             ValidateParameters(user, serviceKey);
             Uri uriCreateResult = ValidateAndCreateUri(teamServerUrl);
@@ -55,9 +55,9 @@ namespace Contrast.Http
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
             //Optional Telemetry Headers
-            if (integrationName != null)
+            if (!integrationName.Equals(IntegrationName.NONE))
             {
-                _httpClient.DefaultRequestHeaders.Add("TELEMETRY_INTEGRATION_NAME", integrationName);
+                _httpClient.DefaultRequestHeaders.Add("TELEMETRY_INTEGRATION_NAME", integrationName.ToString());
             }
             if (version != null)
             {

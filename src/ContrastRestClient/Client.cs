@@ -65,10 +65,10 @@ namespace Contrast
         /// <param name="teamServerUrl">he base Contrast API URL (e.g., https://app.contrastsecurity.com/Contrast/api/)</param>
         /// <exception cref="System.ArgumentException">Thrown when an invalid Uri is passed in teamServerUrl or a null/empty value is provided for other parameters</exception>
         public Client(string user, string serviceKey, string apiKey, string teamServerUrl)
-            : this(new ContrastRestClient(new HttpClientWrapper(user, serviceKey, apiKey, teamServerUrl, null, null)))
+            : this(new ContrastRestClient(new HttpClientWrapper(user, serviceKey, apiKey, teamServerUrl, IntegrationName.NONE, null)))
         { }
 
-        public Client(string user, string serviceKey, string apiKey, string teamServerUrl, string version, string integrationName)
+        public Client(string user, string serviceKey, string apiKey, string teamServerUrl, string version, IntegrationName integrationName)
             : this(new ContrastRestClient(new HttpClientWrapper(user, serviceKey, apiKey, teamServerUrl, integrationName, version)))
         { }
 
