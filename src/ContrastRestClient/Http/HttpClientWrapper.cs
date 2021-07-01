@@ -57,11 +57,11 @@ namespace Contrast.Http
             //Optional Telemetry Headers
             if (!integrationName.Equals(IntegrationName.NONE))
             {
-                _httpClient.DefaultRequestHeaders.Add("TELEMETRY_INTEGRATION_NAME", integrationName.ToString());
+                _httpClient.DefaultRequestHeaders.Add("Telemetry-Integration-Name", integrationName.ToString());
             }
             if (version != null)
             {
-                _httpClient.DefaultRequestHeaders.Add("TELEMETRY_INTEGRATION_VERSION", version);
+                _httpClient.DefaultRequestHeaders.Add("Telemetry-Integration-Version", version);
             }
 
         }
