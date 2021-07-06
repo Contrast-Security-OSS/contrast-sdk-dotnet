@@ -8,7 +8,7 @@
     <Company>Contrast Security, Inc.</Company>
     <Product>Contrast REST API</Product>
     <Copyright>Copyright © 2021</Copyright>
-    <Version>3.3.0</Version>
+    <Version>3.3.1</Version>
     <IsPackable>true</IsPackable>
     <RootNamespace>Contrast</RootNamespace>
     <Authors>Contrast Security</Authors>
