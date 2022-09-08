@@ -28,6 +28,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Contrast.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -54,6 +55,8 @@ namespace ContrastRestClient.Tests
             Assert.IsTrue(query.Contains("limit"));
             Assert.IsTrue(query.Contains("expand=applications"));
             Assert.IsTrue(query.Contains("status=Denied"));
+            Assert.IsTrue(query.Contains("tracked=false"));
+            Assert.IsTrue(query.Contains("untracked=false"));
             Assert.IsTrue(query.Contains("q=any"));
             Assert.IsFalse(query.Contains("applicationIds"));
             Assert.IsFalse(query.Contains("logLevels"));
@@ -71,6 +74,8 @@ namespace ContrastRestClient.Tests
             filter.Sort = "any";
             filter.Expand = new List<TraceExpandValue>();
             filter.Expand.Add(TraceExpandValue.application);
+            filter.Untracked = true;
+            filter.BeingTracket = true;
 
             string qs = filter.ToString();
 
@@ -79,6 +84,8 @@ namespace ContrastRestClient.Tests
             Assert.IsTrue(qs.Contains("urls=http://dummytest"));
             Assert.IsTrue(qs.Contains("sort=any"));
             Assert.IsTrue(qs.Contains("expand=application"));
+            Assert.IsTrue(qs.Contains("tracked=true"));
+            Assert.IsTrue(qs.Contains("untracked=true"));
 
             Assert.IsFalse(qs.Contains("limit"));
             Assert.IsFalse(qs.Contains("endDate"));
