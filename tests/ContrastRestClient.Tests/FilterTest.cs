@@ -55,8 +55,6 @@ namespace ContrastRestClient.Tests
             Assert.IsTrue(query.Contains("limit"));
             Assert.IsTrue(query.Contains("expand=applications"));
             Assert.IsTrue(query.Contains("status=Denied"));
-            Assert.IsTrue(query.Contains("tracked=false"));
-            Assert.IsTrue(query.Contains("untracked=false"));
             Assert.IsTrue(query.Contains("q=any"));
             Assert.IsFalse(query.Contains("applicationIds"));
             Assert.IsFalse(query.Contains("logLevels"));
