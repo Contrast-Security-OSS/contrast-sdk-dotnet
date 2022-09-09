@@ -47,7 +47,7 @@ namespace Contrast.Http
         public List<string> VulnTypes { get; set; }
         public List<string> AppVersionTags { get; set; }
         public List<long> ServerIds { get; set; }
-        public Boolean BeingTracket { get; set; }
+        public Boolean BeingTracked { get; set; }
         public Boolean Untracked { get; set; }
         /// <summary>
         /// Server environments.
@@ -91,7 +91,7 @@ namespace Contrast.Http
             Limit = -1;
             Offset = -1;
             Sort = "";
-            BeingTracket = false;
+            BeingTracked = false;
             Untracked = false;
         }
 
@@ -147,7 +147,7 @@ namespace Contrast.Http
             if (Offset > -1)
                 filters.Add("offset=" + Offset);
 
-            filters.Add("tracked=" + BeingTracket);
+            filters.Add("tracked=" + BeingTracked);
             filters.Add("untracked=" + Untracked);
 
             if (filters.Count > 0)
