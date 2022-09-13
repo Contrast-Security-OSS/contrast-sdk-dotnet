@@ -28,6 +28,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Contrast.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -71,6 +72,8 @@ namespace ContrastRestClient.Tests
             filter.Sort = "any";
             filter.Expand = new List<TraceExpandValue>();
             filter.Expand.Add(TraceExpandValue.application);
+            filter.Untracked = true;
+            filter.BeingTracked = true;
 
             string qs = filter.ToString();
 
@@ -79,6 +82,8 @@ namespace ContrastRestClient.Tests
             Assert.IsTrue(qs.Contains("urls=http://dummytest"));
             Assert.IsTrue(qs.Contains("sort=any"));
             Assert.IsTrue(qs.Contains("expand=application"));
+            Assert.IsTrue(qs.Contains("tracked=True"));
+            Assert.IsTrue(qs.Contains("untracked=True"));
 
             Assert.IsFalse(qs.Contains("limit"));
             Assert.IsFalse(qs.Contains("endDate"));
