@@ -1,0 +1,34 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Target Name="BlockUnwantedDependencies" AfterTargets="ResolvePackageAssets" BeforeTargets="CollectPackageDependencies">
+        <!--
+            SponsorLink does some undesireable things, including:
+            - Getting the email address of the user from GIT config, hashing it, and sending the hash up to The Cloud™ to determine whether the user has sponsored a GitHub project
+            - If the user is not detected as sponsoring the project:
+              - Pausing the build for an arbitrary amount of time
+              - Producing a build warning
+            - If the user _is_ detected as sponsoring the project:
+              - Producing an info-level build message
+            
+            Transmitting hashes of user emails without consent is likely a privacy/GDPR violation. Pausing builds and producing extraneous build warnings/ messages is so obnoxious
+            it seems intentionally malicious. We do not want SponsorLink anywhere near our code.
+
+            The 'CollectPackageDependencies' target is the first target from the Devlooped.SponsorLink.targets file. Specifying that using 'BeforeTargets' is a best-effort attempt
+            to run these checks before anything from SponsorLink runs. If the 'CollectPackageDependencies' does not exist, the 'BeforeTargets' attribute will be ignored and these
+            checks will still be run.
+         -->
+
+         <!-- Block any version of the Devlooped.SponsorLink package if it is detected as a dependency of any other NuGet package. -->
+        <ItemGroup>
+            <UnwantedSponsorLinkReferences Include="@(PackageDependencies)" Condition="'%(Identity)'=='Devlooped.SponsorLink'" />
+        </ItemGroup>
+        <Error Text="Devlooped.SponsorLink was detected. Devlooped.SponsorLink has problems. Remove it and/or any NuGet packages which references it."
+               Condition="'@(UnwantedSponsorLinkReferences)'!=''" />
+
+        <!-- Block Moq v4.20.0 (the version where SponsorLink was introduced) and later. -->
+        <ItemGroup>
+            <UnwantedMoqReferences Include="@(ResolvedCompileFileDefinitions)" Condition="'%(NuGetPackageId)'=='Moq' AND '%(NuGetPackageVersion)'>='4.20.0'" />
+        </ItemGroup>
+        <Error Text="Moq v%(UnwantedMoqReferences.NuGetPackageVersion) was detected. SponsorLink was added in Moq v4.20.0, and SponsorLink has problems. Use an older version of Moq, or carefully review whether it is safe to use a newer version."
+               Condition="'@(UnwantedMoqReferences)'!=''" />
+    </Target>
+</Project>
