@@ -34,6 +34,8 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Net;
+using contrast_grid;
 
 namespace Contrast
 {
@@ -749,6 +751,105 @@ namespace Contrast
             return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Put);
         }
 
+        // 	"internal static string TAGS_APPLICATION_LIST",  "\"api/ng/{0}/tags/application/list/{1}\";", // GET
+        /// <summary>
+        /// Get all tags by application 
+        /// </summary>
+        /// <param name="organizationId">Organization UUID.</param>
+        /// <param name="appId">Application ID</param>
+        /// <returns>TagsResponse</returns>
+        public TagsResponse GetApplicationTagsList(string organizationId, string appId)
+        {
+            string endpoint = String.Format(NgEndpoints.TAGS_APPLICATION_LIST,organizationId, appId);
+            return GetResponseAndDeserialize<TagsResponse>(endpoint);
+        }
+
+        //     "internal static string TAGS_APPLICATION_DELETE",  "\"api/ng/{0}/tags/application/{1}\";", // DELETE
+        /// <summary>
+        /// Remove tag from application
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <param name="appId">Application Id</param>
+        /// <returns></returns>
+        public BaseApiResponse DeleteApplicationTag(string organizationId, string appId, TagsRequest requestBody)
+        {
+            string endpoint = string.Format(NgEndpoints.TAGS_APPLICATION_DELETE, organizationId, appId);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Delete);
+        }
+
+        // "internal static string TAGS_APPLICATIONS",  "\"api/ng/{0}/tags/applications\";", // PUT
+        /// <summary>
+        /// Tag applications
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <param name="requestBody">Tags and servers</param>
+        /// <returns></returns>
+        public BaseApiResponse TagApplications(string organizationId, TagsServersResource requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.TAGS_APPLICATIONS, organizationId);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Put);
+
+        }
+
+        // "internal static string TAGS_APPLICATIONS_BULK",  "\"api/ng/{0}/tags/applications/bulk\";", // GET,PUT
+        /// <summary>
+        /// Get all tags shared by a list of applications
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <param name="applicationsId">List of applicationIds</param>
+        /// <returns>TagsResponse</returns>
+        public TagsResponse GetBulkApplicationTags(string organizationId, string applicationsId)
+        {
+            string endpoint = String.Format(NgEndpoints.TAGS_APPLICATIONS_BULK_APP, organizationId, applicationsId);
+            return GetResponseAndDeserialize<TagsResponse>(endpoint);
+        }
+
+        //     "internal static string TAGS_APPLICATIONS_BULK",  "\"api/ng/{0}/tags/applications/bulk\";", // PUT
+        /// <summary>
+        /// Tag applications bulk
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <param name="requestBody">update request</param>
+        /// <returns>API response</returns>
+        public BaseApiResponse SetBulkApplicationTags(string organizationId, TagsApplicationsUpdateRequest requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.TAGS_APPLICATIONS_BULK_APP, organizationId);
+            return GetResponseAndDeserialize<BaseApiResponse>(endpoint, JsonConvert.SerializeObject(requestBody), RequestMethod.Put);
+        }
+
+        //     "internal static string TAGS_APPLICATIONS_LIST",  "\"/ng/{0}/tags/applications/list\";", // GET
+        /// <summary>
+        /// Get all application tags by organization
+        /// </summary>
+        /// <param name="organizationId">Organization UUID</param>
+        /// <returns>tag list</returns>
+        public TagsResponse GetApplicationTags(string organizationId) 
+        {
+            string endpoint = String.Format(NgEndpoints.TAGS_APPLICATIONS_LIST, organizationId);
+            return GetResponseAndDeserialize<TagsResponse>(endpoint);
+        }
+
+        //     "internal static string TAGS_ATTACK_EVENT_LIST",  "\"/ng/{orgUuid}/tags/attack/event/list/{eventUuid}\";",
+        /// <summary>
+        /// Get all tags by attack event
+        /// </summary>
+        /// <param name="organizationId">organization UUID</param>
+        /// <param name="eventUuid">attack event UUID</param>
+        /// <returns>list of tags</returns>
+        public TagsResponse GetAttackEventTagList(string organiztionId,string eventUuid)
+        {
+            string endpoint = String.Format(NgEndpoints.TAGS_ATTACK_EVENT_LIST, organiztionId, eventUuid);
+            return GetResponseAndDeserialize <TagsResponse>(endpoint);
+        }
+
+        // 	"internal static string TAGS_ATTACK_EVENT",  "\"/ng/{orgUuid}/tags/attack/event/{eventUuid}\";"
+        public BaseApiResponse TagsServers(string organizationId,TagsServersRequest requestBody)
+        {
+            string endpoint = String.Format(NgEndpoints.TAGS_SERVERS, organizationId);
+            return GetResponseAndDeserialize<BaseApiResponse>(JsonConvert.SerializeObject(requestBody));
+        }
+
+
         private bool _disposed;
         protected virtual void Dispose(bool disposing)
         {
@@ -766,6 +867,8 @@ namespace Contrast
 
             _disposed = true;
         }
+
+
 
         public void Dispose()
         {
